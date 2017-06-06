@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Projet</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="login_success">login success</string>
+    <string name="login">LOGIN</string>
+    <string name="email">Email</string>
+    <string name="Password">Password</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="repeat_password">retaper password</string>
+    <string name="go">Connexion</string>
+    <string name="register">Inscription</string>
+</resources>
