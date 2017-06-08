@@ -5,13 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.transition.Explode;
-import android.widget.Toast;
 
+import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
 import com.entreprise.davfou.projetandroidesgi.data.methodRest.ApiInterface;
 import com.entreprise.davfou.projetandroidesgi.data.model.User;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.login.LoginSuccessActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +28,7 @@ public class RegisterUser {
     Context context;
     Activity activityReference;
     android.app.ProgressDialog progressDialog;
+    String  result="";
 
     public RegisterUser(Context context, Activity activityReference) {
         this.context = context;
@@ -34,14 +37,14 @@ public class RegisterUser {
 
     public String register(User user) {
 
-        progressDialog = ProgressDialog.getProgress("test", "test", context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteInscription), context);
         progressDialog.show();
         ApiInterface apiInterface = ClientRetrofit.getClient();
 
-        Call<String> call = apiInterface.createUser(user);
-        call.enqueue(new Callback<String>() {
+        Call<JSONObject> call = apiInterface.createUser(user);
+        call.enqueue(new Callback<JSONObject>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
                 progressDialog.dismiss();
                 System.out.println("user : " + response.code());
                 System.out.println("user : " + response.raw().toString());
@@ -54,23 +57,24 @@ public class RegisterUser {
                     ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(activityReference);
                     Intent i2 = new Intent(context, LoginSuccessActivity.class);
                     activityReference.startActivity(i2, oc2.toBundle());
+                    result="";
                 } else {
-                    Toast.makeText(context, "erreur lors de l'inscription", Toast.LENGTH_SHORT).show();
+                    result=context.getString(R.string.msgErrorLogin);
+
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<JSONObject> call, Throwable t) {
                 progressDialog.dismiss();
                 System.out.println("response :" + t.toString());
-
-                Toast.makeText(context, "Erreur lors de la création de l'utilisateur", Toast.LENGTH_SHORT).show();
+                result=context.getString(R.string.msgErrorNetwork);
 
             }
         });
 
 
-        return "non";
+        return result=context.getString(R.string.msgErrorNetwork);
 
 
     }

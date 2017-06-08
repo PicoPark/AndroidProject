@@ -12,4 +12,12 @@
     <string name="repeat_password">retaper password</string>
     <string name="go">Connexion</string>
     <string name="register">Inscription</string>
+
+    <string name="titreAttente">En cours</string>
+    <string name="textAttenteLogin">Vérification de l\'email et du password</string>
+    <string name="textAttenteInscription">Inscription en cours</string>
+
+
+    <string name="msgErrorLogin">email et/ou password faux</string>
+    <string name="msgErrorNetwork">Erreur réseau</string>
 </resources>

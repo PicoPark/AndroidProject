@@ -6,11 +6,12 @@ package com.entreprise.davfou.projetandroidesgi.data.methodRest;
 
 
 import com.entreprise.davfou.projetandroidesgi.data.model.User;
+import com.entreprise.davfou.projetandroidesgi.data.model.UserLogin;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 
@@ -23,13 +24,11 @@ public interface ApiInterface {
 
     /**
      *  Connect user
-     * @param email
-     * @param password
+     * @param userLogin
      * @return user
      */
-    @FormUrlEncoded
     @POST("/auth/login")
-    Call<String> connectUser(@Field("email") String email, @Field("password") String password);
+    Call<String> connectUser(@Body UserLogin userLogin);
 
 
 
@@ -40,7 +39,7 @@ public interface ApiInterface {
      */
 
     @POST("/auth/subscribe")
-    Call<String> createUser(@Body User user);
+    Call<JSONObject> createUser(@Body User user);
 
 
 

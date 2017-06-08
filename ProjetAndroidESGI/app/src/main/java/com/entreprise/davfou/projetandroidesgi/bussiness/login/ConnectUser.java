@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.transition.Explode;
 
+import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
 import com.entreprise.davfou.projetandroidesgi.data.methodRest.ApiInterface;
+import com.entreprise.davfou.projetandroidesgi.data.model.UserLogin;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.login.LoginSuccessActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 
@@ -25,7 +27,8 @@ public class ConnectUser {
     Context context;
     Activity activityReference;
     android.app.ProgressDialog progressDialog;
-    String result="Pas d'acces réseau";
+    String  result="";
+
 
 
     public ConnectUser(Context context, Activity activityReference) {
@@ -34,18 +37,20 @@ public class ConnectUser {
     }
 
 
-    public String connect(String nom, String prenom) {
-        progressDialog = ProgressDialog.getProgress("test", "test", context);
+    public String connect(String email, String password) {
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteLogin), context);
         progressDialog.show();
         ApiInterface apiInterface = ClientRetrofit.getClient();
 
-        Call<String> call = apiInterface.connectUser(nom, prenom);
+        Call<String> call = apiInterface.connectUser(new UserLogin(email,password));
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 progressDialog.dismiss();
                 System.out.println("user : " + response.code());
                 System.out.println("user : " + response.raw().toString());
+                System.out.println("user : " + response.body().toString());
+
 
 
                 if (response.code() == 200) {
@@ -58,8 +63,10 @@ public class ConnectUser {
                     ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(activityReference);
                     Intent i2 = new Intent(activityReference.getApplicationContext(), LoginSuccessActivity.class);
                     activityReference.startActivity(i2, oc2.toBundle());
+
+                    result="";
                 } else {
-                    result="email et/ou password faux";
+                    result=context.getString(R.string.msgErrorLogin);
 
                 }
 
@@ -70,14 +77,14 @@ public class ConnectUser {
                 progressDialog.dismiss();
                 System.out.println("call : " + t.getMessage().toString());
                 System.out.println("response :" + t.toString());
-                result="erreur réseau";
+                result=context.getString(R.string.msgErrorNetwork);
 
 
             }
         });
 
 
-        return result;
+        return result=context.getString(R.string.msgErrorNetwork);
 
 
     }

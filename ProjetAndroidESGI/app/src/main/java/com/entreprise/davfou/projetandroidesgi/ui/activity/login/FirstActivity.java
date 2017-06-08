@@ -64,10 +64,12 @@ public class FirstActivity extends AppCompatActivity {
 
                 ConnectUser connectUser = new ConnectUser(this,this);
                 String result=connectUser.connect(etUsername.getText().toString(),etPassword.getText().toString());
+
+
                 System.out.println("result : "+result);
-                Toast.makeText(this,result,Toast.LENGTH_SHORT).show();
-
-
+                if(result!="") {
+                    Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
