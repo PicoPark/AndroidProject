@@ -66,6 +66,7 @@
                     />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
+
             <LinearLayout
                 android:paddingStart="50dp"
                 android:paddingEnd="30dp"
@@ -89,6 +90,25 @@
                         android:paddingBottom="2dp"
                         />
                 </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingStart="50dp"
+                android:paddingEnd="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/keepConnected"
+                    android:layout_weight="1"
+                    />
+                <CheckBox
+                    android:id="@+id/checkboxStayConnected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
             </LinearLayout>
             <RelativeLayout
                 android:layout_marginTop="25dp"

@@ -13,8 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.login.ConnectUser;
@@ -35,14 +35,33 @@ public class FirstActivity extends AppCompatActivity {
     CardView cv;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.checkboxStayConnected)
+    CheckBox checkboxStayConnected;
+
+    ConnectUser connectUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
         ButterKnife.bind(this);
+        connectUser= new ConnectUser(this,this);
+
+        //check si user connecté
+
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        connectUser.isConnected();
+
+    }
+
+
+//Rajouter autocomplétion sur mail
 
     @OnClick({R.id.bt_go, R.id.fab})
     public void onClick(View view) {
@@ -62,14 +81,7 @@ public class FirstActivity extends AppCompatActivity {
                 break;
             case R.id.bt_go:
 
-                ConnectUser connectUser = new ConnectUser(this,this);
-                String result=connectUser.connect(etUsername.getText().toString(),etPassword.getText().toString());
-
-
-                System.out.println("result : "+result);
-                if(result!="") {
-                    Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-                }
+                connectUser.connect(etUsername.getText().toString(),etPassword.getText().toString(),checkboxStayConnected.isChecked());
                 break;
         }
     }

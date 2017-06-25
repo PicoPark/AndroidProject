@@ -5,14 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.transition.Explode;
+import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
-import com.entreprise.davfou.projetandroidesgi.data.methodRest.ApiInterface;
-import com.entreprise.davfou.projetandroidesgi.data.model.UserLogin;
+import com.entreprise.davfou.projetandroidesgi.data.method.ApiInterface;
+import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.login.LoginSuccessActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,17 +31,31 @@ public class ConnectUser {
     Context context;
     Activity activityReference;
     android.app.ProgressDialog progressDialog;
-    String  result="";
+    Realm realm;
 
 
 
     public ConnectUser(Context context, Activity activityReference) {
         this.context = context;
         this.activityReference = activityReference;
+        realm = RealmController.with(activityReference).getRealm();
+
     }
 
+    public void isConnected(){
 
-    public String connect(String email, String password) {
+        UserRealm userRealm = RealmController.getInstance().getUserConnected(true);
+
+        if(!(userRealm == null)){
+
+            goToMain();
+
+        }
+
+
+    }
+
+    public void connect(final String email, final String password, final boolean stayConneted) {
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteLogin), context);
         progressDialog.show();
         ApiInterface apiInterface = ClientRetrofit.getClient();
@@ -45,29 +63,60 @@ public class ConnectUser {
         Call<String> call = apiInterface.connectUser(new UserLogin(email,password));
         call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<String> call, final Response<String> response) {
                 progressDialog.dismiss();
                 System.out.println("user : " + response.code());
                 System.out.println("user : " + response.raw().toString());
-                System.out.println("user : " + response.body().toString());
 
 
 
                 if (response.code() == 200) {
 
-                    Explode explode = new Explode();
-                    explode.setDuration(500);
+                    final boolean connected= stayConneted;
 
-                    activityReference.getWindow().setExitTransition(explode);
-                    activityReference.getWindow().setEnterTransition(explode);
-                    ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(activityReference);
-                    Intent i2 = new Intent(activityReference.getApplicationContext(), LoginSuccessActivity.class);
-                    activityReference.startActivity(i2, oc2.toBundle());
 
-                    result="";
+
+                    //on verifie si il y a des user qui se sont déja connecté avec ce device
+                    // si jamais, on en creer un avec id = 1
+                    //sinon on verifie si il existe pas déja pour update le token et mettre isConnected a true sinon on en creer un  nouveau avec id = total + 1
+
+                    realm.executeTransaction(new Realm.Transaction() { // must be in transaction for this to work
+                                                 @Override
+                                                 public void execute(Realm realm) {
+                                                     // increment index
+                                                     System.out.println("compte : "+realm.where(UserRealm.class).count());
+                                                     Number currentIdNum = realm.where(UserRealm.class).count();
+                                                     int nextId;
+                                                     if(currentIdNum == null) {
+                                                         nextId = 1;
+                                                         UserRealm userRealm = new UserRealm(nextId,email,password,response.body().toString(),connected); // unmanaged
+                                                         userRealm.setId(nextId);
+                                                         realm.copyToRealm(userRealm); // using insert API
+                                                     } else {
+                                                         UserRealm userR = RealmController.getInstance().getUser(email);
+
+                                                         if(userR == null){
+                                                             nextId = currentIdNum.intValue() + 1;
+                                                             UserRealm userRealm = new UserRealm(nextId,email,password,response.body().toString(),connected); // unmanaged
+                                                             userRealm.setId(nextId);
+                                                             realm.copyToRealm(userRealm); // using insert API
+                                                         }else{
+                                                             userR.setConnected(true);
+                                                             userR.setToken(response.body().toString());
+                                                             realm.copyToRealm(userR);
+
+                                                         }
+
+
+                                                     }
+
+                                                 }
+                                             });
+
+                    goToMainAnimation();
+
                 } else {
-                    result=context.getString(R.string.msgErrorLogin);
-
+                    Toast.makeText(context,context.getString(R.string.msgErrorLogin),Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -77,15 +126,47 @@ public class ConnectUser {
                 progressDialog.dismiss();
                 System.out.println("call : " + t.getMessage().toString());
                 System.out.println("response :" + t.toString());
-                result=context.getString(R.string.msgErrorNetwork);
+                Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
 
 
             }
         });
 
 
-        return result=context.getString(R.string.msgErrorNetwork);
 
+
+
+    }
+
+
+    private void goToMain(){
+
+       /*
+        Explode explode = new Explode();
+        explode.setDuration(500);
+
+        activityReference.getWindow().setExitTransition(explode);
+        activityReference.getWindow().setEnterTransition(explode);
+        ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(activityReference);
+        Intent i2 = new Intent(activityReference.getApplicationContext(), LoginSuccessActivity.class);
+        activityReference.startActivity(i2, oc2.toBundle());*/
+
+        Intent goToMain = new Intent(context, LoginSuccessActivity.class);
+        context.startActivity(goToMain);
+
+    }
+
+    private void goToMainAnimation(){
+
+
+        Explode explode = new Explode();
+        explode.setDuration(500);
+
+        activityReference.getWindow().setExitTransition(explode);
+        activityReference.getWindow().setEnterTransition(explode);
+        ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(activityReference);
+        Intent i2 = new Intent(activityReference.getApplicationContext(), LoginSuccessActivity.class);
+        activityReference.startActivity(i2, oc2.toBundle());
 
     }
 }

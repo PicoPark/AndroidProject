@@ -1,12 +1,12 @@
-package com.entreprise.davfou.projetandroidesgi.data.methodRest;
+package com.entreprise.davfou.projetandroidesgi.data.method;
 
 /**
  * Created by davidfournier on 28/02/2017.
  */
 
 
-import com.entreprise.davfou.projetandroidesgi.data.model.User;
-import com.entreprise.davfou.projetandroidesgi.data.model.UserLogin;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 
 import org.json.JSONObject;
 

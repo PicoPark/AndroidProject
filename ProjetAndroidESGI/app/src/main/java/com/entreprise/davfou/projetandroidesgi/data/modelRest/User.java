@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.data.model;
+package com.entreprise.davfou.projetandroidesgi.data.modelRest;
 
 /**
  * Created by davidfournier on 06/05/2017.

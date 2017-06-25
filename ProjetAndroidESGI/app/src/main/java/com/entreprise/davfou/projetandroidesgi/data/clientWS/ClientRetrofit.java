@@ -1,6 +1,6 @@
 package com.entreprise.davfou.projetandroidesgi.data.clientWS;
 
-import com.entreprise.davfou.projetandroidesgi.data.methodRest.ApiInterface;
+import com.entreprise.davfou.projetandroidesgi.data.method.ApiInterface;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
