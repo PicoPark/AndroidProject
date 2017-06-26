@@ -81,6 +81,13 @@ public class ConnectUser {
 
         if(!(userRealm == null)){
             System.out.println("user : "+userRealm.isConnected());
+
+            ConnectUser connectUser= new ConnectUser(context,activityReference);
+            if(userRealm.getFirstName().equals("")){
+                connectUser.getInfo(userRealm);
+
+            }
+
             goToMain();
 
         }
@@ -88,7 +95,7 @@ public class ConnectUser {
 
     }
 
-    public UserInfo getInfo(UserRealm userRealm){
+    public void getInfo(final UserRealm userRealm){
 
         final UserInfo[] userInfo = new UserInfo[1];
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteLogin), context);
@@ -106,7 +113,15 @@ public class ConnectUser {
                 if (response.code() == 200) {
 
 
-                    userInfo[0] =response.body();
+
+                    realm.executeTransaction(new Realm.Transaction() {
+                        public void execute(Realm realm) {
+                            userRealm.setFirstName(response.body().getFirstname());
+                            userRealm.setLastName(response.body().getLastname());
+                        }
+
+                    });
+
 
                 } else {
                     Toast.makeText(context,context.getString(R.string.msgErrorLogin),Toast.LENGTH_SHORT).show();
@@ -132,7 +147,6 @@ public class ConnectUser {
 
 
 
-        return userInfo[0];
     }
 
     public void connect(final String email, final String password, final boolean stayConneted) {

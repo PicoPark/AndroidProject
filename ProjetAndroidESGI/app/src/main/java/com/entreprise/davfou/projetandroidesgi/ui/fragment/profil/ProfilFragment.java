@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.login.ConnectUser;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,13 +24,14 @@ public class ProfilFragment extends Fragment {
 
     @BindView(R.id.btnLogout)
     Button btnLogout;
-    @BindView(R.id.textViewName)
-    TextView textViewName;
+    @BindView(R.id.textViewEmail)
+    TextView textViewEmail;
     @BindView(R.id.textViewFirstName)
     TextView textViewFirstName;
+    @BindView(R.id.textViewLastName)
+            TextView textViewLastName;
     ConnectUser connectUser;
     UserRealm userRealm;
-
 
 
     @Override
@@ -53,22 +53,12 @@ public class ProfilFragment extends Fragment {
 
         userRealm = connectUser.getUserConnected();
 
-        textViewName.setText(userRealm.getEmail());
+        textViewEmail.setText(userRealm.getEmail());
+        textViewFirstName.setText(userRealm.getFirstName());
+        textViewLastName.setText(userRealm.getLastName());
 
 
-        if(userRealm.getFirstName().equals("")){
-            textViewFirstName.setText("faire appel");
-
-            UserInfo userInfo = connectUser.getInfo(userRealm);
-
-            
-        }else{
-            textViewFirstName.setText(userRealm.getFirstName());
-
-        }
-        System.out.println(userRealm.getToken());
     }
-
 
     @OnClick(R.id.btnLogout)
     public void clickLogout(){

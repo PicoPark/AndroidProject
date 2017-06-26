@@ -23,6 +23,9 @@ public class LoginSuccessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_success);
 
+
+
+
         Explode explode = new Explode();
         explode.setDuration(500);
         getWindow().setExitTransition(explode);
