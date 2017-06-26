@@ -22,6 +22,8 @@
     <string name="titreAttente">En cours</string>
     <string name="textAttenteLogin">Vérification de l\'email et du password</string>
     <string name="textAttenteInscription">Inscription en cours</string>
+    <string name="textInscriptionReussi">Inscription reussi, veuillez vous connectez</string>
+    <string name="textInscriptionError">Inscription raté, user déjà inscrit</string>
 
 
     <string name="msgErrorLogin">email et/ou password faux</string>

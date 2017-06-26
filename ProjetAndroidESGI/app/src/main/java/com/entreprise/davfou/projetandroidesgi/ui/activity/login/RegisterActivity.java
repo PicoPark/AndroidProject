@@ -156,14 +156,13 @@ public class RegisterActivity extends AppCompatActivity {
     private void addUer(){
 
         RegisterUser registerUser = new RegisterUser(this,this);
-        String result=registerUser.register(
+        registerUser.register(
                 new User(edit_email.getText().toString(),
                         edit_password.getText().toString(),
                         edit_firstname.getText().toString(),
                         edit_lastname.getText().toString())
         );
 
-        System.out.println("result : "+result);
 
     }
 
