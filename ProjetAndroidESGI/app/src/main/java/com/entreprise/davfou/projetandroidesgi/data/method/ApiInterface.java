@@ -6,12 +6,15 @@ package com.entreprise.davfou.projetandroidesgi.data.method;
 
 
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 
 import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 
@@ -42,6 +45,9 @@ public interface ApiInterface {
     Call<JSONObject> createUser(@Body User user);
 
 
+
+    @GET("/users/me")
+    Call<UserInfo> getAuthorizedDriver(@Header("Authorization") String token);
 
 
 

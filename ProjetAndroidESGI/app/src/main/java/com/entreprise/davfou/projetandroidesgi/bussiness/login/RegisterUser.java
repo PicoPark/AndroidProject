@@ -69,7 +69,7 @@ public class RegisterUser {
                             int nextId;
                             if(currentIdNum == null) {
                                 nextId = 1;
-                                UserRealm userRealm = new UserRealm(nextId,user.getEmail(),user.getPassword(),"",false); // unmanaged
+                                UserRealm userRealm = new UserRealm(nextId,user.getEmail(),user.getPassword(),"",user.getFirstname(),user.getLastname(),false); // unmanaged
                                 userRealm.setId(nextId);
                                 realm.copyToRealm(userRealm); // using insert API
                             } else {
@@ -77,7 +77,7 @@ public class RegisterUser {
 
                                 if(userR == null){
                                     nextId = currentIdNum.intValue() + 1;
-                                    UserRealm userRealm = new UserRealm(nextId,user.getEmail(),user.getPassword(),"",false); // unmanaged
+                                    UserRealm userRealm = new UserRealm(nextId,user.getEmail(),user.getPassword(),"",user.getFirstname(),user.getLastname(),false); // unmanaged
                                     userRealm.setId(nextId);
                                     realm.copyToRealm(userRealm); // using insert API
                                 }

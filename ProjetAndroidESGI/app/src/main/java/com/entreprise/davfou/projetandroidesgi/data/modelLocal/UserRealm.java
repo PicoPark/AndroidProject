@@ -17,6 +17,10 @@ public class UserRealm extends RealmObject {
 
     private String password;
 
+    private String firstName;
+
+    private String lastName;
+
 
     private String token;
 
@@ -25,13 +29,31 @@ public class UserRealm extends RealmObject {
     public UserRealm() {
     }
 
-    public UserRealm(long id, String email, String password,  String token, boolean connected) {
+    public UserRealm(long id, String email, String password,  String token,String firstName,String lastName, boolean connected) {
         this.id = id;
         this.email = email;
         this.password = password;
-
+this.firstName = firstName;
+        this.lastName = lastName;
         this.token = token;
         this.connected = connected;
+    }
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public long getId() {

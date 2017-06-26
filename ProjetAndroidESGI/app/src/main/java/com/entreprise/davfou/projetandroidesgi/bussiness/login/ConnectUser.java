@@ -12,7 +12,9 @@ import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
 import com.entreprise.davfou.projetandroidesgi.data.method.ApiInterface;
 import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
+import com.entreprise.davfou.projetandroidesgi.ui.activity.login.FirstActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.login.LoginSuccessActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 
@@ -42,12 +44,43 @@ public class ConnectUser {
 
     }
 
+    public void logout(){
+
+        final UserRealm userRealm = RealmController.getInstance().getUserConnected(true);
+
+        if(!(userRealm == null)){
+
+
+            realm.executeTransaction(new Realm.Transaction() {
+                public void execute(Realm realm) {
+                    userRealm.setConnected(false);
+                    realm.copyToRealm(userRealm); // could be copyToRealmOrUpdate
+                    goToLogin();
+
+                }
+
+            });
+
+
+
+
+
+        }
+
+    }
+
+    public UserRealm getUserConnected(){
+        return RealmController.getInstance().getUserConnected(true);
+    }
+
+
+
     public void isConnected(){
 
         UserRealm userRealm = RealmController.getInstance().getUserConnected(true);
 
         if(!(userRealm == null)){
-
+            System.out.println("user : "+userRealm.isConnected());
             goToMain();
 
         }
@@ -55,7 +88,55 @@ public class ConnectUser {
 
     }
 
+    public UserInfo getInfo(UserRealm userRealm){
+
+        final UserInfo[] userInfo = new UserInfo[1];
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteLogin), context);
+        progressDialog.show();
+
+        ApiInterface apiInterface = ClientRetrofit.getClient();
+
+        Call<UserInfo> call = apiInterface.getAuthorizedDriver("Bearer "+userRealm.getToken());
+        call.enqueue(new Callback<UserInfo>() {
+            @Override
+            public void onResponse(Call<UserInfo> call, final Response<UserInfo> response) {
+                progressDialog.dismiss();
+                System.out.println("response : "+response.raw().toString());
+
+                if (response.code() == 200) {
+
+
+                    userInfo[0] =response.body();
+
+                } else {
+                    Toast.makeText(context,context.getString(R.string.msgErrorLogin),Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<UserInfo> call, Throwable t) {
+                progressDialog.dismiss();
+                System.out.println("call : " + t.getMessage().toString());
+                System.out.println("response :" + t.toString());
+                Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+
+
+
+
+
+
+
+        return userInfo[0];
+    }
+
     public void connect(final String email, final String password, final boolean stayConneted) {
+
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteLogin), context);
         progressDialog.show();
         ApiInterface apiInterface = ClientRetrofit.getClient();
@@ -89,7 +170,7 @@ public class ConnectUser {
                                                      int nextId;
                                                      if(currentIdNum == null) {
                                                          nextId = 1;
-                                                         UserRealm userRealm = new UserRealm(nextId,email,password,response.body().toString(),connected); // unmanaged
+                                                         UserRealm userRealm = new UserRealm(nextId,email,password,response.body().toString(),"","",connected); // unmanaged
                                                          userRealm.setId(nextId);
                                                          realm.copyToRealm(userRealm); // using insert API
                                                      } else {
@@ -97,11 +178,11 @@ public class ConnectUser {
 
                                                          if(userR == null){
                                                              nextId = currentIdNum.intValue() + 1;
-                                                             UserRealm userRealm = new UserRealm(nextId,email,password,response.body().toString(),connected); // unmanaged
+                                                             UserRealm userRealm = new UserRealm(nextId,email,password,response.body().toString(),"","",connected); // unmanaged
                                                              userRealm.setId(nextId);
                                                              realm.copyToRealm(userRealm); // using insert API
                                                          }else{
-                                                             userR.setConnected(true);
+                                                             userR.setConnected(connected);
                                                              userR.setToken(response.body().toString());
                                                              realm.copyToRealm(userR);
 
@@ -141,18 +222,14 @@ public class ConnectUser {
 
     private void goToMain(){
 
-       /*
-        Explode explode = new Explode();
-        explode.setDuration(500);
-
-        activityReference.getWindow().setExitTransition(explode);
-        activityReference.getWindow().setEnterTransition(explode);
-        ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(activityReference);
-        Intent i2 = new Intent(activityReference.getApplicationContext(), LoginSuccessActivity.class);
-        activityReference.startActivity(i2, oc2.toBundle());*/
-
         Intent goToMain = new Intent(context, LoginSuccessActivity.class);
         context.startActivity(goToMain);
+
+    }
+    private void goToLogin(){
+
+        Intent goToLogin = new Intent(context, FirstActivity.class);
+        context.startActivity(goToLogin);
 
     }
 

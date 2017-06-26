@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.ui.activity.MainActivity;
+import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
 
 public class LoginSuccessActivity extends AppCompatActivity {
 
@@ -33,7 +33,7 @@ public class LoginSuccessActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                startActivity(new Intent(LoginSuccessActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginSuccessActivity.this, MenuActivity.class));
                 finish();
             }
         }, SPLASH_TIME_OUT);

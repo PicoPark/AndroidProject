@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:frisson="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.MenuActivity">
+    <com.intrusoft.library.FrissonView
+        android:id="@+id/wave_head"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        frisson:alphaValue="10"
+        frisson:gradientType="radial"
+        frisson:autoTint="true"
+        frisson:src="@drawable/background_blue"
+        frisson:tideCount="3"
+        frisson:tideHeight="40dp" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        frisson:cardCornerRadius="50dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/user_big" />
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textSize="19dp"
+        android:textColor="@android:color/white"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/textViewFirstName"/>
+
+    <!--<br.com.bloder.magic.view.MagicButton
+        android:id="@+id/magic_button_github"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        app:magic_button_size="50dp"
+        app:icon="@drawable/logout"
+        app:button_icon_width="25dp"
+        app:button_icon_height="25dp"
+        app:hide_text="Github"
+        app:icon_button_color="#464646"
+        app:expandable_area_color="#1c1e21"/>-->
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLogout"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="14dp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/logout"/>
+
+</RelativeLayout>
