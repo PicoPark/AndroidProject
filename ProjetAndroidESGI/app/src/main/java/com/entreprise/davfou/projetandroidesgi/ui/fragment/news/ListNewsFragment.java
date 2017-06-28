@@ -16,9 +16,9 @@ import android.widget.EditText;
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.news.ManageNews;
 import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.recycler.NewAdapter;
@@ -81,30 +81,30 @@ public class ListNewsFragment extends Fragment {
 
 
 
-    public static void setRecycler(ArrayList<New> news, Activity activity){
-        System.out.println("in fragment : "+news.size());
-        final NewAdapter newAdapter = new NewAdapter(news);
+    public static void setRecycler(ArrayList<News> newses, Activity activity){
+        System.out.println("in fragment : "+ newses.size());
+        final NewAdapter newAdapter = new NewAdapter(newses);
 
 
         recyclerViewNews.setAdapter(newAdapter);
 
         Realm realm = RealmController.with(activity).getRealm();
 
-        System.out.println("nbr de news dans realm : "+ realm.where(NewRealm.class).count());
+        System.out.println("nbr de newses dans realm : "+ realm.where(NewsRealm.class).count());
 
     }
 
 
-    public static void setRecyclerOffline(ArrayList<New> news, Activity activity){
-        System.out.println("in fragment : "+news.size());
-        final NewAdapter newAdapter = new NewAdapter(news);
+    public static void setRecyclerOffline(ArrayList<News> newses, Activity activity){
+        System.out.println("in fragment : "+ newses.size());
+        final NewAdapter newAdapter = new NewAdapter(newses);
 
 
         recyclerViewNews.setAdapter(newAdapter);
 
         Realm realm = RealmController.with(activity).getRealm();
 
-        System.out.println("nbr de news dans realm : "+ realm.where(NewRealm.class).count());
+        System.out.println("nbr de newses dans realm : "+ realm.where(NewsRealm.class).count());
 
     }
 

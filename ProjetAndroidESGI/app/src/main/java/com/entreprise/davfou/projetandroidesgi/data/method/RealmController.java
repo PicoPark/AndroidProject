@@ -6,11 +6,10 @@ import android.app.Application;
 import android.support.v4.app.Fragment;
 
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.CommentRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.PostRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.TopicRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -72,7 +71,7 @@ public class RealmController {
         realm.clear(UserRealm.class);
         realm.clear(TopicRealm.class);
         realm.clear(CommentRealm.class);
-        realm.clear(NewRealm.class);
+        realm.clear(NewsRealm.class);
         realm.clear(PostRealm.class);
 
         realm.commitTransaction();
@@ -88,8 +87,8 @@ public class RealmController {
         return realm.where(PostRealm.class).findAll();
     }
 
-    public RealmResults<NewRealm> getNews() {
-        return realm.where(NewRealm.class).findAll();
+    public RealmResults<NewsRealm> getNews() {
+        return realm.where(NewsRealm.class).findAll();
     }
 
     public RealmResults<TopicRealm> getTopics() {
@@ -115,8 +114,8 @@ public class RealmController {
 
     }
 
-    public NewRealm getNewById(long id) {
-        return realm.where(NewRealm.class).equalTo("id", id).findFirst();
+    public NewsRealm getNewById(long id) {
+        return realm.where(NewsRealm.class).equalTo("id", id).findFirst();
 
     }
 

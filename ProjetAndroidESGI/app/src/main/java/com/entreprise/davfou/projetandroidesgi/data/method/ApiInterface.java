@@ -5,7 +5,7 @@ package com.entreprise.davfou.projetandroidesgi.data.method;
  */
 
 
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
@@ -26,9 +26,6 @@ public interface ApiInterface {
     public static final String ENDPOINT = "https://esgi-2017.herokuapp.com";
 
 
-
-
-
     /**
      *  Connect user
      * @param userLogin
@@ -36,7 +33,6 @@ public interface ApiInterface {
      */
     @POST("/auth/login")
     Call<String> connectUser(@Body UserLogin userLogin);
-
 
 
     /**
@@ -49,12 +45,11 @@ public interface ApiInterface {
     Call<JSONObject> createUser(@Body User user);
 
 
-
     @GET("/users/me")
     Call<UserInfo> getAuthorizedDriver(@Header("Authorization") String token);
 
     @GET("/news")
-    Call<ArrayList<New>> getAllNew(@Header("Authorization") String token);
+    Call<ArrayList<News>> getAllNew(@Header("Authorization") String token);
 
 
     @POST("/news")

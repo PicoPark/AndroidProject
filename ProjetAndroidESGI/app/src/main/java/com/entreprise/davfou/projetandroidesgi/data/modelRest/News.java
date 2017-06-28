@@ -1,40 +1,22 @@
-package com.entreprise.davfou.projetandroidesgi.data.modelLocal;
-
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+package com.entreprise.davfou.projetandroidesgi.data.modelRest;
 
 /**
  * Created by davidfournier on 28/06/2017.
  */
 
-public class NewRealm extends RealmObject {
-
-    @PrimaryKey
-    private long id;
+public class News {
 
     private String _id;
     private String author;
     private String content;
     private String title;
 
-public NewRealm(){
 
-}
-    public NewRealm(long id, String _id, String author, String content, String title) {
-        this.id = id;
+    public News(String _id, String author, String content, String title) {
         this._id = _id;
         this.author = author;
         this.content = content;
         this.title = title;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String get_id() {

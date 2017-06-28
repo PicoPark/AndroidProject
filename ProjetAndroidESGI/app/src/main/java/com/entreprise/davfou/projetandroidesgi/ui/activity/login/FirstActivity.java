@@ -67,15 +67,18 @@ public class FirstActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
-                getWindow().setExitTransition(null);
-                getWindow().setEnterTransition(null);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getWindow().setExitTransition(null);
+                    getWindow().setEnterTransition(null);
+
+                }
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     ActivityOptions options =
                             ActivityOptions.makeSceneTransitionAnimation(this, fab, fab.getTransitionName());
-                    startActivity(new Intent(this, com.entreprise.davfou.projetandroidesgi.ui.activity.login.RegisterActivity.class), options.toBundle());
+                    startActivity(new Intent(this, RegisterActivity.class), options.toBundle());
                 } else {
-                    startActivity(new Intent(this, com.entreprise.davfou.projetandroidesgi.ui.activity.login.RegisterActivity.class));
+                    startActivity(new Intent(this, RegisterActivity.class));
                 }
 
                 break;

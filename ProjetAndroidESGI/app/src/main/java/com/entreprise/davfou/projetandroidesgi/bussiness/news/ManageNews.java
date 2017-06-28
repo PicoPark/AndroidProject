@@ -8,9 +8,9 @@ import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
 import com.entreprise.davfou.projetandroidesgi.data.method.ApiInterface;
 import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.ListNewsFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
@@ -74,7 +74,7 @@ public class ManageNews {
                     Toast.makeText(context,context.getString(R.string.msgErrorNewsAlreadyExist),Toast.LENGTH_SHORT).show();
 
                 } else{
-                    
+
                     Toast.makeText(context,context.getString(R.string.msgErrorNewsCreate),Toast.LENGTH_SHORT).show();
 
                 }
@@ -106,10 +106,10 @@ public class ManageNews {
 
         ApiInterface apiInterface = ClientRetrofit.getClient();
 
-        Call<ArrayList<New>> call = apiInterface.getAllNew("Bearer "+userRealm.getToken());
-        call.enqueue(new Callback<ArrayList<New>>() {
+        Call<ArrayList<News>> call = apiInterface.getAllNew("Bearer "+userRealm.getToken());
+        call.enqueue(new Callback<ArrayList<News>>() {
             @Override
-            public void onResponse(Call<ArrayList<New>> call, final Response<ArrayList<New>> response) {
+            public void onResponse(Call<ArrayList<News>> call, final Response<ArrayList<News>> response) {
                 progressDialog.dismiss();
                 System.out.println("news : " + response.code());
                 System.out.println("news : " + response.raw().toString());
@@ -130,7 +130,7 @@ public class ManageNews {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<New>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<News>> call, Throwable t) {
                 progressDialog.dismiss();
                 System.out.println("call : " + t.getMessage().toString());
                 System.out.println("response :" + t.toString());
@@ -149,31 +149,31 @@ public class ManageNews {
 
 
 
-    private ArrayList<New> getAllNewInRealm(){
+    private ArrayList<News> getAllNewInRealm(){
 
 
-        RealmResults<NewRealm> newRealms = RealmController.getInstance().getNews();
-        ArrayList<New> news =new ArrayList();
+        RealmResults<NewsRealm> newsRealms = RealmController.getInstance().getNews();
+        ArrayList<News> newses =new ArrayList();
 
 
 
-        for(int i =0;i<newRealms.size();i++){
-            news.add(new New(newRealms.get(i).get_id(),newRealms.get(i).getAuthor(),newRealms.get(i).getContent(),newRealms.get(i).getTitle()));
+        for(int i = 0; i< newsRealms.size(); i++){
+            newses.add(new News(newsRealms.get(i).get_id(), newsRealms.get(i).getAuthor(), newsRealms.get(i).getContent(), newsRealms.get(i).getTitle()));
         }
 
 
 
-        return news;
+        return newses;
     }
 
 
-    private void createOrUpdateNewRealm(ArrayList<New> newArrayList){
+    private void createOrUpdateNewRealm(ArrayList<News> newsArrayList){
 
-        for(int i = 0; i< newArrayList.size();i++){
+        for(int i = 0; i< newsArrayList.size(); i++){
 
-            NewRealm newRealm = new NewRealm(i,newArrayList.get(i).get_id(),newArrayList.get(i).getAuthor(),newArrayList.get(i).getContent(),newArrayList.get(i).getTitle());
+            NewsRealm newsRealm = new NewsRealm(i, newsArrayList.get(i).get_id(), newsArrayList.get(i).getAuthor(), newsArrayList.get(i).getContent(), newsArrayList.get(i).getTitle());
             realm.beginTransaction();
-            realm.copyToRealmOrUpdate(newRealm);
+            realm.copyToRealmOrUpdate(newsRealm);
             realm.commitTransaction();
         }
 
