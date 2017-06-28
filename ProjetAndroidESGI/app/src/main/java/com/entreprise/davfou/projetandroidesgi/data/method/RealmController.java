@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.PostRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -65,6 +68,8 @@ public class RealmController {
 
         realm.beginTransaction();
         realm.clear(UserRealm.class);
+        realm.clear(NewRealm.class);
+        realm.clear(PostRealm.class);
         realm.commitTransaction();
     }
 
@@ -74,10 +79,28 @@ public class RealmController {
         return realm.where(UserRealm.class).findAll();
     }
 
+    public RealmResults<PostRealm> getPosts(){
+        return  realm.where(PostRealm.class).findAll();
+    }
+
+    public RealmResults<NewRealm> getNews(){
+        return realm.where(NewRealm.class).findAll();
+    }
+
     //find all objects in the Defi.class
     public UserRealm getUser(String email) {
 
         return realm.where(UserRealm.class).equalTo("email", email).findFirst();
+    }
+
+    public PostRealm getPostById(long id){
+        return realm.where(PostRealm.class).equalTo("id", id).findFirst();
+
+    }
+
+    public NewRealm getNewById(long id){
+        return realm.where(NewRealm.class).equalTo("id", id).findFirst();
+
     }
 
     public UserRealm getUserConnected(Boolean isConnected) {
