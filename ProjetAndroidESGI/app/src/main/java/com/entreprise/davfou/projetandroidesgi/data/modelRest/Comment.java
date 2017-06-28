@@ -1,30 +1,23 @@
-package com.entreprise.davfou.projetandroidesgi.data.modelLocal;
-
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+package com.entreprise.davfou.projetandroidesgi.data.modelRest;
 
 /**
  * Created by Pico on 28/06/2017.
  */
 
-public class TopicRealm extends RealmObject {
-
-    @PrimaryKey
-    private long id;
+public class Comment {
 
     private String _id;
     private String content;
     private String title;
     private String date;
+    private String news;
 
-    public TopicRealm() {
-    }
-
-    public TopicRealm(String _id, String content, String title, String date) {
+    public Comment(String _id, String content, String title, String date, String news) {
         this._id = _id;
         this.content = content;
         this.title = title;
         this.date = date;
+        this.news = news;
     }
 
     public String get_id() {
@@ -58,4 +51,15 @@ public class TopicRealm extends RealmObject {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public String getNews() {
+        return news;
+    }
+
+    public void setNews(String news) {
+        this.news = news;
+    }
 }
+
+
+

@@ -1,5 +1,8 @@
 package com.entreprise.davfou.projetandroidesgi.data.modelLocal;
 
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
+
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -7,24 +10,37 @@ import io.realm.annotations.PrimaryKey;
  * Created by Pico on 28/06/2017.
  */
 
-public class TopicRealm extends RealmObject {
+public class CommentRealm extends RealmObject {
 
     @PrimaryKey
     private long id;
+
 
     private String _id;
     private String content;
     private String title;
     private String date;
+    private String news;
 
-    public TopicRealm() {
+
+    public CommentRealm() {
     }
 
-    public TopicRealm(String _id, String content, String title, String date) {
+    public CommentRealm(long id, String _id, String content, String title, String date, String news) {
+        this.id = id;
         this._id = _id;
         this.content = content;
         this.title = title;
         this.date = date;
+        this.news = news;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String get_id() {
@@ -58,4 +74,14 @@ public class TopicRealm extends RealmObject {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public String getNews() {
+        return news;
+    }
+
+    public void setNews(String news) {
+        this.news = news;
+    }
 }
+
+
