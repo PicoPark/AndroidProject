@@ -21,6 +21,8 @@ tools:context=".ui.activity.MenuActivity">
         android:layout_height="wrap_content"
         android:text="@string/btnAjouterNews"
         android:layout_alignParentBottom="true"
-        android:layout_margin="14dp"/>
+        android:layout_margin="14dp"
+        android:theme="@style/ButtonColor"
+        />
 
 </RelativeLayout>

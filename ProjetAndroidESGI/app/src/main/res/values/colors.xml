@@ -6,7 +6,7 @@
     <color name="cyan">#00BCD4</color>
     <color name="orange">#e95609</color>
 
-    <color name="NewsTitleColor">#2980b9</color>
+    <color name="BluePastel">#2980b9</color>
 
     <color name="accent_color">@color/blue</color>
     <color name="colorPrimary">@color/blue</color>
