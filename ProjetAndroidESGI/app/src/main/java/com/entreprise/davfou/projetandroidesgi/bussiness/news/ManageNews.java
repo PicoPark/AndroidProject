@@ -11,6 +11,7 @@ import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.ListNewsFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 
@@ -43,12 +44,66 @@ public class ManageNews {
     }
 
 
+    public void createNew(NewsCreate newsCreate, final UserRealm userRealmIn){
+
+        //create news
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog.show();
+
+
+        ApiInterface apiInterface = ClientRetrofit.getClient();
+        System.out.println("token : "+userRealmIn.getToken());
+
+
+        final Call<Void> call = apiInterface.createNew("Bearer "+userRealmIn.getToken(),newsCreate);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, final Response<Void> response) {
+                progressDialog.dismiss();
+                System.out.println("news : " + response.code());
+                System.out.println("news : " + response.raw().toString());
+                //System.out.println("news : "+response.body().toString());
+
+
+                if (response.code() == 201) {
+
+                    getAllNews(userRealmIn);
+
+                } else if(response.code() == 200){
+
+                    Toast.makeText(context,context.getString(R.string.msgErrorNewsAlreadyExist),Toast.LENGTH_SHORT).show();
+
+                } else{
+                    
+                    Toast.makeText(context,context.getString(R.string.msgErrorNewsCreate),Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                progressDialog.dismiss();
+                System.out.println("call : " + t.getMessage().toString());
+                System.out.println("response :" + t.toString());
+                Toast.makeText(context,context.getString(R.string.msgErrorNetworkNews),Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+    }
+
+
+
     public void getAllNews(UserRealm userRealm){
 
 
 
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteLogin), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
         progressDialog.show();
+
+
         ApiInterface apiInterface = ClientRetrofit.getClient();
 
         Call<ArrayList<New>> call = apiInterface.getAllNew("Bearer "+userRealm.getToken());
@@ -64,22 +119,12 @@ public class ManageNews {
                 if (response.code() == 200) {
                     System.out.println("news size : " + response.body().size());
 
-
-
-
-
-
-
                         createOrUpdateNewRealm(response.body());
-
-
-
 
                     ListNewsFragment.setRecycler(response.body(),activityReference);
 
-
                 } else {
-                    Toast.makeText(context,context.getString(R.string.msgErrorLogin),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,context.getString(R.string.msgErrorNews),Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -89,7 +134,7 @@ public class ManageNews {
                 progressDialog.dismiss();
                 System.out.println("call : " + t.getMessage().toString());
                 System.out.println("response :" + t.toString());
-                Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,context.getString(R.string.msgErrorNetworkNews),Toast.LENGTH_SHORT).show();
 
                 ListNewsFragment.setRecyclerOffline(getAllNewInRealm(),activityReference);
 

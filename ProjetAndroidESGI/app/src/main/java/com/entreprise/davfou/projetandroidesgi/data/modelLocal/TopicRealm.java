@@ -20,11 +20,20 @@ public class TopicRealm extends RealmObject {
     public TopicRealm() {
     }
 
-    public TopicRealm(String _id, String content, String title, String date) {
+    public TopicRealm(long id, String _id, String content, String title, String date) {
+        this.id = id;
         this._id = _id;
         this.content = content;
         this.title = title;
         this.date = date;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String get_id() {

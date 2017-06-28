@@ -6,6 +6,7 @@ package com.entreprise.davfou.projetandroidesgi.data.method;
 
 
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
@@ -54,6 +55,12 @@ public interface ApiInterface {
 
     @GET("/news")
     Call<ArrayList<New>> getAllNew(@Header("Authorization") String token);
+
+
+    @POST("/news")
+    Call<Void> createNew(@Header("Authorization") String token, @Body NewsCreate newsCreate);
+
+
 
 
 
