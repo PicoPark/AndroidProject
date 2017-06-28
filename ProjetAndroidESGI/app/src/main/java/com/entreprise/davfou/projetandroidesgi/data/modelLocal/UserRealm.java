@@ -26,10 +26,12 @@ public class UserRealm extends RealmObject {
 
     private boolean connected;
 
+    private boolean keepConnection;
+
     public UserRealm() {
     }
 
-    public UserRealm(long id, String email, String password,  String token,String firstName,String lastName, boolean connected) {
+    public UserRealm(long id, String email, String password,  String token,String firstName,String lastName, boolean connected, boolean keepConnection) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -37,8 +39,17 @@ this.firstName = firstName;
         this.lastName = lastName;
         this.token = token;
         this.connected = connected;
+        this.keepConnection = keepConnection;
     }
 
+
+    public boolean isKeepConnection() {
+        return keepConnection;
+    }
+
+    public void setKeepConnection(boolean keepConnection) {
+        this.keepConnection = keepConnection;
+    }
 
     public String getFirstName() {
         return firstName;

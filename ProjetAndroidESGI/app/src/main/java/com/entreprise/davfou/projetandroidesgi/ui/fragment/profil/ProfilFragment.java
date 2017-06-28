@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.login.ConnectUser;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,11 +48,11 @@ public class ProfilFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-        connectUser= new ConnectUser(getContext(),getActivity());
+        connectUser=new ConnectUser(getContext(),getActivity());
 
 
 
-        userRealm = connectUser.getUserConnected();
+        userRealm = MenuActivity.getUser(getActivity());
 
         textViewEmail.setText(userRealm.getEmail());
         textViewFirstName.setText(userRealm.getFirstName());

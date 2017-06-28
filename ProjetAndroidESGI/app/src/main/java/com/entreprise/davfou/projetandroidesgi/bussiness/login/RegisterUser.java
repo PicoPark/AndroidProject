@@ -12,6 +12,8 @@ import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 
+import org.json.JSONObject;
+
 import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,10 +40,10 @@ public class RegisterUser {
         progressDialog.show();
         ApiInterface apiInterface = ClientRetrofit.getClient();
 
-        Call<String> call = apiInterface.createUser(user);
-        call.enqueue(new Callback<String>() {
+        Call<JSONObject> call = apiInterface.createUser(user);
+        call.enqueue(new Callback<JSONObject>() {
             @Override
-            public void onResponse(Call<String> call, final Response<String> response) {
+            public void onResponse(Call<JSONObject> call, final Response<JSONObject> response) {
                 progressDialog.dismiss();
                 System.out.println("user : " + response.raw().toString());
 
@@ -64,7 +66,7 @@ public class RegisterUser {
                             int nextId;
                             if(currentIdNum == null) {
                                 nextId = 1;
-                                UserRealm userRealm = new UserRealm(nextId,user.getEmail(),user.getPassword(),response.body().toString(),user.getFirstname(),user.getLastname(),false); // unmanaged
+                                UserRealm userRealm = new UserRealm(nextId,user.getEmail(),user.getPassword(),response.body().toString(),user.getFirstname(),user.getLastname(),true,true); // unmanaged
                                 userRealm.setId(nextId);
                                 realm.copyToRealm(userRealm); // using insert API
                             } else {
@@ -72,7 +74,7 @@ public class RegisterUser {
 
                                 if(userR == null){
                                     nextId = currentIdNum.intValue() + 1;
-                                    UserRealm userRealm = new UserRealm(nextId,user.getEmail(),user.getPassword(),response.body().toString(),user.getFirstname(),user.getLastname(),false); // unmanaged
+                                    UserRealm userRealm = new UserRealm(nextId,user.getEmail(),user.getPassword(),response.body().toString(),user.getFirstname(),user.getLastname(),true,true); // unmanaged
                                     userRealm.setId(nextId);
                                     realm.copyToRealm(userRealm); // using insert API
                                 }
@@ -90,7 +92,7 @@ public class RegisterUser {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<JSONObject> call, Throwable t) {
                 progressDialog.dismiss();
                 System.out.println("response :" + t.toString());
                 Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();

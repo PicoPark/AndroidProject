@@ -54,6 +54,7 @@ public class ConnectUser {
             realm.executeTransaction(new Realm.Transaction() {
                 public void execute(Realm realm) {
                     userRealm.setConnected(false);
+                    userRealm.setKeepConnection(false);
                     realm.copyToRealm(userRealm); // could be copyToRealmOrUpdate
                     goToLogin();
 
@@ -118,9 +119,12 @@ public class ConnectUser {
                         public void execute(Realm realm) {
                             userRealm.setFirstName(response.body().getFirstname());
                             userRealm.setLastName(response.body().getLastname());
+                            realm.copyToRealmOrUpdate(userRealm);
+
                         }
 
                     });
+
 
 
                 } else {
@@ -153,6 +157,8 @@ public class ConnectUser {
 
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteLogin), context);
         progressDialog.show();
+
+
         ApiInterface apiInterface = ClientRetrofit.getClient();
 
         Call<String> call = apiInterface.connectUser(new UserLogin(email,password));
@@ -162,7 +168,7 @@ public class ConnectUser {
                 progressDialog.dismiss();
                 System.out.println("user : " + response.code());
                 System.out.println("user : " + response.raw().toString());
-
+                System.out.println("user : "+response.body().toString());
 
 
                 if (response.code() == 200) {
@@ -184,18 +190,23 @@ public class ConnectUser {
                                                      int nextId;
                                                      if(currentIdNum == null) {
                                                          nextId = 1;
-                                                         UserRealm userRealm = new UserRealm(nextId,email,password,response.body().toString(),"","",connected); // unmanaged
+                                                         UserRealm userRealm = new UserRealm(nextId,email,password,response.body().toString(),"","",true,connected); // unmanaged
                                                          userRealm.setId(nextId);
                                                          realm.copyToRealm(userRealm); // using insert API
+
+                                                         getInfo(userRealm);
                                                      } else {
                                                          UserRealm userR = RealmController.getInstance().getUser(email);
 
                                                          if(userR == null){
                                                              nextId = currentIdNum.intValue() + 1;
-                                                             UserRealm userRealm = new UserRealm(nextId,email,password,response.body().toString(),"","",connected); // unmanaged
+                                                             UserRealm userRealm = new UserRealm(nextId,email,password,response.body().toString(),"","",true,connected); // unmanaged
                                                              userRealm.setId(nextId);
                                                              realm.copyToRealm(userRealm); // using insert API
+                                                             getInfo(userRealm);
+
                                                          }else{
+                                                             System.out.println("update user : "+userR.toString());
                                                              userR.setConnected(connected);
                                                              userR.setToken(response.body().toString());
                                                              realm.copyToRealm(userR);
