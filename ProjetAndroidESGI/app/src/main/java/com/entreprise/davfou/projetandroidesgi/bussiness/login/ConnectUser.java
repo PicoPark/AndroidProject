@@ -261,14 +261,19 @@ public class ConnectUser {
     private void goToMainAnimation(){
 
 
-        Explode explode = new Explode();
-        explode.setDuration(500);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Explode explode  = new Explode();
 
-        activityReference.getWindow().setExitTransition(explode);
-        activityReference.getWindow().setEnterTransition(explode);
-        ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(activityReference);
-        Intent i2 = new Intent(activityReference.getApplicationContext(), LoginSuccessActivity.class);
-        activityReference.startActivity(i2, oc2.toBundle());
+            activityReference.getWindow().setExitTransition(explode);
+            activityReference.getWindow().setEnterTransition(explode);
+            ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(activityReference);
+            Intent i2 = new Intent(activityReference.getApplicationContext(), LoginSuccessActivity.class);
+            activityReference.startActivity(i2, oc2.toBundle());
+            explode.setDuration(500);
+
+        }
+        goToMain();
+
 
     }
 }

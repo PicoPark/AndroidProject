@@ -1,6 +1,7 @@
 package com.entreprise.davfou.projetandroidesgi.ui.activity;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -32,7 +33,12 @@ public class MenuActivity extends AppCompatActivity {
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimary));
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimary));
+        }
 
 
         Fragment fragment = new ListNewsFragment();

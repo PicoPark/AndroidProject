@@ -25,21 +25,24 @@ public class LoginSuccessActivity extends AppCompatActivity {
 
 
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Explode explode = new Explode();
+            explode.setDuration(500);
+            getWindow().setExitTransition(explode);
+            getWindow().setEnterTransition(explode);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(LoginSuccessActivity.this, MenuActivity.class));
+                    finish();
+                }
+            }, SPLASH_TIME_OUT);
+        }else{
 
-        Explode explode = new Explode();
-        explode.setDuration(500);
-        getWindow().setExitTransition(explode);
-        getWindow().setEnterTransition(explode);
+            Intent goToMain = new Intent(LoginSuccessActivity.this, MenuActivity.class);
+           startActivity(goToMain);
+        }
 
-        new Handler().postDelayed(new Runnable() {
-
-
-            @Override
-            public void run() {
-                startActivity(new Intent(LoginSuccessActivity.this, MenuActivity.class));
-                finish();
-            }
-        }, SPLASH_TIME_OUT);
 
 
 

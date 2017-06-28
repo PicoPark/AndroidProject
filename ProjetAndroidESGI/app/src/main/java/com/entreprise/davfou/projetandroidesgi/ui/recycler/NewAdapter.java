@@ -75,21 +75,21 @@ public class NewAdapter extends RecyclerView.Adapter<MyViewHolderNews> {
 class MyViewHolderNews extends RecyclerView.ViewHolder{
     public final View rootView;
 
-    private TextView textViewAuthorNews;
+    private TextView textViewTitleNews;
+    private TextView textViewContentNews;
 
     //itemView est la vue correspondante à 1 cellule
     public MyViewHolderNews(View itemView) {
         super(itemView);
         this.rootView = itemView;
-
-
         //c'est ici que l'on fait nos findView
-
-        textViewAuthorNews = (TextView) itemView.findViewById(R.id.textViewAuthorNews);
+        textViewTitleNews = (TextView) itemView.findViewById(R.id.textViewTitleNews);
+        textViewContentNews = (TextView) itemView.findViewById(R.id.textViewContentNews);
     }
 
     public void bind(New newRealm){
         System.out.println(newRealm.getAuthor());
-        textViewAuthorNews.setText(newRealm.getTitle());
+        textViewTitleNews.setText(newRealm.getTitle());
+        textViewContentNews.setText(newRealm.getContent());
     }
 }
