@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
 
 import java.util.ArrayList;
 
@@ -17,12 +17,12 @@ import java.util.ArrayList;
 
 public class NewAdapter extends RecyclerView.Adapter<MyViewHolderNews> {
 
-    ArrayList<New> news;
+    ArrayList<News> news;
 
     private NewAdapter.OnArticleClickedListener mOnArticleClickedListener;
 
     //ajouter un constructeur prenant en entrée une liste
-    public NewAdapter(ArrayList<New> news) {
+    public NewAdapter(ArrayList<News> news) {
 
 
         this.news = news;
@@ -39,7 +39,7 @@ public class NewAdapter extends RecyclerView.Adapter<MyViewHolderNews> {
     //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
     @Override
     public void onBindViewHolder(MyViewHolderNews myViewHolder, final int position) {
-        New myObject = news.get(position);
+        News myObject = news.get(position);
         myViewHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -67,7 +67,7 @@ public class NewAdapter extends RecyclerView.Adapter<MyViewHolderNews> {
 
     public interface OnArticleClickedListener {
 
-        void onArticleClicked(New newRealm, View articleView);
+        void onArticleClicked(News newRealm, View articleView);
 
     }
 }
@@ -87,7 +87,7 @@ class MyViewHolderNews extends RecyclerView.ViewHolder{
         textViewContentNews = (TextView) itemView.findViewById(R.id.textViewContentNews);
     }
 
-    public void bind(New newRealm){
+    public void bind(News newRealm){
         System.out.println(newRealm.getAuthor());
         textViewTitleNews.setText(newRealm.getTitle());
         textViewContentNews.setText(newRealm.getContent());

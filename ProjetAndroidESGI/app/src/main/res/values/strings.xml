@@ -32,7 +32,7 @@
 
 
     <string name="msgErrorLogin">email et/ou password faux</string>
-    <string name="msgErrorNews">erreur lors de la récupération des newses</string>
+    <string name="msgErrorNews">erreur lors de la récupération des news</string>
     <string name="msgErrorNewsCreate">erreur lors de la création d\'une  newses</string>
     <string name="msgErrorNewsAlreadyExist">News déja existante</string>
 
