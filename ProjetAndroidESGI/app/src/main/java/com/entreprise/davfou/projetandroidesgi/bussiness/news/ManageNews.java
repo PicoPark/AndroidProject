@@ -8,6 +8,7 @@ import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
 import com.entreprise.davfou.projetandroidesgi.data.method.ApiInterface;
 import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.ListNewsFragment;
@@ -16,6 +17,7 @@ import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,12 +70,12 @@ public class ManageNews {
 
 
 
-                        //createOrUpdateNewRealm(response.body());
+                        createOrUpdateNewRealm(response.body());
 
 
 
 
-                    ListNewsFragment.setRecycler(response.body());
+                    ListNewsFragment.setRecycler(response.body(),activityReference);
 
 
                 } else {
@@ -89,6 +91,7 @@ public class ManageNews {
                 System.out.println("response :" + t.toString());
                 Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
 
+                ListNewsFragment.setRecyclerOffline(getAllNewInRealm(),activityReference);
 
             }
         });
@@ -101,25 +104,36 @@ public class ManageNews {
 
 
 
-    /*private void createOrUpdateNewRealm(ArrayList<New> newArrayList){
+    private ArrayList<New> getAllNewInRealm(){
 
 
+        RealmResults<NewRealm> newRealms = RealmController.getInstance().getNews();
+        ArrayList<New> news =new ArrayList();
+
+
+
+        for(int i =0;i<newRealms.size();i++){
+            news.add(new New(newRealms.get(i).get_id(),newRealms.get(i).getAuthor(),newRealms.get(i).getContent(),newRealms.get(i).getTitle()));
+        }
+
+
+
+        return news;
+    }
+
+
+    private void createOrUpdateNewRealm(ArrayList<New> newArrayList){
 
         for(int i = 0; i< newArrayList.size();i++){
 
-            //    public NewRealm(long id, String _id, String author, String content, String title) {
-
-
-
-            NewRealm newRealm = new NewRealm("")
+            NewRealm newRealm = new NewRealm(i,newArrayList.get(i).get_id(),newArrayList.get(i).getAuthor(),newArrayList.get(i).getContent(),newArrayList.get(i).getTitle());
+            realm.beginTransaction();
+            realm.copyToRealmOrUpdate(newRealm);
+            realm.commitTransaction();
         }
-        Object obj = new Object();
-        obj.setField1(field1);
-        obj.setField2(field2);
-        realm.beginTransaction();
-        realm.copyToRealmOrUpdate(obj);
-        realm.commitTransaction();
 
-    }*/ 
+
+
+    }
 
 }
