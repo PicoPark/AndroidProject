@@ -19,6 +19,10 @@ public class PostRealm extends RealmObject {
     private String title;
 
 
+    public PostRealm(){
+
+    }
+
     public PostRealm(long id, String _id, String author, String content, String title, String topicId) {
         this.id = id;
         this._id = _id;
