@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,7 @@ import io.realm.Realm;
 public class ListNewsFragment extends Fragment {
 
 
+    static FragmentTransaction ft;
 
     static  RecyclerView recyclerViewNews;
 
@@ -62,6 +64,8 @@ public class ListNewsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
+        ft = getFragmentManager().beginTransaction();
+
         recyclerViewNews = (RecyclerView) view.findViewById(R.id.recyclerViewNews);
 
         manageNews=new ManageNews(getContext(),getActivity());
@@ -84,7 +88,13 @@ public class ListNewsFragment extends Fragment {
     public static void setRecycler(ArrayList<News> newses, Activity activity){
         System.out.println("in fragment : "+ newses.size());
         final NewAdapter newAdapter = new NewAdapter(newses);
+        newAdapter.setOnArticleClickedListener(new NewAdapter.OnArticleClickedListener() {
+            @Override
+            public void onArticleClicked(News newRealm, View articleView) {
+                clickItemRecyclerView(newRealm);
 
+            }
+        });
 
         recyclerViewNews.setAdapter(newAdapter);
 
@@ -99,6 +109,12 @@ public class ListNewsFragment extends Fragment {
         System.out.println("in fragment : "+ newses.size());
         final NewAdapter newAdapter = new NewAdapter(newses);
 
+        newAdapter.setOnArticleClickedListener(new NewAdapter.OnArticleClickedListener() {
+            @Override
+            public void onArticleClicked(News newRealm, View articleView) {
+                clickItemRecyclerView(newRealm);
+            }
+        });
 
         recyclerViewNews.setAdapter(newAdapter);
 
@@ -106,6 +122,11 @@ public class ListNewsFragment extends Fragment {
 
         System.out.println("nbr de newses dans realm : "+ realm.where(NewsRealm.class).count());
 
+    }
+    public static void clickItemRecyclerView(News news){
+        System.out.println(news.getTitle());
+        ft.replace(R.id.frame_container, NewsDetailsFragment.newInstance(news));
+        ft.commit();
     }
 
 
@@ -147,5 +168,7 @@ public class ListNewsFragment extends Fragment {
 
 
     }
+
+
 
 }

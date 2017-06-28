@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.login.RegisterUser;
+import com.entreprise.davfou.projetandroidesgi.bussiness.login.ConnectUser;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 
 import butterknife.BindView;
@@ -76,7 +76,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void ShowEnterAnimation() {
         Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.fabtransition);
-        getWindow().setSharedElementEnterTransition(transition);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setSharedElementEnterTransition(transition);
+        }
 
         transition.addListener(new Transition.TransitionListener() {
             @Override
@@ -110,7 +112,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void animateRevealShow() {
-        Animator mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd, cvAdd.getWidth()/2,0, fab.getWidth() / 2, cvAdd.getHeight());
+        Animator mAnimator = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd, cvAdd.getWidth()/2,0, fab.getWidth() / 2, cvAdd.getHeight());
+        }
         mAnimator.setDuration(200);
         mAnimator.setInterpolator(new AccelerateInterpolator());
         mAnimator.addListener(new AnimatorListenerAdapter() {
@@ -129,7 +134,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void animateRevealClose() {
-        Animator mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd,cvAdd.getWidth()/2,0, cvAdd.getHeight(), fab.getWidth() / 2);
+        Animator mAnimator = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd,cvAdd.getWidth()/2,0, cvAdd.getHeight(), fab.getWidth() / 2);
+        }
         mAnimator.setDuration(200);
         mAnimator.setInterpolator(new AccelerateInterpolator());
         mAnimator.addListener(new AnimatorListenerAdapter() {
@@ -155,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
     private void addUer(){
 
-        RegisterUser registerUser = new RegisterUser(this,this);
+        ConnectUser registerUser = new ConnectUser(this,this);
         registerUser.register(
                 new User(edit_email.getText().toString(),
                         edit_password.getText().toString(),

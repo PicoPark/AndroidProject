@@ -1,6 +1,6 @@
 package com.entreprise.davfou.projetandroidesgi.data.clientWS;
 
-import com.entreprise.davfou.projetandroidesgi.data.method.ApiInterface;
+import com.entreprise.davfou.projetandroidesgi.data.method.UserInterface;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,19 +19,19 @@ public  class ClientRetrofit {
     }
 
 
-    public static ApiInterface getClient(){
-        ApiInterface apiInterface;
+    public static Retrofit getClient(){
 
 
 
-        apiInterface = new Retrofit.Builder()
-                .baseUrl(ApiInterface.ENDPOINT)
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UserInterface.ENDPOINT)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(ApiInterface.class);
+                .build();
 
-        return apiInterface;
+        return retrofit;
     }
 
 

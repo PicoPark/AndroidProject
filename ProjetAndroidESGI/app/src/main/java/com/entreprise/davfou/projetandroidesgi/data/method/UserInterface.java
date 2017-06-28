@@ -5,15 +5,11 @@ package com.entreprise.davfou.projetandroidesgi.data.method;
  */
 
 
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -22,7 +18,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 
-public interface ApiInterface {
+public interface UserInterface {
     public static final String ENDPOINT = "https://esgi-2017.herokuapp.com";
 
 
@@ -48,12 +44,7 @@ public interface ApiInterface {
     @GET("/users/me")
     Call<UserInfo> getAuthorizedDriver(@Header("Authorization") String token);
 
-    @GET("/news")
-    Call<ArrayList<News>> getAllNew(@Header("Authorization") String token);
 
-
-    @POST("/news")
-    Call<Void> createNew(@Header("Authorization") String token, @Body NewsCreate newsCreate);
 
 
 

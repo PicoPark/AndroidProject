@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
-import com.entreprise.davfou.projetandroidesgi.data.method.ApiInterface;
+import com.entreprise.davfou.projetandroidesgi.data.method.NewsInterface;
 import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
@@ -22,6 +22,7 @@ import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by davidfournier on 28/06/2017.
@@ -33,6 +34,7 @@ public class ManageNews {
     Activity activityReference;
     android.app.ProgressDialog progressDialog;
     Realm realm;
+    NewsInterface  newsInterface;
 
 
 
@@ -40,6 +42,9 @@ public class ManageNews {
         this.context = context;
         this.activityReference = activityReference;
         realm = RealmController.with(activityReference).getRealm();
+
+        Retrofit retrofit = ClientRetrofit.getClient();
+        newsInterface= retrofit.create(NewsInterface.class);
 
     }
 
@@ -51,11 +56,10 @@ public class ManageNews {
         progressDialog.show();
 
 
-        ApiInterface apiInterface = ClientRetrofit.getClient();
         System.out.println("token : "+userRealmIn.getToken());
 
 
-        final Call<Void> call = apiInterface.createNew("Bearer "+userRealmIn.getToken(),newsCreate);
+        final Call<Void> call = newsInterface.createNew("Bearer "+userRealmIn.getToken(),newsCreate);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, final Response<Void> response) {
@@ -104,9 +108,9 @@ public class ManageNews {
         progressDialog.show();
 
 
-        ApiInterface apiInterface = ClientRetrofit.getClient();
 
-        Call<ArrayList<News>> call = apiInterface.getAllNew("Bearer "+userRealm.getToken());
+
+        Call<ArrayList<News>> call = newsInterface.getAllNew("Bearer "+userRealm.getToken());
         call.enqueue(new Callback<ArrayList<News>>() {
             @Override
             public void onResponse(Call<ArrayList<News>> call, final Response<ArrayList<News>> response) {

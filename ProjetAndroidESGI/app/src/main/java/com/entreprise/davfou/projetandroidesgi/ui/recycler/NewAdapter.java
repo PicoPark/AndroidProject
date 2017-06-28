@@ -69,6 +69,8 @@ public class NewAdapter extends RecyclerView.Adapter<MyViewHolderNews> {
 
         void onArticleClicked(News newRealm, View articleView);
 
+
+
     }
 }
 
