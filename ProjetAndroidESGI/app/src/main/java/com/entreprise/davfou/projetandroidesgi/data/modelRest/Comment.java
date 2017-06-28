@@ -7,10 +7,11 @@ package com.entreprise.davfou.projetandroidesgi.data.modelRest;
 public class Comment {
 
     private String _id;
-    private String content;
+
     private String title;
-    private String date;
+    private String content;
     private String news;
+    private String date;
 
     public Comment(String _id, String content, String title, String date, String news) {
         this._id = _id;

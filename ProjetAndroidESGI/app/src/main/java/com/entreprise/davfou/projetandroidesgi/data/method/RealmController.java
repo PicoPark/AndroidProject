@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.CommentRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.PostRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.TopicRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.New;
 
@@ -68,8 +70,11 @@ public class RealmController {
 
         realm.beginTransaction();
         realm.clear(UserRealm.class);
+        realm.clear(TopicRealm.class);
+        realm.clear(CommentRealm.class);
         realm.clear(NewRealm.class);
         realm.clear(PostRealm.class);
+
         realm.commitTransaction();
     }
 
@@ -79,12 +84,20 @@ public class RealmController {
         return realm.where(UserRealm.class).findAll();
     }
 
-    public RealmResults<PostRealm> getPosts(){
-        return  realm.where(PostRealm.class).findAll();
+    public RealmResults<PostRealm> getPosts() {
+        return realm.where(PostRealm.class).findAll();
     }
 
-    public RealmResults<NewRealm> getNews(){
+    public RealmResults<NewRealm> getNews() {
         return realm.where(NewRealm.class).findAll();
+    }
+
+    public RealmResults<TopicRealm> getTopics() {
+        return realm.where(TopicRealm.class).findAll();
+    }
+
+    public RealmResults<CommentRealm> getComments() {
+        return realm.where(CommentRealm.class).findAll();
     }
 
     //find all objects in the Defi.class
@@ -93,20 +106,36 @@ public class RealmController {
         return realm.where(UserRealm.class).equalTo("email", email).findFirst();
     }
 
-    public PostRealm getPostById(long id){
-        return realm.where(PostRealm.class).equalTo("id", id).findFirst();
-
-    }
-
-    public NewRealm getNewById(long id){
-        return realm.where(NewRealm.class).equalTo("id", id).findFirst();
-
-    }
-
     public UserRealm getUserConnected(Boolean isConnected) {
 
         return realm.where(UserRealm.class).equalTo("connected", isConnected).findFirst();
     }
+    public PostRealm getPostById(long id) {
+        return realm.where(PostRealm.class).equalTo("id", id).findFirst();
+
+    }
+
+    public NewRealm getNewById(long id) {
+        return realm.where(NewRealm.class).equalTo("id", id).findFirst();
+
+    }
+
+    public CommentRealm getCommentById(long id) {
+        return realm.where(CommentRealm.class).equalTo("id", id).findFirst();
+
+    }
+
+    public CommentRealm getCommentByNews(String news) {
+        return realm.where(CommentRealm.class).equalTo("id", news).findFirst();
+
+    }
+
+
+    public TopicRealm getTopicById(long id) {
+        return realm.where(TopicRealm.class).equalTo("id", id).findFirst();
+
+    }
+
 
 
 
