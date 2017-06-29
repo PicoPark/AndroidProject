@@ -33,11 +33,11 @@
 
     <string name="msgErrorLogin">email et/ou password faux</string>
     <string name="msgErrorNews">erreur lors de la récupération des news</string>
-    <string name="msgErrorNewsCreate">erreur lors de la création d\'une  newses</string>
+    <string name="msgErrorNewsCreate">erreur lors de la création d\'une  news</string>
     <string name="msgErrorNewsAlreadyExist">News déja existante</string>
 
     <string name="msgErrorNetwork">Erreur réseau</string>
-    <string name="msgErrorNetworkNews">Erreur réseau, récupération des newses local</string>
+    <string name="msgErrorNetworkNews">Erreur réseau, récupération des news local</string>
 
 
 

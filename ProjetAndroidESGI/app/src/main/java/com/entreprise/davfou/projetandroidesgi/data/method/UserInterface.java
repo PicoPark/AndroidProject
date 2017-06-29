@@ -40,7 +40,11 @@ public interface UserInterface {
     @POST("/auth/subscribe")
     Call<JSONObject> createUser(@Body User user);
 
-
+    /**
+     * Récupération des info par rapport au user
+     * @param token
+     * @return
+     */
     @GET("/users/me")
     Call<UserInfo> getAuthorizedDriver(@Header("Authorization") String token);
 

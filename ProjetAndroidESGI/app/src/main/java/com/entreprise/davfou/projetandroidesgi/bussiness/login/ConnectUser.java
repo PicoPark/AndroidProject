@@ -45,6 +45,8 @@ public class ConnectUser {
         this.context = context;
         this.activityReference = activityReference;
         realm = RealmController.with(activityReference).getRealm();
+        Retrofit retrofit = ClientRetrofit.getClient();
+        userInterface = retrofit.create(UserInterface.class);
 
     }
 
@@ -65,8 +67,7 @@ public class ConnectUser {
                 }
 
             });
-            Retrofit retrofit = ClientRetrofit.getClient();
-            userInterface = retrofit.create(UserInterface.class);
+
 
 
         }
