@@ -55,8 +55,8 @@ public class ProfilFragment extends Fragment {
         userRealm = MenuActivity.getUser(getActivity());
 
         textViewEmail.setText(userRealm.getEmail());
-        textViewFirstName.setText(userRealm.getFirstName());
-        textViewLastName.setText(userRealm.getLastName());
+       /* textViewFirstName.setText(userRealm.getFirstName());
+        textViewLastName.setText(userRealm.getLastName());*/
 
 
     }

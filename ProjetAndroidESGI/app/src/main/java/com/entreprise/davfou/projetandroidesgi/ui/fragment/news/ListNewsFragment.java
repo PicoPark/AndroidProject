@@ -16,7 +16,7 @@ import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.news.ManageNews;
-import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;

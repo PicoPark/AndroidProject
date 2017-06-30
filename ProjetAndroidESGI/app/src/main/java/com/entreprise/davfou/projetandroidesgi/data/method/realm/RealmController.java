@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.data.method;
+package com.entreprise.davfou.projetandroidesgi.data.method.realm;
 
 
 import android.app.Activity;

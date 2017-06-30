@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.data.newArchi;
+package com.entreprise.davfou.projetandroidesgi.data.utils;
 
 /**
  * Created by davidfournier on 29/06/2017.

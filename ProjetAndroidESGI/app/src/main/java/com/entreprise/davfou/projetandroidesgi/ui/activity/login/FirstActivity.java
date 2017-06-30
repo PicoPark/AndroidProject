@@ -18,6 +18,7 @@ import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.login.ConnectUser;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,7 +85,7 @@ public class FirstActivity extends AppCompatActivity {
                 break;
             case R.id.bt_go:
 
-                connectUser.connect(etUsername.getText().toString(),etPassword.getText().toString(),checkboxStayConnected.isChecked());
+                connectUser.connect(new UserLogin(etUsername.getText().toString(),etPassword.getText().toString()),checkboxStayConnected.isChecked());
                 break;
         }
     }

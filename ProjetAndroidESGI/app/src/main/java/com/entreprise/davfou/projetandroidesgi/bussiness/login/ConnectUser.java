@@ -9,23 +9,20 @@ import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
-import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
-import com.entreprise.davfou.projetandroidesgi.data.method.UserInterface;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.UserInterface;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
-import com.entreprise.davfou.projetandroidesgi.data.newArchi.IServiceResultListener;
-import com.entreprise.davfou.projetandroidesgi.data.newArchi.ServiceResult;
-import com.entreprise.davfou.projetandroidesgi.data.newArchi.UserService;
+import com.entreprise.davfou.projetandroidesgi.data.userservice.UserService;
+import com.entreprise.davfou.projetandroidesgi.data.utils.IServiceResultListener;
+import com.entreprise.davfou.projetandroidesgi.data.utils.ServiceResult;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.login.FirstActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.login.LoginSuccessActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 
 import io.realm.Realm;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
@@ -33,13 +30,15 @@ import retrofit2.Retrofit;
  * Created by davidfournier on 04/06/2017.
  */
 
-public class ConnectUser implements IServiceResultListener<User> {
+public class ConnectUser  {
 
     Context context;
     Activity activityReference;
     android.app.ProgressDialog progressDialog;
     Realm realm;
     UserInterface userInterface;
+    UserService userService = new UserService();
+
 
 
     public ConnectUser(Context context, Activity activityReference) {
@@ -89,7 +88,7 @@ public class ConnectUser implements IServiceResultListener<User> {
 
             ConnectUser connectUser = new ConnectUser(context, activityReference);
             if (userRealm.getFirstName().equals("")) {
-                connectUser.getInfo(userRealm);
+               // connectUser.getInfo(userRealm);
 
             }
 
@@ -102,136 +101,94 @@ public class ConnectUser implements IServiceResultListener<User> {
 
     public void getInfo(final UserRealm userRealm) {
 
-        final UserInfo[] userInfo = new UserInfo[1];
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteLogin), context);
         progressDialog.show();
 
 
-        Call<UserInfo> call = userInterface.getAuthorizedDriver("Bearer " + userRealm.getToken());
-        call.enqueue(new Callback<UserInfo>() {
+        userService.getInfo(userRealm, new IServiceResultListener<UserInfo>() {
             @Override
-            public void onResponse(Call<UserInfo> call, final Response<UserInfo> response) {
+            public void onResult(final ServiceResult<UserInfo> result) {
                 progressDialog.dismiss();
-                System.out.println("response : " + response.raw().toString());
+                realm.executeTransaction(new Realm.Transaction() {
+                    public void execute(Realm realm) {
+                        System.out.println("result : "+result.getmData().toString());
+                        userRealm.setFirstName(result.getmData().getFirstname());
+                        userRealm.setLastName(result.getmData().getLastname());
+                        realm.copyToRealmOrUpdate(userRealm);
 
-                if (response.code() == 200) {
+                    }
 
-
-                    realm.executeTransaction(new Realm.Transaction() {
-                        public void execute(Realm realm) {
-                            userRealm.setFirstName(response.body().getFirstname());
-                            userRealm.setLastName(response.body().getLastname());
-                            realm.copyToRealmOrUpdate(userRealm);
-
-                        }
-
-                    });
-
-
-                } else {
-                    Toast.makeText(context, context.getString(R.string.msgErrorLogin), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<UserInfo> call, Throwable t) {
-                progressDialog.dismiss();
-                System.out.println("call : " + t.getMessage().toString());
-                System.out.println("response :" + t.toString());
-                Toast.makeText(context, context.getString(R.string.msgErrorNetwork), Toast.LENGTH_SHORT).show();
-
-
+                });
             }
         });
 
-
     }
 
-    public void connect(final String email, final String password, final boolean stayConneted) {
+    public void connect(final UserLogin userLogin, final boolean stayConneted) {
 
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteLogin), context);
         progressDialog.show();
 
 
-        Call<String> call = userInterface.connectUser(new UserLogin(email, password));
-        call.enqueue(new Callback<String>() {
+
+
+        userService.connect(userLogin, new IServiceResultListener<String>() {
             @Override
-            public void onResponse(Call<String> call, final Response<String> response) {
-                progressDialog.dismiss();
-                System.out.println("user : " + response.code());
-                System.out.println("user : " + response.raw().toString());
-                System.out.println("user : " + response.body().toString());
+            public void onResult(final ServiceResult<String> result) {
+                progressDialog.hide();
+                final boolean connected = stayConneted;
 
 
-                if (response.code() == 200) {
+                //on verifie si il y a des user qui se sont déja connecté avec ce device
+                // si jamais, on en creer un avec id = 1
+                //sinon on verifie si il existe pas déja pour update le token et mettre isConnected a true sinon on en creer un  nouveau avec id = total + 1
 
-                    final boolean connected = stayConneted;
+                realm.executeTransaction(new Realm.Transaction() { // must be in transaction for this to work
+                    @Override
+                    public void execute(Realm realm) {
+                        // increment index
+                        System.out.println("compte : " + realm.where(UserRealm.class).count());
+                        Number currentIdNum = realm.where(UserRealm.class).count();
+                        int nextId;
+                        if (currentIdNum == null) {
+                            nextId = 1;
+                            UserRealm userRealm = new UserRealm(nextId, userLogin.getEmail(), userLogin.getPassword(), result.getmData(), "", "", true, connected); // unmanaged
+                            userRealm.setId(nextId);
+                            realm.copyToRealm(userRealm); // using insert API
 
+                            //getInfo(userRealm);
+                        } else {
+                            UserRealm userR = RealmController.getInstance().getUser(userLogin.getEmail());
 
-                    //on verifie si il y a des user qui se sont déja connecté avec ce device
-                    // si jamais, on en creer un avec id = 1
-                    //sinon on verifie si il existe pas déja pour update le token et mettre isConnected a true sinon on en creer un  nouveau avec id = total + 1
-
-                    realm.executeTransaction(new Realm.Transaction() { // must be in transaction for this to work
-                        @Override
-                        public void execute(Realm realm) {
-                            // increment index
-                            System.out.println("compte : " + realm.where(UserRealm.class).count());
-                            Number currentIdNum = realm.where(UserRealm.class).count();
-                            int nextId;
-                            if (currentIdNum == null) {
-                                nextId = 1;
-                                UserRealm userRealm = new UserRealm(nextId, email, password, response.body().toString(), "", "", true, connected); // unmanaged
+                            if (userR == null) {
+                                nextId = currentIdNum.intValue() + 1;
+                                UserRealm userRealm = new UserRealm(nextId, userLogin.getEmail(), userLogin.getPassword(), result.getmData(), "", "", true, connected); // unmanaged
                                 userRealm.setId(nextId);
                                 realm.copyToRealm(userRealm); // using insert API
+                                //getInfo(userRealm);
 
-                                getInfo(userRealm);
                             } else {
-                                UserRealm userR = RealmController.getInstance().getUser(email);
+                                System.out.println("update user : " + userR.toString());
+                                userR.setConnected(connected);
 
-                                if (userR == null) {
-                                    nextId = currentIdNum.intValue() + 1;
-                                    UserRealm userRealm = new UserRealm(nextId, email, password, response.body().toString(), "", "", true, connected); // unmanaged
-                                    userRealm.setId(nextId);
-                                    realm.copyToRealm(userRealm); // using insert API
-                                    getInfo(userRealm);
-
-                                } else {
-                                    System.out.println("update user : " + userR.toString());
-                                    userR.setConnected(connected);
-                                    userR.setToken(response.body().toString());
-                                    realm.copyToRealm(userR);
-
-                                }
-
+                                System.out.println("token : "+result.getmData());
+                                userR.setToken(result.getmData());
+                                realm.copyToRealm(userR);
 
                             }
 
+
                         }
-                    });
 
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-
-                        goToMainAnimation();
-                    } else {
-                        goToMain();
                     }
+                });
 
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+
+                    goToMainAnimation();
                 } else {
-                    Toast.makeText(context, context.getString(R.string.msgErrorLogin), Toast.LENGTH_SHORT).show();
+                    goToMain();
                 }
-
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                progressDialog.dismiss();
-                System.out.println("call : " + t.getMessage().toString());
-                System.out.println("response :" + t.toString());
-                Toast.makeText(context, context.getString(R.string.msgErrorNetwork), Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -240,77 +197,50 @@ public class ConnectUser implements IServiceResultListener<User> {
 
 
     public void register(final User user) {
-
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteInscription), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteLogin), context);
         progressDialog.show();
 
-       /* Call<Void> call = userInterface.createUser(user);
-        call.enqueue(new Callback<Void>() {
+
+        userService.create(user, new IServiceResultListener<String>() {
             @Override
-            public void onResponse(Call<Void> call, final Response<Void> response) {
-                progressDialog.dismiss();
-                System.out.println("user : " + response.raw().toString());
+            public void onResult(final ServiceResult<String> result) {
 
-                if (response.code() == 201) {
-
-                    System.out.println("user : " + response.body());
-
-                    Realm realm = RealmController.with(activityReference).getRealm();
+                progressDialog.hide();
+                Realm realm = RealmController.with(activityReference).getRealm();
 
 
-                    //on verifie si il y a des user qui se sont déja connecté avec ce device
-                    // si jamais, on en creer un avec id = 1
-                    //ou si Il n'existe pas dans la BDD local on en creer un  nouveau avec id = total + 1
+                //on verifie si il y a des user qui se sont déja connecté avec ce device
+                // si jamais, on en creer un avec id = 1
+                //ou si Il n'existe pas dans la BDD local on en creer un  nouveau avec id = total + 1
 
-                    realm.executeTransaction(new Realm.Transaction() { // must be in transaction for this to work
-                        @Override
-                        public void execute(Realm realm) {
-                            // increment index
-                            Number currentIdNum = realm.where(UserRealm.class).count();
-                            int nextId;
-                            if (currentIdNum == null) {
-                                nextId = 1;
-                                UserRealm userRealm = new UserRealm(nextId, user.getEmail(), user.getPassword(), response.body().toString(), user.getFirstname(), user.getLastname(), true, true); // unmanaged
+                realm.executeTransaction(new Realm.Transaction() { // must be in transaction for this to work
+                    @Override
+                    public void execute(Realm realm) {
+                        // increment index
+                        Number currentIdNum = realm.where(UserRealm.class).count();
+                        int nextId;
+                        if (currentIdNum == null) {
+                            nextId = 1;
+                            UserRealm userRealm = new UserRealm(nextId, user.getEmail(), user.getPassword(), result.getmData(), user.getFirstname(), user.getLastname(), true, true); // unmanaged
+                            userRealm.setId(nextId);
+                            realm.copyToRealm(userRealm); // using insert API
+                        } else {
+                            UserRealm userR = RealmController.getInstance().getUser(user.getEmail());
+
+                            if (userR == null) {
+                                nextId = currentIdNum.intValue() + 1;
+                                UserRealm userRealm = new UserRealm(nextId, user.getEmail(), user.getPassword(), result.getmData(), user.getFirstname(), user.getLastname(), true, true); // unmanaged
                                 userRealm.setId(nextId);
                                 realm.copyToRealm(userRealm); // using insert API
-                            } else {
-                                UserRealm userR = RealmController.getInstance().getUser(user.getEmail());
-
-                                if (userR == null) {
-                                    nextId = currentIdNum.intValue() + 1;
-                                    UserRealm userRealm = new UserRealm(nextId, user.getEmail(), user.getPassword(), response.body().toString(), user.getFirstname(), user.getLastname(), true, true); // unmanaged
-                                    userRealm.setId(nextId);
-                                    realm.copyToRealm(userRealm); // using insert API
-                                }
                             }
-
                         }
-                    });
 
-                    Toast.makeText(context, context.getString(R.string.textInscriptionReussi), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-                } else if (response.code() == 200) {
-                    Toast.makeText(context, context.getString(R.string.textInscriptionError), Toast.LENGTH_SHORT).show();
-
-                } else{
-                    Toast.makeText(context, context.getString(R.string.textInscriptionError), Toast.LENGTH_SHORT).show();
-
-                }
+                Toast.makeText(context, context.getString(R.string.textInscriptionReussi), Toast.LENGTH_SHORT).show();
             }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                progressDialog.dismiss();
-                System.out.println("response :" + t.toString());
-                Toast.makeText(context, context.getString(R.string.msgErrorNetwork), Toast.LENGTH_SHORT).show();
-
-
-            }
-        });*/
-
-        UserService userService = new UserService();
-
-        //userService.create(user,IServiceResultListener<>);
+        });
 
 
     }
@@ -344,9 +274,5 @@ public class ConnectUser implements IServiceResultListener<User> {
 
     }
 
-    @Override
-    public void onResult(ServiceResult<User> result) {
-        progressDialog.hide();
 
-    }
 }
