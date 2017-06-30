@@ -6,7 +6,10 @@
     <color name="cyan">#00BCD4</color>
     <color name="orange">#e95609</color>
 
-    <color name="BluePastel">#2980b9</color>
+    <color name="BluePastel">#2980b9 </color>
+    <color name="BlueHard">#2c3e50</color>
+    <color name="RougePastel">#e74c3c</color>
+    <color name="VioletPastel">#9b59b6</color>
 
     <color name="accent_color">@color/blue</color>
     <color name="colorPrimary">@color/blue</color>
