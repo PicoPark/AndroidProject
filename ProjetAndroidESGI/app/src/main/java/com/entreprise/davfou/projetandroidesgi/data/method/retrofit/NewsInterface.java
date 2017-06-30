@@ -27,7 +27,7 @@ public interface NewsInterface {
 
 
     @POST("/news")
-    Call<Void> createNew(@Header("Authorization") String token, @Body NewsCreate newsCreate);
+    Call<String> createNew(@Header("Authorization") String token, @Body NewsCreate newsCreate);
 
 
 

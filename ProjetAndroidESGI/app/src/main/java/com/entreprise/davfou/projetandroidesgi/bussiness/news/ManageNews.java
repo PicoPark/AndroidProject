@@ -6,12 +6,15 @@ import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
-import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.NewsInterface;
 import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.NewsInterface;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
+import com.entreprise.davfou.projetandroidesgi.data.newsservice.NewsService;
+import com.entreprise.davfou.projetandroidesgi.data.utils.IServiceResultListener;
+import com.entreprise.davfou.projetandroidesgi.data.utils.ServiceResult;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.ListNewsFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 
@@ -19,9 +22,6 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
@@ -35,6 +35,7 @@ public class ManageNews {
     android.app.ProgressDialog progressDialog;
     Realm realm;
     NewsInterface newsInterface;
+    NewsService newsService;
 
 
 
@@ -42,9 +43,9 @@ public class ManageNews {
         this.context = context;
         this.activityReference = activityReference;
         realm = RealmController.with(activityReference).getRealm();
-
         Retrofit retrofit = ClientRetrofit.getClient();
         newsInterface= retrofit.create(NewsInterface.class);
+        newsService = new NewsService();
 
     }
 
@@ -55,44 +56,14 @@ public class ManageNews {
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
         progressDialog.show();
 
-
-        System.out.println("token : "+userRealmIn.getToken());
-
-
-        final Call<Void> call = newsInterface.createNew("Bearer "+userRealmIn.getToken(),newsCreate);
-        call.enqueue(new Callback<Void>() {
+        newsService.create(newsCreate, userRealmIn, new IServiceResultListener<String>() {
             @Override
-            public void onResponse(Call<Void> call, final Response<Void> response) {
+            public void onResult(ServiceResult<String> result) {
                 progressDialog.dismiss();
-                System.out.println("news : " + response.code());
-                System.out.println("news : " + response.raw().toString());
-                //System.out.println("news : "+response.body().toString());
 
-
-                if (response.code() == 201) {
-
+                if(result.getmError()==null) {
                     getAllNews(userRealmIn);
-
-                } else if(response.code() == 200){
-
-                    Toast.makeText(context,context.getString(R.string.msgErrorNewsAlreadyExist),Toast.LENGTH_SHORT).show();
-
-                } else{
-
-                    Toast.makeText(context,context.getString(R.string.msgErrorNewsCreate),Toast.LENGTH_SHORT).show();
-
                 }
-
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                progressDialog.dismiss();
-                System.out.println("call : " + t.getMessage().toString());
-                System.out.println("response :" + t.toString());
-                Toast.makeText(context,context.getString(R.string.msgErrorNetworkNews),Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -102,52 +73,28 @@ public class ManageNews {
 
     public void getAllNews(UserRealm userRealm){
 
-
-
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
         progressDialog.show();
 
 
-
-
-        Call<ArrayList<News>> call = newsInterface.getAllNew("Bearer "+userRealm.getToken());
-        call.enqueue(new Callback<ArrayList<News>>() {
+        newsService.getAll(userRealm, new IServiceResultListener<ArrayList<News>>() {
             @Override
-            public void onResponse(Call<ArrayList<News>> call, final Response<ArrayList<News>> response) {
+            public void onResult(ServiceResult<ArrayList<News>> result) {
                 progressDialog.dismiss();
-                System.out.println("news : " + response.code());
-                System.out.println("news : " + response.raw().toString());
-                System.out.println("news : "+response.body().toString());
 
+                if(result.getmError()==null) {
 
-                if (response.code() == 200) {
-                    System.out.println("news size : " + response.body().size());
+                    createOrUpdateNewRealm(result.getmData());
 
-                        createOrUpdateNewRealm(response.body());
-
-                    ListNewsFragment.setRecycler(response.body(),activityReference);
+                    ListNewsFragment.setRecycler(result.getmData(),activityReference);
 
                 } else {
-                    Toast.makeText(context,context.getString(R.string.msgErrorNews),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,context.getString(R.string.msgErrorNetworkNews),Toast.LENGTH_SHORT).show();
+
+                    ListNewsFragment.setRecyclerOffline(getAllNewInRealm(),activityReference);
                 }
-
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<News>> call, Throwable t) {
-                progressDialog.dismiss();
-                System.out.println("call : " + t.getMessage().toString());
-                System.out.println("response :" + t.toString());
-                Toast.makeText(context,context.getString(R.string.msgErrorNetworkNews),Toast.LENGTH_SHORT).show();
-
-                ListNewsFragment.setRecyclerOffline(getAllNewInRealm(),activityReference);
-
             }
         });
-
-
-
-
 
     }
 
@@ -157,17 +104,14 @@ public class ManageNews {
 
 
         RealmResults<NewsRealm> newsRealms = RealmController.getInstance().getNews();
-        ArrayList<News> newses =new ArrayList();
-
+        ArrayList<News> news =new ArrayList();
 
 
         for(int i = 0; i< newsRealms.size(); i++){
-            newses.add(new News(newsRealms.get(i).get_id(), newsRealms.get(i).getAuthor(), newsRealms.get(i).getContent(), newsRealms.get(i).getTitle()));
+            news.add(new News(newsRealms.get(i).get_id(), newsRealms.get(i).getAuthor(), newsRealms.get(i).getContent(), newsRealms.get(i).getTitle()));
         }
 
-
-
-        return newses;
+        return news;
     }
 
 
@@ -180,8 +124,6 @@ public class ManageNews {
             realm.copyToRealmOrUpdate(newsRealm);
             realm.commitTransaction();
         }
-
-
 
     }
 

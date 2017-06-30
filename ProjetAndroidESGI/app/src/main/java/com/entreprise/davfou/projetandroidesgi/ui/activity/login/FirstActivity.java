@@ -17,7 +17,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.login.ConnectUser;
+import com.entreprise.davfou.projetandroidesgi.bussiness.login.ManageUser;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 
 import butterknife.BindView;
@@ -39,14 +39,14 @@ public class FirstActivity extends AppCompatActivity {
     @BindView(R.id.checkboxStayConnected)
     CheckBox checkboxStayConnected;
 
-    ConnectUser connectUser;
+    ManageUser manageUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
         ButterKnife.bind(this);
-        connectUser= new ConnectUser(this,this);
+        manageUser = new ManageUser(this,this);
 
         //check si user connecté
 
@@ -57,7 +57,7 @@ public class FirstActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        connectUser.isConnected();
+        manageUser.isConnected();
 
     }
 
@@ -85,7 +85,7 @@ public class FirstActivity extends AppCompatActivity {
                 break;
             case R.id.bt_go:
 
-                connectUser.connect(new UserLogin(etUsername.getText().toString(),etPassword.getText().toString()),checkboxStayConnected.isChecked());
+                manageUser.connect(new UserLogin(etUsername.getText().toString(),etPassword.getText().toString()),checkboxStayConnected.isChecked());
                 break;
         }
     }

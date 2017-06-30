@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.login.ConnectUser;
+import com.entreprise.davfou.projetandroidesgi.bussiness.login.ManageUser;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
 
@@ -31,7 +31,7 @@ public class ProfilFragment extends Fragment {
     TextView textViewFirstName;
     @BindView(R.id.textViewLastName)
             TextView textViewLastName;
-    ConnectUser connectUser;
+    ManageUser manageUser;
     UserRealm userRealm;
 
 
@@ -48,22 +48,22 @@ public class ProfilFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-        connectUser=new ConnectUser(getContext(),getActivity());
+        manageUser =new ManageUser(getContext(),getActivity());
 
 
 
         userRealm = MenuActivity.getUser(getActivity());
 
         textViewEmail.setText(userRealm.getEmail());
-       /* textViewFirstName.setText(userRealm.getFirstName());
-        textViewLastName.setText(userRealm.getLastName());*/
+        textViewFirstName.setText(userRealm.getFirstName());
+        textViewLastName.setText(userRealm.getLastName());
 
 
     }
 
     @OnClick(R.id.btnLogout)
     public void clickLogout(){
-        connectUser.logout();
+        manageUser.logout();
     }
 
 }

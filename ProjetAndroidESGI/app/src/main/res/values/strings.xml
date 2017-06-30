@@ -18,13 +18,13 @@
     <string name="menuProfil">Profil</string>
     <string name="logout">Déconnexion</string>
     <string name="btnAjouterNews">Créer une News</string>
-    <string name="titreDialogNews">Ecrivez votre propre newses</string>
+    <string name="titreDialogNews">Ecrivez votre propre news</string>
     <string name="titreNews">Titre</string>
     <string name="contentNews">Contenu</string>
 
     <string name="titreAttente">En cours</string>
     <string name="textAttenteLogin">Vérification de l\'email et du password</string>
-    <string name="textAttenteNews">Récupération des newses en cours</string>
+    <string name="textAttenteNews">Récupération des news en cours</string>
 
     <string name="textAttenteInscription">Inscription en cours</string>
     <string name="textInscriptionReussi">Inscription reussi, veuillez vous connectez</string>

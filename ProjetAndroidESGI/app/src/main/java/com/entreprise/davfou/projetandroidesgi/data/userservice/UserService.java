@@ -93,7 +93,7 @@ public class UserService implements IUserInterface {
     public void getInfo(UserRealm userRealm, final IServiceResultListener<UserInfo> resultListener) {
 
 
-        Call<UserInfo> call = getmRfuserService().getAuthorizedDriver(userRealm.getToken());
+        Call<UserInfo> call = getmRfuserService().getAuthorizedDriver("Bearer "+userRealm.getToken());
         call.enqueue(new Callback<UserInfo>() {
             @Override
             public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {

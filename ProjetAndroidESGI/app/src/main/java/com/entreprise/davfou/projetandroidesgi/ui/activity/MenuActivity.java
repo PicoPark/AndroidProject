@@ -15,7 +15,7 @@ import android.view.WindowManager;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.MyApplication;
-import com.entreprise.davfou.projetandroidesgi.bussiness.login.ConnectUser;
+import com.entreprise.davfou.projetandroidesgi.bussiness.login.ManageUser;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.ListNewsFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.profil.ProfilFragment;
@@ -51,11 +51,11 @@ public class MenuActivity extends AppCompatActivity {
     public static UserRealm getUser(Activity activity){
 
 
-        ConnectUser connectUser= new ConnectUser(MyApplication.getAppContext(),activity);
+        ManageUser manageUser = new ManageUser(MyApplication.getAppContext(),activity);
 
 
 
-        return connectUser.getUserConnected();
+        return manageUser.getUserConnected();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

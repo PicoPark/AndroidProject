@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.login.ConnectUser;
+import com.entreprise.davfou.projetandroidesgi.bussiness.login.ManageUser;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 
 import butterknife.BindView;
@@ -163,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
     private void addUer(){
 
-        ConnectUser registerUser = new ConnectUser(this,this);
+        ManageUser registerUser = new ManageUser(this,this);
         registerUser.register(
                 new User(edit_email.getText().toString(),
                         edit_password.getText().toString(),
