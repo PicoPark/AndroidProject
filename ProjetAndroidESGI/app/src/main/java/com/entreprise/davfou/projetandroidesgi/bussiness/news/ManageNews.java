@@ -6,8 +6,8 @@ import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
-import com.entreprise.davfou.projetandroidesgi.data.method.NewsInterface;
-import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.NewsInterface;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;

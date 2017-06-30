@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.data.method;
+package com.entreprise.davfou.projetandroidesgi.data.method.retrofit;
 
 /**
  * Created by davidfournier on 28/02/2017.
