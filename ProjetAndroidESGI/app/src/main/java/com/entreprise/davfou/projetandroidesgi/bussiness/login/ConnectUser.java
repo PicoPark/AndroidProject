@@ -9,17 +9,18 @@ import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
-import com.entreprise.davfou.projetandroidesgi.data.method.UserInterface;
 import com.entreprise.davfou.projetandroidesgi.data.method.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.UserInterface;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
+import com.entreprise.davfou.projetandroidesgi.data.newArchi.IServiceResultListener;
+import com.entreprise.davfou.projetandroidesgi.data.newArchi.ServiceResult;
+import com.entreprise.davfou.projetandroidesgi.data.newArchi.UserService;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.login.FirstActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.login.LoginSuccessActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
-
-import org.json.JSONObject;
 
 import io.realm.Realm;
 import retrofit2.Call;
@@ -32,7 +33,7 @@ import retrofit2.Retrofit;
  * Created by davidfournier on 04/06/2017.
  */
 
-public class ConnectUser {
+public class ConnectUser implements IServiceResultListener<User> {
 
     Context context;
     Activity activityReference;
@@ -243,10 +244,10 @@ public class ConnectUser {
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteInscription), context);
         progressDialog.show();
 
-        Call<JSONObject> call = userInterface.createUser(user);
-        call.enqueue(new Callback<JSONObject>() {
+       /* Call<Void> call = userInterface.createUser(user);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<JSONObject> call, final Response<JSONObject> response) {
+            public void onResponse(Call<Void> call, final Response<Void> response) {
                 progressDialog.dismiss();
                 System.out.println("user : " + response.raw().toString());
 
@@ -288,21 +289,28 @@ public class ConnectUser {
 
                     Toast.makeText(context, context.getString(R.string.textInscriptionReussi), Toast.LENGTH_SHORT).show();
 
-                } else {
+                } else if (response.code() == 200) {
+                    Toast.makeText(context, context.getString(R.string.textInscriptionError), Toast.LENGTH_SHORT).show();
+
+                } else{
                     Toast.makeText(context, context.getString(R.string.textInscriptionError), Toast.LENGTH_SHORT).show();
 
                 }
             }
 
             @Override
-            public void onFailure(Call<JSONObject> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 progressDialog.dismiss();
                 System.out.println("response :" + t.toString());
                 Toast.makeText(context, context.getString(R.string.msgErrorNetwork), Toast.LENGTH_SHORT).show();
 
 
             }
-        });
+        });*/
+
+        UserService userService = new UserService();
+
+        //userService.create(user,IServiceResultListener<>);
 
 
     }
@@ -333,6 +341,12 @@ public class ConnectUser {
         Intent i2 = new Intent(activityReference.getApplicationContext(), LoginSuccessActivity.class);
         activityReference.startActivity(i2, oc2.toBundle());
         explode.setDuration(500);
+
+    }
+
+    @Override
+    public void onResult(ServiceResult<User> result) {
+        progressDialog.hide();
 
     }
 }

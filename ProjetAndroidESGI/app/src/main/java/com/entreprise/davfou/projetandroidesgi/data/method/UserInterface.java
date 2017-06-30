@@ -9,8 +9,6 @@ import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 
-import org.json.JSONObject;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -38,7 +36,7 @@ public interface UserInterface {
      */
 
     @POST("/auth/subscribe")
-    Call<JSONObject> createUser(@Body User user);
+    Call<Void> createUser(@Body User user);
 
     /**
      * Récupération des info par rapport au user
