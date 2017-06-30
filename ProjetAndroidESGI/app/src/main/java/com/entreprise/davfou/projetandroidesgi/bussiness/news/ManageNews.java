@@ -34,7 +34,7 @@ public class ManageNews {
     Activity activityReference;
     android.app.ProgressDialog progressDialog;
     Realm realm;
-    NewsInterface  newsInterface;
+    NewsInterface newsInterface;
 
 
 

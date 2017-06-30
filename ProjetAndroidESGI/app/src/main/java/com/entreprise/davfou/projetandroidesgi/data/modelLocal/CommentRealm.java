@@ -12,7 +12,6 @@ public class CommentRealm extends RealmObject {
     @PrimaryKey
     private long id;
 
-
     private String _id;
     private String content;
     private String title;

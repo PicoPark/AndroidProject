@@ -35,7 +35,7 @@ public class UserRealm extends RealmObject {
         this.id = id;
         this.email = email;
         this.password = password;
-this.firstName = firstName;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.token = token;
         this.connected = connected;
@@ -90,8 +90,6 @@ this.firstName = firstName;
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 
     public String getToken() {
         return token;

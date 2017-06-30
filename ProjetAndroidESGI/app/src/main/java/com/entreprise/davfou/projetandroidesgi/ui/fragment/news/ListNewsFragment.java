@@ -40,7 +40,6 @@ import io.realm.Realm;
 
 public class ListNewsFragment extends Fragment {
 
-
     static FragmentTransaction ft;
 
     static  RecyclerView recyclerViewNews;

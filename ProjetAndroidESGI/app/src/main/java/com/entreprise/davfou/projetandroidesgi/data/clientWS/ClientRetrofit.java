@@ -12,19 +12,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public  class ClientRetrofit {
 
-
-
     public ClientRetrofit() {
-
     }
 
-
     public static Retrofit getClient(){
-
-
-
-
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UserInterface.ENDPOINT)
                 .addConverterFactory(ScalarsConverterFactory.create())

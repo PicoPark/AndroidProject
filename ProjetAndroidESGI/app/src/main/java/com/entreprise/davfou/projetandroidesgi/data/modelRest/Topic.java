@@ -18,7 +18,6 @@ public class Topic {
         this.date = date;
     }
 
-
     public String get_id() {
         return _id;
     }
