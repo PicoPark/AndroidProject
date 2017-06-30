@@ -25,7 +25,7 @@ public class NewsDetailsFragment extends Fragment {
     UserRealm userRealm;
     ManageNews manageNews;
     static News news;
-    @BindView(R.id.textViewTitleNewsDetail)
+    @BindView(R.id.detailNews_tv_title)
     TextView textViewTitleNewsDetail;
 
     @Override

@@ -3,20 +3,16 @@ package com.entreprise.davfou.projetandroidesgi.ui.fragment.topics;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.ManageTopic;
-import com.entreprise.davfou.projetandroidesgi.bussiness.news.ManageNews;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -29,7 +25,6 @@ public class ListTopicsFragment extends Fragment {
 
     static RecyclerView recyclerViewNews;
 
-    @BindView(R.id.btnAddNews)
 
     UserRealm userRealm; //?
     ManageTopic manageTopic;
@@ -59,9 +54,9 @@ public class ListTopicsFragment extends Fragment {
 
 //        manageTopic.getAllTopic(userRealm);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+     /*   RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewNews.setLayoutManager(layoutManager);
-        recyclerViewNews.setHasFixedSize(true);
+        recyclerViewNews.setHasFixedSize(true);*/
 
 
     }

@@ -1,9 +1,6 @@
 package com.entreprise.davfou.projetandroidesgi.bussiness;
 
-import android.app.Activity;
 import android.content.Context;
-
-import com.entreprise.davfou.projetandroidesgi.data.method.NewsInterface;
 
 import io.realm.Realm;
 

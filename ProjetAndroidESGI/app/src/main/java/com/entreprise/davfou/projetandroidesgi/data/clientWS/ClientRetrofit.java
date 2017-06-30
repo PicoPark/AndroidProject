@@ -1,6 +1,7 @@
 package com.entreprise.davfou.projetandroidesgi.data.clientWS;
 
-import com.entreprise.davfou.projetandroidesgi.data.method.UserInterface;
+
+import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.UserInterface;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
