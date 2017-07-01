@@ -12,9 +12,12 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 
 public interface NewsInterface {
@@ -30,7 +33,12 @@ public interface NewsInterface {
     Call<String> createNew(@Header("Authorization") String token, @Body NewsCreate newsCreate);
 
 
+    @DELETE("/news/:{id}")
+    Call<String> deleteNews(@Header("Authorization") String token,@Path("id") String id);
 
+
+    @PUT("/news/:{id}")
+    Call<String> updateNews(@Header("Authorization") String token,@Path("id") String id,@Body News news);
 
 
 }

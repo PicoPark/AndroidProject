@@ -4,18 +4,14 @@ package com.entreprise.davfou.projetandroidesgi.ui.activity.login;
  * Created by davidfournier on 04/06/2017.
  */
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
+import com.entreprise.davfou.projetandroidesgi.bussiness.login.ManageUser;
 
 public class LoginSuccessActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 2000;
 
 
     @Override
@@ -23,28 +19,16 @@ public class LoginSuccessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_success);
 
+        ManageUser manageUser = new ManageUser(getBaseContext(),this);
+
+        manageUser.getALlUser();
+
+    }
 
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            Explode explode = new Explode();
-            explode.setDuration(500);
-            getWindow().setExitTransition(explode);
-            getWindow().setEnterTransition(explode);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(LoginSuccessActivity.this, MenuActivity.class));
-                    finish();
-                }
-            }, SPLASH_TIME_OUT);
-        }else{
-
-            Intent goToMain = new Intent(LoginSuccessActivity.this, MenuActivity.class);
-           startActivity(goToMain);
-        }
-
-
-
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }

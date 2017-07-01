@@ -17,7 +17,6 @@ import android.widget.EditText;
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.news.ManageNews;
 import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
@@ -47,7 +46,7 @@ public class ListNewsFragment extends Fragment {
     @BindView(R.id.btnAddNews)
     Button btnAddNews;
 
-    UserRealm userRealm;
+    static UserRealm userRealm;
     ManageNews manageNews;
 
     @Override
@@ -79,13 +78,15 @@ public class ListNewsFragment extends Fragment {
 
 
 
+
+
+
     }
 
 
 
 
     public static void setRecycler(ArrayList<News> newses, Activity activity){
-        System.out.println("in fragment : "+ newses.size());
         final NewAdapter newAdapter = new NewAdapter(newses);
         newAdapter.setOnArticleClickedListener(new NewAdapter.OnArticleClickedListener() {
             @Override
@@ -99,13 +100,11 @@ public class ListNewsFragment extends Fragment {
 
         Realm realm = RealmController.with(activity).getRealm();
 
-        System.out.println("nbr de newses dans realm : "+ realm.where(NewsRealm.class).count());
 
     }
 
 
     public static void setRecyclerOffline(ArrayList<News> newses, Activity activity){
-        System.out.println("in fragment : "+ newses.size());
         final NewAdapter newAdapter = new NewAdapter(newses);
 
         newAdapter.setOnArticleClickedListener(new NewAdapter.OnArticleClickedListener() {
@@ -119,12 +118,10 @@ public class ListNewsFragment extends Fragment {
 
         Realm realm = RealmController.with(activity).getRealm();
 
-        System.out.println("nbr de newses dans realm : "+ realm.where(NewsRealm.class).count());
 
     }
     public static void clickItemRecyclerView(News news){
-        System.out.println(news.getTitle());
-        ft.replace(R.id.frame_container, NewsDetailsFragment.newInstance(news));
+        ft.replace(R.id.frame_container, NewsDetailsFragment.newInstance(news,userRealm));
         ft.commit();
     }
 

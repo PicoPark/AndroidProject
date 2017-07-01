@@ -90,7 +90,6 @@ class MyViewHolderNews extends RecyclerView.ViewHolder{
     }
 
     public void bind(News newRealm){
-        System.out.println(newRealm.getAuthor());
         textViewTitleNews.setText(newRealm.getTitle());
         textViewContentNews.setText(newRealm.getContent());
     }

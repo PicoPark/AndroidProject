@@ -50,6 +50,45 @@ public class ManageNews {
     }
 
 
+
+    public void updateNews(News news,UserRealm userRealm){
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog.show();
+        newsService.updateNews(userRealm, news, new IServiceResultListener<String>() {
+            @Override
+            public void onResult(ServiceResult<String> result) {
+                progressDialog.dismiss();
+
+                if(result.getmError()==null) {
+                    System.out.println("reussi");
+                }else{
+                    System.out.println("rate");
+                }
+            }
+        });
+    }
+
+
+
+    public void deleteNews(News news,UserRealm userRealm){
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog.show();
+        newsService.deleteNews(userRealm, news, new IServiceResultListener<String>() {
+            @Override
+            public void onResult(ServiceResult<String> result) {
+                progressDialog.dismiss();
+
+                if(result.getmError()==null) {
+                    System.out.println("reussi");
+                }else{
+                    System.out.println("rate");
+                }
+            }
+        });
+
+    }
+
+
     public void createNew(NewsCreate newsCreate, final UserRealm userRealmIn){
 
         //create news

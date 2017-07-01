@@ -39,7 +39,6 @@ public class NewsService implements INewsInterface {
             @Override
             public void onResponse(Call<String> call, final Response<String> response) {
                 ServiceResult<String> result = new ServiceResult<>();
-                System.out.println("response : "+response.code());
                 if(response.code() == 201)
                     result.setmData(response.headers().get("Resourceuri"));
                 else
@@ -50,7 +49,6 @@ public class NewsService implements INewsInterface {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                System.out.println("response : "+t.getMessage());
 
                 ServiceResult<String> result = new ServiceResult<>();
                 result.setmError(new ServiceException(t, ServiceExceptionType.UNKNOWN));
@@ -71,7 +69,6 @@ public class NewsService implements INewsInterface {
             @Override
             public void onResponse(Call<ArrayList<News>> call, final Response<ArrayList<News>> response) {
                 ServiceResult<ArrayList<News>> result = new ServiceResult<>();
-                System.out.println("response : "+response.code());
                 if(response.code() == 200)
                     result.setmData(response.body());
                 else
@@ -82,7 +79,6 @@ public class NewsService implements INewsInterface {
 
             @Override
             public void onFailure(Call<ArrayList<News>> call, Throwable t) {
-                System.out.println("response : "+t.getMessage());
 
                 ServiceResult<ArrayList<News>> result = new ServiceResult<>();
                 result.setmError(new ServiceException(t, ServiceExceptionType.UNKNOWN));
@@ -93,5 +89,56 @@ public class NewsService implements INewsInterface {
         });
 
 
+    }
+
+    @Override
+    public void deleteNews(UserRealm userRealm,News news,final IServiceResultListener<String> resultListener) {
+        Call<String> call = getmRfnewsService().deleteNews("Bearer "+userRealm.getToken(),news.get_id());
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                ServiceResult<String> result = new ServiceResult<>();
+                if(response.code() == 201)
+                    result.setmData(response.headers().get("Resourceuri"));
+                else
+                    result.setmError(new ServiceException(response.code()));
+                if(resultListener != null)
+                    resultListener.onResult(result);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                ServiceResult<String> result = new ServiceResult<>();
+                result.setmError(new ServiceException(t, ServiceExceptionType.UNKNOWN));
+                if(resultListener != null)
+                    resultListener.onResult(result);
+            }
+        });
+    }
+
+
+    @Override
+    public void updateNews(UserRealm userRealm,News news,final IServiceResultListener<String> resultListener) {
+        Call<String> call = getmRfnewsService().updateNews("Bearer "+userRealm.getToken(),news.get_id(),news);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                ServiceResult<String> result = new ServiceResult<>();
+                if(response.code() == 201)
+                    result.setmData(response.headers().get("Resourceuri"));
+                else
+                    result.setmError(new ServiceException(response.code()));
+                if(resultListener != null)
+                    resultListener.onResult(result);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                ServiceResult<String> result = new ServiceResult<>();
+                result.setmError(new ServiceException(t, ServiceExceptionType.UNKNOWN));
+                if(resultListener != null)
+                    resultListener.onResult(result);
+            }
+        });
     }
 }

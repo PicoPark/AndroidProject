@@ -11,6 +11,8 @@ import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 import com.entreprise.davfou.projetandroidesgi.data.utils.IServiceResultListener;
 
+import java.util.ArrayList;
+
 
 public interface IUserInterface {
 
@@ -21,5 +23,8 @@ public interface IUserInterface {
 
     void getInfo(UserRealm userRealm,final IServiceResultListener<UserInfo>
             resultListener);
+
+
+    void getAll(final IServiceResultListener<ArrayList<UserInfo>> resultListener);
 
 }

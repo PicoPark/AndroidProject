@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.ManageTopic;
+import com.entreprise.davfou.projetandroidesgi.bussiness.topic.ManageTopic;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
 

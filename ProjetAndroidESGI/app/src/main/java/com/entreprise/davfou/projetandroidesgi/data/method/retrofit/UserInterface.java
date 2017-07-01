@@ -9,6 +9,8 @@ import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -46,7 +48,8 @@ public interface UserInterface {
     @GET("/users/me")
     Call<UserInfo> getAuthorizedDriver(@Header("Authorization") String token);
 
-
+    @GET("/users")
+    Call<ArrayList<UserInfo>> getAll();
 
 
 

@@ -9,6 +9,7 @@ import com.entreprise.davfou.projetandroidesgi.data.modelLocal.CommentRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.PostRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.TopicRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 
 import io.realm.Realm;
@@ -132,6 +133,11 @@ public class RealmController {
 
     public TopicRealm getTopicById(long id) {
         return realm.where(TopicRealm.class).equalTo("id", id).findFirst();
+
+    }
+
+    public UserInfoRealm getUserById(String id) {
+        return realm.where(UserInfoRealm.class).equalTo("_id", id).findFirst();
 
     }
 

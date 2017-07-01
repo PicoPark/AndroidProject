@@ -39,7 +39,23 @@
     </style>
 
     <style name="ButtonColor" parent="@android:style/Widget.Button">
+
+
+
+
         <item name="android:textColor">@color/BluePastel</item>
     </style>
+
+
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#0288D1</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <!-- Used for the background -->
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
 
 </resources>

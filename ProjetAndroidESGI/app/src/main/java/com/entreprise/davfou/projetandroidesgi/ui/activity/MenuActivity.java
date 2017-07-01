@@ -1,6 +1,7 @@
 package com.entreprise.davfou.projetandroidesgi.ui.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
@@ -18,12 +20,13 @@ import com.entreprise.davfou.projetandroidesgi.bussiness.MyApplication;
 import com.entreprise.davfou.projetandroidesgi.bussiness.login.ManageUser;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.ListNewsFragment;
+import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.NewsDetailsFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.profil.ProfilFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.topics.ListTopicsFragment;
 
 public class MenuActivity extends AppCompatActivity {
 
-
+    static ManageUser manageUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,8 @@ public class MenuActivity extends AppCompatActivity {
     public static UserRealm getUser(Activity activity){
 
 
-        ManageUser manageUser = new ManageUser(MyApplication.getAppContext(),activity);
+
+        manageUser = new ManageUser(MyApplication.getAppContext(),activity);
 
 
 
@@ -66,6 +70,8 @@ public class MenuActivity extends AppCompatActivity {
             switch (item.getItemId()) {
 
                 case R.id.navigation_news:
+
+
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right).replace(
                             R.id.frame_container,
                             new ListNewsFragment().newInstance())
@@ -88,4 +94,48 @@ public class MenuActivity extends AppCompatActivity {
         }
 
     };
+
+
+    @Override
+    public void onBackPressed() {
+
+
+        Fragment obj = (Fragment)getSupportFragmentManager().findFragmentById(R.id.frame_container);
+        if (obj instanceof ListNewsFragment) {
+
+            new AlertDialog.Builder(this,R.style.MyAlertDialogStyle)
+                    .setTitle("Attention")
+                    .setMessage("Voulez-vous vous quitter l'application?")
+                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+        else if(obj instanceof NewsDetailsFragment){
+            Fragment fragment = new ListNewsFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frame_container, fragment).commit();
+        }
+        else if(obj instanceof ProfilFragment) {
+            Fragment fragment = new ListNewsFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frame_container, fragment).commit();
+        }
+        else if(obj instanceof ListTopicsFragment) {
+            Fragment fragment = new ListNewsFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frame_container, fragment).commit();
+        }
+
+    }
 }

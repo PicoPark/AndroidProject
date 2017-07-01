@@ -90,6 +90,7 @@
         android:id="@+id/btnLogout"
         android:layout_alignParentBottom="true"
         android:layout_margin="14dp"
+        android:theme="@style/ButtonColor"
         android:textColor="@color/colorPrimary"
         android:text="@string/logout"/>
 

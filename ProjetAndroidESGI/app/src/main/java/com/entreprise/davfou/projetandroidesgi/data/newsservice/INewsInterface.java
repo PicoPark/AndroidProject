@@ -21,4 +21,8 @@ public interface INewsInterface {
     void getAll(UserRealm userRealm, final IServiceResultListener<ArrayList<News>>
             resultListener);
 
+    void deleteNews(UserRealm userRealm,News news,final IServiceResultListener<String> resultListener);
+
+    void updateNews(UserRealm userRealm,News news,final IServiceResultListener<String> resultListener);
+
 }
