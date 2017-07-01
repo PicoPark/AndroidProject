@@ -67,24 +67,37 @@ public class MenuActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment obj = (Fragment)getSupportFragmentManager().findFragmentById(R.id.frame_container);
+
             switch (item.getItemId()) {
 
                 case R.id.navigation_news:
 
 
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right).replace(
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right).replace(
                             R.id.frame_container,
                             new ListNewsFragment().newInstance())
                             .commit();
                     return true;
                 case R.id.navigation_topics:
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right).replace(
-                            R.id.frame_container,
-                            new ListTopicsFragment().newInstance())
-                            .commit();
+
+
+                    if(obj instanceof ProfilFragment) {
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right).replace(
+                                R.id.frame_container,
+                                new ListTopicsFragment().newInstance())
+                                .commit();
+                    }else{
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_left).replace(
+                                R.id.frame_container,
+                                new ListTopicsFragment().newInstance())
+                                .commit();
+                    }
+
+
                     return true;
                 case R.id.navigation_profil:
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right).replace(
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_left).replace(
                             R.id.frame_container,
                             new ProfilFragment().newInstance())
                             .commit();

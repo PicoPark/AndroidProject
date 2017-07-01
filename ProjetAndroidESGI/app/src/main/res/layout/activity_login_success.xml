@@ -15,7 +15,10 @@
         android:layout_height="wrap_content"
         android:text="@string/login_success"
         android:textSize="24sp"
+        android:layout_centerInParent="true"
         android:textColor="#03A9F4"
         android:textStyle="bold"
         />
+
+
 </RelativeLayout>

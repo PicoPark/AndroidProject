@@ -18,10 +18,13 @@ public class LoginSuccessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_success);
-
         ManageUser manageUser = new ManageUser(getBaseContext(),this);
 
+
+
         manageUser.getALlUser();
+
+
 
     }
 
