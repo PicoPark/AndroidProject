@@ -52,5 +52,8 @@
     <string name="msgSuccesDelNews">Suppression réussi</string>
     <string name="msgErrorDelNews">Ceci n\'est pas vôtre news</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

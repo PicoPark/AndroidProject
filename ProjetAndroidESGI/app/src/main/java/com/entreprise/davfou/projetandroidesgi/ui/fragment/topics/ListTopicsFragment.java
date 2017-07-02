@@ -88,6 +88,10 @@ public class ListTopicsFragment extends Fragment {
             System.out.println("nbr post : " + topic.getPost().size());
             System.out.println("post n°1 : " + topic.getPost().get(0).getTitle());
         }
+
+
+        ft.replace(R.id.frame_container, TopicDetailsFragment.newInstance(topic,userRealm));
+        ft.commit();
     }
 
 

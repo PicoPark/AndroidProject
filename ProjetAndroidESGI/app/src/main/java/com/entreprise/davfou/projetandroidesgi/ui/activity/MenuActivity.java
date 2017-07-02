@@ -23,6 +23,7 @@ import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.ListNewsFragment
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.NewsDetailsFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.profil.ProfilFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.topics.ListTopicsFragment;
+import com.entreprise.davfou.projetandroidesgi.ui.fragment.topics.TopicDetailsFragment;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -73,34 +74,38 @@ public class MenuActivity extends AppCompatActivity {
 
                 case R.id.navigation_news:
 
-
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right).replace(
-                            R.id.frame_container,
-                            new ListNewsFragment().newInstance())
-                            .commit();
+                    if(!(obj instanceof ListNewsFragment)) {
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(
+                                R.id.frame_container,
+                                new ListNewsFragment().newInstance())
+                                .commit();
+                    }
                     return true;
                 case R.id.navigation_topics:
 
-
-                    if(obj instanceof ProfilFragment) {
-                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right).replace(
-                                R.id.frame_container,
-                                new ListTopicsFragment().newInstance())
-                                .commit();
-                    }else{
-                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_left).replace(
-                                R.id.frame_container,
-                                new ListTopicsFragment().newInstance())
-                                .commit();
+                    if(!(obj instanceof ListTopicsFragment)) {
+                        if (obj instanceof ProfilFragment) {
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(
+                                    R.id.frame_container,
+                                    new ListTopicsFragment().newInstance())
+                                    .commit();
+                        } else {
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(
+                                    R.id.frame_container,
+                                    new ListTopicsFragment().newInstance())
+                                    .commit();
+                        }
                     }
 
 
                     return true;
                 case R.id.navigation_profil:
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_left).replace(
-                            R.id.frame_container,
-                            new ProfilFragment().newInstance())
-                            .commit();
+                    if(!(obj instanceof ProfilFragment)) {
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(
+                                R.id.frame_container,
+                                new ProfilFragment().newInstance())
+                                .commit();
+                    }
                     return true;
             }
             return false;
@@ -145,6 +150,12 @@ public class MenuActivity extends AppCompatActivity {
         }
         else if(obj instanceof ListTopicsFragment) {
             Fragment fragment = new ListNewsFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frame_container, fragment).commit();
+        }
+        else if(obj instanceof TopicDetailsFragment) {
+            Fragment fragment = new ListTopicsFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.frame_container, fragment).commit();
