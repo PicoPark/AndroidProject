@@ -10,34 +10,33 @@ import io.realm.annotations.PrimaryKey;
 public class PostRealm extends RealmObject {
 
 
-    @PrimaryKey
-    private long id;
 
+    @PrimaryKey
     private String _id;
     private String author;
     private String content;
     private String title;
+    private String topic;
 
 
     public PostRealm(){
 
     }
 
-    public PostRealm(long id, String _id, String author, String content, String title, String topicId) {
-        this.id = id;
+    public PostRealm(String _id, String author, String content, String title, String topic) {
         this._id = _id;
         this.author = author;
         this.content = content;
         this.title = title;
-
+        this.topic = topic;
     }
 
-    public long getId() {
-        return id;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String get_id() {

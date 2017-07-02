@@ -23,6 +23,6 @@ public interface INewsInterface {
 
     void deleteNews(UserRealm userRealm,News news,final IServiceResultListener<String> resultListener);
 
-    void updateNews(UserRealm userRealm,News news,final IServiceResultListener<String> resultListener);
+    void updateNews(UserRealm userRealm,NewsCreate newsCreate,News news,final IServiceResultListener<String> resultListener);
 
 }

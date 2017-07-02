@@ -18,7 +18,9 @@
     <string name="menuProfil">Profil</string>
     <string name="logout">Déconnexion</string>
     <string name="btnAjouterNews">Créer une News</string>
+    <string name="btnAjouterTopic">Créer un Topic</string>
     <string name="titreDialogNews">Ecrivez votre propre news</string>
+    <string name="titreDialogTopics">Ecrivez votre propre topics</string>
     <string name="titreNews">Titre</string>
     <string name="contentNews">Contenu</string>
     <string name="btnDelete">Supprimer</string>
@@ -28,6 +30,7 @@
     <string name="titreAttente">En cours</string>
     <string name="textAttenteLogin">Vérification de l\'email et du password</string>
     <string name="textAttenteNews">Récupération des news en cours</string>
+    <string name="textAttenteTopics">Récupération des topics en cours</string>
 
     <string name="textAttenteInscription">Inscription en cours</string>
     <string name="textInscriptionReussi">Inscription reussi, veuillez vous connectez</string>
@@ -41,7 +44,13 @@
 
     <string name="msgErrorNetwork">Erreur réseau</string>
     <string name="msgErrorNetworkNews">Erreur réseau, récupération des news local</string>
+    <string name="msgErrorNetworkTopics">Erreur réseau, récupération des topics local</string>
 
+
+    <string name="msgSuccesUpdNews">Modification réussi</string>
+
+    <string name="msgSuccesDelNews">Suppression réussi</string>
+    <string name="msgErrorDelNews">Ceci n\'est pas vôtre news</string>
 
 
 </resources>

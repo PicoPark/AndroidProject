@@ -33,12 +33,12 @@ public interface NewsInterface {
     Call<String> createNew(@Header("Authorization") String token, @Body NewsCreate newsCreate);
 
 
-    @DELETE("/news/:{id}")
+    @DELETE("/news/{id}")
     Call<String> deleteNews(@Header("Authorization") String token,@Path("id") String id);
 
 
-    @PUT("/news/:{id}")
-    Call<String> updateNews(@Header("Authorization") String token,@Path("id") String id,@Body News news);
+    @PUT("/news/{id}")
+    Call<String> updateNews(@Header("Authorization") String token,@Path("id") String id,@Body NewsCreate newsCreate);
 
 
 }

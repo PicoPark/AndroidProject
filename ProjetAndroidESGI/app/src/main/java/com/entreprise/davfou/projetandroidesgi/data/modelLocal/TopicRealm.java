@@ -1,5 +1,6 @@
 package com.entreprise.davfou.projetandroidesgi.data.modelLocal;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -9,31 +10,33 @@ import io.realm.annotations.PrimaryKey;
 
 public class TopicRealm extends RealmObject {
 
+
     @PrimaryKey
-    private long id;
 
     private String _id;
     private String content;
     private String title;
     private String date;
+    private RealmList<PostRealm> postRealms;
 
     public TopicRealm() {
     }
 
-    public TopicRealm(long id, String _id, String content, String title, String date) {
-        this.id = id;
+    public TopicRealm(String _id, String content, String title, String date, RealmList<PostRealm> postRealms) {
         this._id = _id;
         this.content = content;
         this.title = title;
         this.date = date;
+        this.postRealms = postRealms;
     }
 
-    public long getId() {
-        return id;
+
+    public RealmList<PostRealm> getPostRealms() {
+        return postRealms;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setPostRealms(RealmList<PostRealm> postRealms) {
+        this.postRealms = postRealms;
     }
 
     public String get_id() {

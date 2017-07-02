@@ -16,18 +16,27 @@ public class NewsRealm extends RealmObject {
     private String author;
     private String content;
     private String title;
+    private String date;
 
 public NewsRealm(){
 
 }
-    public NewsRealm(long id, String _id, String author, String content, String title) {
+    public NewsRealm(long id, String _id, String author, String content, String title,String date) {
         this.id = id;
         this._id = _id;
         this.author = author;
         this.content = content;
         this.title = title;
+        this.date = date;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public long getId() {
         return id;

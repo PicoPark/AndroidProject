@@ -54,16 +54,28 @@ public class ManageNews {
     public void updateNews(News news,UserRealm userRealm){
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
         progressDialog.show();
-        newsService.updateNews(userRealm, news, new IServiceResultListener<String>() {
+        newsService.updateNews(userRealm,new NewsCreate(news.getContent(),news.getTitle(),news.getDate()), news, new IServiceResultListener<String>() {
             @Override
             public void onResult(ServiceResult<String> result) {
                 progressDialog.dismiss();
 
                 if(result.getmError()==null) {
                     System.out.println("reussi");
+
+
+                    Toast.makeText(context,context.getString(R.string.msgSuccesUpdNews),Toast.LENGTH_SHORT).show();
+
                 }else{
-                    System.out.println("rate");
+
+                    if(result.getmError().getCode()==404){
+                        Toast.makeText(context,context.getString(R.string.msgErrorDelNews),Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
+
+                    }
                 }
+
             }
         });
     }
@@ -80,9 +92,21 @@ public class ManageNews {
 
                 if(result.getmError()==null) {
                     System.out.println("reussi");
+
+
+                    Toast.makeText(context,context.getString(R.string.msgSuccesDelNews),Toast.LENGTH_SHORT).show();
+
                 }else{
-                    System.out.println("rate");
+
+                    if(result.getmError().getCode()==404){
+                        Toast.makeText(context,context.getString(R.string.msgErrorDelNews),Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
+
+                    }
                 }
+
             }
         });
 
@@ -130,7 +154,7 @@ public class ManageNews {
                 } else {
                     Toast.makeText(context,context.getString(R.string.msgErrorNetworkNews),Toast.LENGTH_SHORT).show();
 
-                    ListNewsFragment.setRecyclerOffline(getAllNewInRealm(),activityReference);
+                    ListNewsFragment.setRecycler(getAllNewInRealm(),activityReference);
                 }
             }
         });
@@ -147,7 +171,7 @@ public class ManageNews {
 
 
         for(int i = 0; i< newsRealms.size(); i++){
-            news.add(new News(newsRealms.get(i).get_id(), newsRealms.get(i).getAuthor(), newsRealms.get(i).getContent(), newsRealms.get(i).getTitle()));
+            news.add(new News(newsRealms.get(i).get_id(), newsRealms.get(i).getAuthor(), newsRealms.get(i).getContent(), newsRealms.get(i).getTitle(),newsRealms.get(i).getDate()));
         }
 
         return news;
@@ -158,7 +182,7 @@ public class ManageNews {
 
         for(int i = 0; i< newsArrayList.size(); i++){
 
-            NewsRealm newsRealm = new NewsRealm(i, newsArrayList.get(i).get_id(), newsArrayList.get(i).getAuthor(), newsArrayList.get(i).getContent(), newsArrayList.get(i).getTitle());
+            NewsRealm newsRealm = new NewsRealm(i, newsArrayList.get(i).get_id(), newsArrayList.get(i).getAuthor(), newsArrayList.get(i).getContent(), newsArrayList.get(i).getTitle(),newsArrayList.get(i).getDate());
             realm.beginTransaction();
             realm.copyToRealmOrUpdate(newsRealm);
             realm.commitTransaction();

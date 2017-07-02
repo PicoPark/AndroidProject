@@ -16,12 +16,11 @@ import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.news.ManageNews;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
-import com.entreprise.davfou.projetandroidesgi.ui.recycler.NewAdapter;
+import com.entreprise.davfou.projetandroidesgi.ui.recycler.news.NewAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,7 +30,6 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
 
 /**
  * Created by davidfournier on 26/06/2017.
@@ -77,10 +75,6 @@ public class ListNewsFragment extends Fragment {
         recyclerViewNews.setHasFixedSize(true);
 
 
-
-
-
-
     }
 
 
@@ -98,28 +92,12 @@ public class ListNewsFragment extends Fragment {
 
         recyclerViewNews.setAdapter(newAdapter);
 
-        Realm realm = RealmController.with(activity).getRealm();
 
 
     }
 
 
-    public static void setRecyclerOffline(ArrayList<News> newses, Activity activity){
-        final NewAdapter newAdapter = new NewAdapter(newses);
 
-        newAdapter.setOnArticleClickedListener(new NewAdapter.OnArticleClickedListener() {
-            @Override
-            public void onArticleClicked(News newRealm, View articleView) {
-                clickItemRecyclerView(newRealm);
-            }
-        });
-
-        recyclerViewNews.setAdapter(newAdapter);
-
-        Realm realm = RealmController.with(activity).getRealm();
-
-
-    }
     public static void clickItemRecyclerView(News news){
         ft.replace(R.id.frame_container, NewsDetailsFragment.newInstance(news,userRealm));
         ft.commit();

@@ -97,8 +97,10 @@ public class NewsService implements INewsInterface {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println("result : "+response.code());
+                System.out.println("result : "+response.body());
                 ServiceResult<String> result = new ServiceResult<>();
-                if(response.code() == 201)
+                if(response.code() == 204)
                     result.setmData(response.headers().get("Resourceuri"));
                 else
                     result.setmError(new ServiceException(response.code()));
@@ -118,13 +120,13 @@ public class NewsService implements INewsInterface {
 
 
     @Override
-    public void updateNews(UserRealm userRealm,News news,final IServiceResultListener<String> resultListener) {
-        Call<String> call = getmRfnewsService().updateNews("Bearer "+userRealm.getToken(),news.get_id(),news);
+    public void updateNews(UserRealm userRealm,NewsCreate newsCreate,News news,final IServiceResultListener<String> resultListener) {
+        Call<String> call = getmRfnewsService().updateNews("Bearer "+userRealm.getToken(),news.get_id(),newsCreate);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 ServiceResult<String> result = new ServiceResult<>();
-                if(response.code() == 201)
+                if(response.code() == 204)
                     result.setmData(response.headers().get("Resourceuri"));
                 else
                     result.setmError(new ServiceException(response.code()));
