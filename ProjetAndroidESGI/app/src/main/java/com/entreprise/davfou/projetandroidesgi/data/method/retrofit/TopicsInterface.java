@@ -33,11 +33,11 @@ public interface TopicsInterface {
     Call<String> createTopic(@Header("Authorization") String token, @Body TopicCreate topicCreate);
 
 
-    @DELETE("/topics/:{id}")
+    @DELETE("/topics/{id}")
     Call<String> deleteTopic(@Header("Authorization") String token, @Path("id") String id);
 
 
-    @PUT("/topics/:{id}")
+    @PUT("/topics/{id}")
     Call<String> updateTopics(@Header("Authorization") String token, @Path("id") String id, @Body TopicCreate topicCreate);
 
 

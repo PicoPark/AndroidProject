@@ -72,13 +72,17 @@ public class TopicDetailsFragment extends Fragment {
 
     @OnClick(R.id.btn_delete_Topic)
     public  void clickbtn_delete_news(){
-        //manageTopic.deleteNews(topic,userRealm);
+        manageTopic.deleteTopic(topic,userRealm);
 
     }
 
     @OnClick(R.id.btn_update_Topic)
     public  void clickbtn_update_news(){
-        //manageTopic.updateNews(topic,userRealm);
+
+        topic.setTitle(detailTopic_tv_title.getText().toString());
+
+        topic.setContent(detailTopic_tv_content.getText().toString());
+        manageTopic.updateTopic(topic,userRealm);
 
     }
 

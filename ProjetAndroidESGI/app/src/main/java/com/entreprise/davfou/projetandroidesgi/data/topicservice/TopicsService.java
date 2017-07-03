@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.data.topicservice.newsservice;
+package com.entreprise.davfou.projetandroidesgi.data.topicservice;
 
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
 import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.TopicsInterface;
@@ -88,12 +88,54 @@ public class TopicsService implements ITopicsInterface {
     }
 
     @Override
-    public void deleteTopic(UserRealm userRealm, TopicCreate topicCreate, final IServiceResultListener<String> resultListener) {
+    public void deleteTopic(UserRealm userRealm,Topic topic, final IServiceResultListener<String> resultListener) {
+        Call<String> call = getmRftopicsService().deleteTopic("Bearer "+userRealm.getToken(),topic.get_id());
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println("result : "+response.code());
+                System.out.println("result : "+response.body());
+                ServiceResult<String> result = new ServiceResult<>();
+                if(response.code() == 204)
+                    result.setmData(response.headers().get("Resourceuri"));
+                else
+                    result.setmError(new ServiceException(response.code()));
+                if(resultListener != null)
+                    resultListener.onResult(result);
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                ServiceResult<String> result = new ServiceResult<>();
+                result.setmError(new ServiceException(t, ServiceExceptionType.UNKNOWN));
+                if(resultListener != null)
+                    resultListener.onResult(result);
+            }
+        });
     }
 
     @Override
-    public void updateTopic(UserRealm userRealm, TopicCreate topicCreate, final IServiceResultListener<String> resultListener) {
+    public void updateTopic(UserRealm userRealm, TopicCreate topicCreate,Topic topic, final IServiceResultListener<String> resultListener) {
+        Call<String> call = getmRftopicsService().updateTopics("Bearer "+userRealm.getToken(),topic.get_id(),topicCreate);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                ServiceResult<String> result = new ServiceResult<>();
+                if(response.code() == 204)
+                    result.setmData(response.headers().get("Resourceuri"));
+                else
+                    result.setmError(new ServiceException(response.code()));
+                if(resultListener != null)
+                    resultListener.onResult(result);
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                ServiceResult<String> result = new ServiceResult<>();
+                result.setmError(new ServiceException(t, ServiceExceptionType.UNKNOWN));
+                if(resultListener != null)
+                    resultListener.onResult(result);
+            }
+        });
     }
 }

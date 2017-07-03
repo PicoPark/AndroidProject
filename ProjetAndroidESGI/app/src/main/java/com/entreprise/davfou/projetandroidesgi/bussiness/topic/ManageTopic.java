@@ -13,7 +13,7 @@ import com.entreprise.davfou.projetandroidesgi.data.modelLocal.TopicRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Topic;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.TopicCreate;
-import com.entreprise.davfou.projetandroidesgi.data.topicservice.newsservice.TopicsService;
+import com.entreprise.davfou.projetandroidesgi.data.topicservice.TopicsService;
 import com.entreprise.davfou.projetandroidesgi.data.utils.IServiceResultListener;
 import com.entreprise.davfou.projetandroidesgi.data.utils.ServiceResult;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.topics.ListTopicsFragment;
@@ -38,6 +38,70 @@ public class ManageTopic {
     Realm realm;
     TopicsInterface topicInterface;
     TopicsService topicService;
+
+
+
+
+    public void updateTopic(Topic topic, UserRealm userRealm){
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog.show();
+        topicService.updateTopic(userRealm,new TopicCreate(topic.getContent(),topic.getTitle(),topic.getDate()), topic, new IServiceResultListener<String>() {
+            @Override
+            public void onResult(ServiceResult<String> result) {
+                progressDialog.dismiss();
+
+                if(result.getmError()==null) {
+                    System.out.println("reussi");
+
+
+                    Toast.makeText(context,context.getString(R.string.msgSuccesUpdNews),Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    if(result.getmError().getCode()==404){
+                        Toast.makeText(context,context.getString(R.string.msgErrorDelTopic),Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+            }
+        });
+    }
+
+
+    public void deleteTopic(Topic topic, UserRealm userRealm){
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteTopics), context);
+        progressDialog.show();
+        topicService.deleteTopic(userRealm, topic, new IServiceResultListener<String>() {
+            @Override
+            public void onResult(ServiceResult<String> result) {
+                progressDialog.dismiss();
+
+                if(result.getmError()==null) {
+                    System.out.println("reussi");
+
+
+                    Toast.makeText(context,context.getString(R.string.msgSuccesDel),Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    if(result.getmError().getCode()==404){
+                        Toast.makeText(context,context.getString(R.string.msgErrorDelTopic),Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+            }
+        });
+
+    }
+
 
     public ManageTopic(Context context, Activity activityReference) {
         this.context = context;

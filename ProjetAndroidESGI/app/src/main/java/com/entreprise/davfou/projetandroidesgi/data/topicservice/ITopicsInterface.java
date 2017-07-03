@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.data.topicservice.newsservice;
+package com.entreprise.davfou.projetandroidesgi.data.topicservice;
 
 /**
  * Created by davidfournier on 28/02/2017.
@@ -21,8 +21,8 @@ public interface ITopicsInterface {
     void getAll(UserRealm userRealm, final IServiceResultListener<ArrayList<Topic>>
             resultListener);
 
-    void deleteTopic(UserRealm userRealm, TopicCreate topicCreate, final IServiceResultListener<String> resultListener);
+    void deleteTopic(UserRealm userRealm, Topic topic, final IServiceResultListener<String> resultListener);
 
-    void updateTopic(UserRealm userRealm, TopicCreate topicCreate, final IServiceResultListener<String> resultListener);
+    void updateTopic(UserRealm userRealm, TopicCreate topicCreate,Topic topic, final IServiceResultListener<String> resultListener);
 
 }
