@@ -68,6 +68,9 @@ public class ManageUser {
 
                 }
 
+                goToMain();
+
+
             }
         });
     }
@@ -85,7 +88,6 @@ public class ManageUser {
 
             goToMainAnimation();
         } else {*/
-            goToMain();
         //}
     }
 

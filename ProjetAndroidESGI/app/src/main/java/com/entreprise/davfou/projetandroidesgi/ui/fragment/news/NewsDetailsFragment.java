@@ -81,6 +81,8 @@ public class NewsDetailsFragment extends Fragment {
 
     @OnClick(R.id.btn_update_news)
     public  void clickbtn_update_news(){
+        news.setTitle(detailNews_tv_title.getText().toString());
+        news.setContent(detailNews_tv_content.getText().toString());
         manageNews.updateNews(news,userRealm);
 
     }
