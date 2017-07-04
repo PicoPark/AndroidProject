@@ -188,7 +188,14 @@ public class ManageTopic {
                 //    public PostRealm(String _id, String author, String content, String title, String topic) {
 
 
-                postRealms.add(new PostRealm(topics.get(i).getPost().get(j).get_id(),topics.get(i).getPost().get(j).getAuthor(),topics.get(i).getPost().get(j).getContent(),topics.get(i).getPost().get(j).getTitle(),topics.get(i).getPost().get(j).getTopic()));
+                postRealms.add(
+                        new PostRealm(
+                                topics.get(i).getPost().get(j).get_id(),
+                                topics.get(i).getPost().get(j).getContent(),
+                                topics.get(i).getPost().get(j).getDate(),
+                                topics.get(i).getPost().get(j).getAuthor(),
+                                topics.get(i).getPost().get(j).getTitle(),
+                                topics.get(i).getPost().get(j).getTopic()));
                 System.out.println(postRealms.get(j).getTitle());
             }
 

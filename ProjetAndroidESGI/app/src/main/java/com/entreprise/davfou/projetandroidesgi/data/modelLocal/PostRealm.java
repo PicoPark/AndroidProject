@@ -17,16 +17,19 @@ public class PostRealm extends RealmObject {
     private String content;
     private String title;
     private String topic;
+    private String date;
+
 
 
     public PostRealm(){
 
     }
 
-    public PostRealm(String _id, String author, String content, String title, String topic) {
+    public PostRealm(String _id, String content,String date, String auteur, String title, String topic) {
         this._id = _id;
-        this.author = author;
         this.content = content;
+        this.date = date;
+        this.author = auteur;
         this.title = title;
         this.topic = topic;
     }
@@ -47,13 +50,6 @@ public class PostRealm extends RealmObject {
         this._id = _id;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 
     public String getContent() {
         return content;
@@ -71,5 +67,19 @@ public class PostRealm extends RealmObject {
         this.title = title;
     }
 
+    public String getDate() {
+        return date;
+    }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 }

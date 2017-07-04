@@ -1,33 +1,24 @@
 package com.entreprise.davfou.projetandroidesgi.data.modelRest;
 
 /**
- * Created by Pico on 28/06/2017.
+ * Created by Pico on 04/07/2017.
  */
 
-public class Post {
+public class PostCreate {
 
-    private String _id;
     private String content;
     private String title;
-    private String topic;
     private String date;
     private String author;
+    private String topic;
 
-    public Post(String _id, String content,String date, String author, String title, String topic) {
-        this._id = _id;
+
+    public PostCreate(String content, String title, String date, String author, String topic) {
         this.content = content;
-        this.date = date;
         this.title = title;
+        this.date = date;
         this.author = author;
         this.topic = topic;
-    }
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
     }
 
     public String getContent() {
@@ -46,20 +37,20 @@ public class Post {
         this.title = title;
     }
 
-    public String getTopic() {
-        return topic;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
-
     public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getAuthor() {
