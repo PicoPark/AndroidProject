@@ -31,6 +31,7 @@
     <string name="textAttenteLogin">Vérification de l\'email et du password</string>
     <string name="textAttenteNews">Récupération des news en cours</string>
     <string name="textAttenteTopics">Récupération des topics en cours</string>
+    <string name="textAttentePosts">Récupération des posts en cours</string>
 
     <string name="textAttenteInscription">Inscription en cours</string>
     <string name="textInscriptionReussi">Inscription reussi, veuillez vous connectez</string>
@@ -52,6 +53,7 @@
     <string name="msgSuccesDel">Suppression réussi</string>
 
     <string name="msgErrorDelNews">Ceci n\'est pas vôtre news</string>
+    <string name="msgErrorDelPosts">Ceci n\'est pas vôtre posts</string>
 
     <string name="msgErrorDelTopic">Ceci n\'est pas vôtre topic</string>
 

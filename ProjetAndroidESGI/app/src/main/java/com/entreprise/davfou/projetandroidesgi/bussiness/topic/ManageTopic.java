@@ -181,11 +181,9 @@ public class ManageTopic {
     private void createOrUpdateUserTopicRealm(ArrayList<Topic> topics){
         for(int i = 0; i< topics.size(); i++){
 
-//    public TopicRealm(String _id, String content, String title, String date, RealmList<PostRealm> postRealms) {
 
             RealmList<PostRealm> postRealms = new RealmList<>();
             for (int j=0;j<topics.get(i).getPost().size();j++){
-                //    public PostRealm(String _id, String author, String content, String title, String topic) {
 
 
                 postRealms.add(
