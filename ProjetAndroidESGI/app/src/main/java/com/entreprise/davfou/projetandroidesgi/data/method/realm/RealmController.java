@@ -11,6 +11,7 @@ import com.entreprise.davfou.projetandroidesgi.data.modelLocal.PostRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.TopicRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.Comment;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -140,6 +141,8 @@ public class RealmController {
         return realm.where(UserInfoRealm.class).equalTo("_id", id).findFirst();
 
     }
+
+
 
 
 

@@ -17,7 +17,10 @@ import com.entreprise.davfou.projetandroidesgi.data.utils.IServiceResultListener
 import com.entreprise.davfou.projetandroidesgi.data.utils.ServiceResult;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 
+import java.util.ArrayList;
+
 import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Retrofit;
 
 /**
@@ -159,15 +162,15 @@ public class ManageComment {
 
 
 
-    private ArrayList<Comment> getAllNewInRealm(){
+    private ArrayList<Comment> getAllCommentInRealm(){
 
 
-        RealmResults<CommentRealm> commentRealms = RealmController.getInstance().getComment();
+        RealmResults<CommentRealm> commentRealms = RealmController.getInstance().getComments();
         ArrayList<Comment> comment =new ArrayList();
 
-
+//String _id, String author, String title, String content, String news, String date
         for(int i = 0; i< commentRealms.size(); i++){
-            comment.add(new Comment(commentRealms.get(i).get_id(), commentRealms.get(i).getAuthor(), commentRealms.get(i).getContent(), commentRealms.get(i).getTitle(),commentRealms.get(i).getDate()));
+            comment.add(new Comment(commentRealms.get(i).get_id(), commentRealms.get(i).getAuthor(), commentRealms.get(i).getTitle(), commentRealms.get(i).getContent(), commentRealms.get(i).getNews(),commentRealms.get(i).getDate()));
         }
 
         return comment;
@@ -178,7 +181,7 @@ public class ManageComment {
 
         for(int i = 0; i< commentArrayList.size(); i++){
 
-            CommentRealm commentRealm = new CommentRealm(i, commentArrayList.get(i).get_id(), commentArrayList.get(i).getAuthor(), commentArrayList.get(i).getContent(), commentArrayList.get(i).getTitle(),commentArrayList.get(i).getDate());
+            CommentRealm commentRealm = new CommentRealm(i, commentArrayList.get(i).get_id(), commentArrayList.get(i).getAuthor(), commentArrayList.get(i).getContent(), commentArrayList.get(i).getTitle(),commentArrayList.get(i).getDate(), commentArrayList.get(i).getNews());
             realm.beginTransaction();
             realm.copyToRealmOrUpdate(commentRealm);
             realm.commitTransaction();

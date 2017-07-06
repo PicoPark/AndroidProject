@@ -13,6 +13,7 @@ public class CommentRealm extends RealmObject {
     private long id;
 
     private String _id;
+    private String author;
     private String content;
     private String title;
     private String date;
@@ -22,9 +23,10 @@ public class CommentRealm extends RealmObject {
     public CommentRealm() {
     }
 
-    public CommentRealm(long id, String _id, String content, String title, String date, String news) {
+    public CommentRealm(long id, String _id, String author, String content, String title, String date, String news) {
         this.id = id;
         this._id = _id;
+        this.author= author;
         this.content = content;
         this.title = title;
         this.date = date;
@@ -77,6 +79,14 @@ public class CommentRealm extends RealmObject {
 
     public void setNews(String news) {
         this.news = news;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
 
