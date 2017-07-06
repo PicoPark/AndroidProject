@@ -136,7 +136,7 @@ public class ManagePost {
 
 
                     createOrUpdatePostRealm(result.getmData());
-                    ArrayList<Post> posts = new ArrayList<Post>();
+                    ArrayList<Post> posts = new ArrayList<>();
                     for(int i =0;i<result.getmData().size();i++){
 
                         if(result.getmData().get(i).getTopic().equals(topic.get_id())){

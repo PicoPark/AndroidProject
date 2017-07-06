@@ -20,6 +20,8 @@
     <string name="btnAjouterNews">Créer une News</string>
     <string name="btnAjouterTopic">Créer un Topic</string>
     <string name="btnAjouterPost">Créer un post</string>
+    <string name="btnAjouterComment">Créer un commentaire</string>
+
     <string name="titreDialogNews">Ecrivez votre propre news</string>
     <string name="titreDialogTopics">Ecrivez votre propre topics</string>
     <string name="titreNews">Titre</string>

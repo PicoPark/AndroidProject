@@ -5,16 +5,18 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.data.CommentService.CommentService;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
+import com.entreprise.davfou.projetandroidesgi.data.commentService.CommentService;
 import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
 import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.CommentInterface;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.CommentRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Comment;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.CommentCreate;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
 import com.entreprise.davfou.projetandroidesgi.data.utils.IServiceResultListener;
 import com.entreprise.davfou.projetandroidesgi.data.utils.ServiceResult;
+import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.NewsDetailsFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 
 import java.util.ArrayList;
@@ -35,22 +37,24 @@ public class ManageComment {
     Realm realm;
     CommentInterface commentInterface;
     CommentService commentService;
+    News news;
 
 
 
-    public ManageComment(Context context, Activity activityReference) {
+    public ManageComment(Context context, Activity activityReference,News news) {
         this.context = context;
         this.activityReference = activityReference;
         realm = RealmController.with(activityReference).getRealm();
         Retrofit retrofit = ClientRetrofit.getClient();
         commentInterface= retrofit.create(CommentInterface.class);
         commentService = new CommentService();
+        this.news = news;
 
     }
 
 
 
-    public void updateComment(Comment comment, UserRealm userRealm){
+    public void updateComment(Comment comment, final UserRealm userRealm){
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
         progressDialog.show();
         commentService.updateComment(userRealm,new CommentCreate(comment.getTitle(),comment.getContent(),comment.getNews(),comment.getDate()), comment, new IServiceResultListener<String>() {
@@ -63,6 +67,7 @@ public class ManageComment {
 
 
                     Toast.makeText(context,context.getString(R.string.msgSuccesUpdNews),Toast.LENGTH_SHORT).show();
+                    getAllComment(userRealm);
 
                 }else{
 
@@ -81,7 +86,7 @@ public class ManageComment {
 
 
 
-    public void deleteComment(Comment comment,UserRealm userRealm){
+    public void deleteComment(final Comment comment, final UserRealm userRealm){
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
         progressDialog.show();
         commentService.deleteComment(userRealm, comment, new IServiceResultListener<String>() {
@@ -92,6 +97,9 @@ public class ManageComment {
                 if(result.getmError()==null) {
                     System.out.println("reussi");
 
+                    deleteCommentRealm(comment);
+
+                    getAllComment(userRealm);
 
                     Toast.makeText(context,context.getString(R.string.msgSuccesDel),Toast.LENGTH_SHORT).show();
 
@@ -112,7 +120,7 @@ public class ManageComment {
     }
 
 
-    public void createNew(CommentCreate commentCreate, final UserRealm userRealmIn){
+    public void createComment(CommentCreate commentCreate, final UserRealm userRealmIn){
 
         //create comment
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
@@ -146,14 +154,25 @@ public class ManageComment {
 
                 if(result.getmError()==null) {
 
-                    createOrUpdateNewRealm(result.getmData());
+                    createOrUpdateCommentRealm(result.getmData());
 
-                  //  ListCommentFragment.setRecycler(result.getmData(),activityReference);
+                    ArrayList<Comment> comments = new ArrayList<>();
+                    for(int i =0;i<result.getmData().size();i++){
 
+                        if(result.getmData().get(i).getNews().equals(news.get_id())){
+                            comments.add(result.getmData().get(i));
+                        }
+                    }
+
+
+                    NewsDetailsFragment.setRecycler(comments,activityReference);
+                    // maj list view
                 } else {
+
+
                     Toast.makeText(context,context.getString(R.string.msgErrorNetworkNews),Toast.LENGTH_SHORT).show();
 
-                  //  ListCommentFragment.setRecycler(getAllNewInRealm(),activityReference);
+                    NewsDetailsFragment.setRecycler(getAllCommentInRealm(),activityReference);
                 }
             }
         });
@@ -170,14 +189,28 @@ public class ManageComment {
 
 //String _id, String author, String title, String content, String news, String date
         for(int i = 0; i< commentRealms.size(); i++){
-            comment.add(new Comment(commentRealms.get(i).get_id(), commentRealms.get(i).getAuthor(), commentRealms.get(i).getTitle(), commentRealms.get(i).getContent(), commentRealms.get(i).getNews(),commentRealms.get(i).getDate()));
+
+            if(commentRealms.get(i).getNews().equals(news.get_id())) {
+                comment.add(new Comment(commentRealms.get(i).get_id(), commentRealms.get(i).getAuthor(), commentRealms.get(i).getTitle(), commentRealms.get(i).getContent(), commentRealms.get(i).getNews(), commentRealms.get(i).getDate()));
+            }
         }
 
         return comment;
     }
 
 
-    private void createOrUpdateNewRealm(ArrayList<Comment> commentArrayList){
+    private void deleteCommentRealm(final Comment comment){
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<CommentRealm> result = realm.where(CommentRealm.class).equalTo("_id",comment.get_id()).findAll();
+                result.clear();
+            }
+        });
+    }
+
+
+    private void createOrUpdateCommentRealm(ArrayList<Comment> commentArrayList){
 
         for(int i = 0; i< commentArrayList.size(); i++){
 

@@ -186,21 +186,6 @@ public class TopicDetailsFragment extends Fragment {
     }
 
 
-    @OnClick(R.id.btn_delete_Topic)
-    public void clickbtn_delete_news() {
-        manageTopic.deleteTopic(topic, userRealm);
-
-    }
-
-    @OnClick(R.id.btn_update_Topic)
-    public void clickbtn_update_news() {
-
-        topic.setTitle(detailTopic_tv_title.getText().toString());
-
-        topic.setContent(detailTopic_tv_content.getText().toString());
-        manageTopic.updateTopic(topic, userRealm);
-
-    }
 
     @OnClick(R.id.btnAddPost)
     public void clickbtnAddPost(){
@@ -241,6 +226,27 @@ public class TopicDetailsFragment extends Fragment {
         });
 
         AlertDialog b = dialog.create();
-        b.show();    }
+        b.show();
+    }
+
+
+
+
+    @OnClick(R.id.btn_delete_Topic)
+    public void clickbtn_delete_news() {
+        manageTopic.deleteTopic(topic, userRealm);
+
+    }
+
+    @OnClick(R.id.btn_update_Topic)
+    public void clickbtn_update_news() {
+
+        topic.setTitle(detailTopic_tv_title.getText().toString());
+
+        topic.setContent(detailTopic_tv_content.getText().toString());
+        manageTopic.updateTopic(topic, userRealm);
+
+    }
+
 
 }

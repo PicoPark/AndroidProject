@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.data.CommentService;
+package com.entreprise.davfou.projetandroidesgi.data.commentService;
 
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Comment;
