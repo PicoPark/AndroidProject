@@ -1,51 +1,21 @@
 package com.entreprise.davfou.projetandroidesgi.data.modelRest;
 
 /**
- * Created by Pico on 28/06/2017.
+ * Created by Pico on 06/07/2017.
  */
 
-public class Comment {
+public class CommentCreate {
 
-    private String _id;
-
-    private String author;
     private String title;
     private String content;
     private String news;
     private String date;
 
-
-    public Comment(String _id, String author, String title, String content, String news, String date) {
-        this._id = _id;
-        this.author = author;
+    public CommentCreate(String title, String content, String news, String date) {
         this.title = title;
         this.content = content;
         this.news = news;
         this.date = date;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getTitle() {
@@ -54,6 +24,14 @@ public class Comment {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getNews() {
@@ -72,6 +50,3 @@ public class Comment {
         this.date = date;
     }
 }
-
-
-
