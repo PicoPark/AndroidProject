@@ -84,11 +84,12 @@ public class ListTopicsFragment extends Fragment {
         ft.commit();*/
 
         System.out.println("topics : "+topic.getTitle());
-        if(topic.getPost().size()>0) {
-            System.out.println("nbr post : " + topic.getPost().size());
-            System.out.println("post n°1 : " + topic.getPost().get(0).getTitle());
+        if(topic.getPost()!=null) {
+            if (topic.getPost().size() > 0) {
+                System.out.println("nbr post : " + topic.getPost().size());
+                System.out.println("post n°1 : " + topic.getPost().get(0).getTitle());
+            }
         }
-
 
         ft.replace(R.id.frame_container, TopicDetailsFragment.newInstance(topic,userRealm));
         ft.commit();

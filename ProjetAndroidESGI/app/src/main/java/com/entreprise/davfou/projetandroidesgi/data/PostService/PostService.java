@@ -119,6 +119,7 @@ public class PostService implements IPostInterface {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 ServiceResult<String> result = new ServiceResult<>();
+                System.out.println("code "+response.code());
                 if(response.code() == 204)
                     result.setmData(response.headers().get("Resourceuri"));
                 else

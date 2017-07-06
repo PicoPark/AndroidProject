@@ -9,15 +9,13 @@ public class PostCreate {
     private String content;
     private String title;
     private String date;
-    private String author;
     private String topic;
 
 
-    public PostCreate(String content, String title, String date, String author, String topic) {
+    public PostCreate(String content, String title, String date, String topic) {
         this.content = content;
         this.title = title;
         this.date = date;
-        this.author = author;
         this.topic = topic;
     }
 
@@ -53,11 +51,5 @@ public class PostCreate {
         this.topic = topic;
     }
 
-    public String getAuthor() {
-        return author;
-    }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 }

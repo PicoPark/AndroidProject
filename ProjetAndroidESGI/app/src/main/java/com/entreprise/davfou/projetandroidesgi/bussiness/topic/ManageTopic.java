@@ -72,7 +72,7 @@ public class ManageTopic {
     }
 
 
-    public void deleteTopic(Topic topic, UserRealm userRealm){
+    public void deleteTopic(final Topic topic, UserRealm userRealm){
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteTopics), context);
         progressDialog.show();
         topicService.deleteTopic(userRealm, topic, new IServiceResultListener<String>() {
@@ -85,7 +85,7 @@ public class ManageTopic {
 
 
                     Toast.makeText(context,context.getString(R.string.msgSuccesDel),Toast.LENGTH_SHORT).show();
-
+                    deleteTopicRealm(topic);
                 }else{
 
                     if(result.getmError().getCode()==404){
@@ -203,6 +203,17 @@ public class ManageTopic {
             realm.copyToRealmOrUpdate(topicRealm);
             realm.commitTransaction();
         }
+    }
+
+
+    private void deleteTopicRealm(final Topic topic){
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<TopicRealm> result = realm.where(TopicRealm.class).equalTo("_id",topic.get_id()).findAll();
+                result.clear();
+            }
+        });
     }
 
 }

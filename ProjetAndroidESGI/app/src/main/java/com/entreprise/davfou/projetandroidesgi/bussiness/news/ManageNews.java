@@ -82,7 +82,7 @@ public class ManageNews {
 
 
 
-    public void deleteNews(News news,UserRealm userRealm){
+    public void deleteNews(final News news, UserRealm userRealm){
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
         progressDialog.show();
         newsService.deleteNews(userRealm, news, new IServiceResultListener<String>() {
@@ -95,7 +95,7 @@ public class ManageNews {
 
 
                     Toast.makeText(context,context.getString(R.string.msgSuccesDel),Toast.LENGTH_SHORT).show();
-
+                    deleteNewsRealm(news);
                 }else{
 
                     if(result.getmError().getCode()==404){
@@ -175,6 +175,17 @@ public class ManageNews {
         }
 
         return news;
+    }
+
+
+    private void deleteNewsRealm(final News news){
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<NewsRealm> result = realm.where(NewsRealm.class).equalTo("_id",news.get_id()).findAll();
+                result.clear();
+            }
+        });
     }
 
 
