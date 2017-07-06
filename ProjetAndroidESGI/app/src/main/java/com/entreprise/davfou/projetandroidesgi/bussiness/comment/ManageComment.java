@@ -50,7 +50,7 @@ public class ManageComment {
     public void updateComment(Comment comment, UserRealm userRealm){
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
         progressDialog.show();
-        commentService.updateComment(userRealm,new CommentCreate(comment.getContent(),comment.getTitle(),comment.getDate()), comment, new IServiceResultListener<String>() {
+        commentService.updateComment(userRealm,new CommentCreate(comment.getTitle(),comment.getContent(),comment.getNews(),comment.getDate()), comment, new IServiceResultListener<String>() {
             @Override
             public void onResult(ServiceResult<String> result) {
                 progressDialog.dismiss();
