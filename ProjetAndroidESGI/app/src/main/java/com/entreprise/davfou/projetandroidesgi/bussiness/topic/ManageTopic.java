@@ -43,7 +43,7 @@ public class ManageTopic {
 
 
     public void updateTopic(Topic topic, UserRealm userRealm){
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textUpdateTopics), context);
         progressDialog.show();
         topicService.updateTopic(userRealm,new TopicCreate(topic.getContent(),topic.getTitle(),topic.getDate()), topic, new IServiceResultListener<String>() {
             @Override
@@ -73,7 +73,7 @@ public class ManageTopic {
 
 
     public void deleteTopic(final Topic topic, UserRealm userRealm){
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteTopics), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textSupressionTopic), context);
         progressDialog.show();
         topicService.deleteTopic(userRealm, topic, new IServiceResultListener<String>() {
             @Override
@@ -117,7 +117,7 @@ public class ManageTopic {
     public void createTopic(TopicCreate topicCreate, final UserRealm userRealmIn){
 
         //create news
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteTopics), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textCreationTopics), context);
         progressDialog.show();
 
         topicService.create(topicCreate, userRealmIn, new IServiceResultListener<String>() {
@@ -127,6 +127,8 @@ public class ManageTopic {
 
                 if(result.getmError()==null) {
                     getALlTopic(userRealmIn);
+                }else{
+                    showErrorNetwork();
                 }
             }
         });
@@ -214,6 +216,11 @@ public class ManageTopic {
                 result.clear();
             }
         });
+    }
+
+    private void showErrorNetwork(){
+        Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
+
     }
 
 }

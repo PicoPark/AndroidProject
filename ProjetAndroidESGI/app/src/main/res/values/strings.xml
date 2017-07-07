@@ -35,6 +35,23 @@
     <string name="textAttenteNews">Récupération des news en cours</string>
     <string name="textAttenteTopics">Récupération des topics en cours</string>
     <string name="textAttentePosts">Récupération des posts en cours</string>
+    <string name="textAttenteComments">Récupération des commentaires en cours</string>
+
+    <string name="textUpdateNews">Mise à jour de la news en cours</string>
+    <string name="textCreationNews">Création de la news en cours</string>
+    <string name="textSupressionNews">Supression du news</string>
+
+    <string name="textUpdateComments">Mise à jour du commentaire en cours</string>
+    <string name="textCreationComments">Création du commentaire en cours</string>
+    <string name="textSupressionComment">Supression du commentaire</string>
+
+    <string name="textUpdateTopics">Mise à jour du Topic en cours</string>
+    <string name="textCreationTopics">Création du Topic en cours</string>
+    <string name="textSupressionTopic">Supression du Topic</string>
+
+    <string name="textUpdatePosts">Mise à jour du post en cours</string>
+    <string name="textCreationPosts">Création du post en cours</string>
+    <string name="textSupressionPosts">Supression du post</string>
 
     <string name="textAttenteInscription">Inscription en cours</string>
     <string name="textInscriptionReussi">Inscription reussi, veuillez vous connectez</string>

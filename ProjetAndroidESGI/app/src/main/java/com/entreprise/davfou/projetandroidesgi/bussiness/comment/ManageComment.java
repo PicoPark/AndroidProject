@@ -55,7 +55,7 @@ public class ManageComment {
 
 
     public void updateComment(Comment comment, final UserRealm userRealm){
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textUpdateComments), context);
         progressDialog.show();
         commentService.updateComment(userRealm,new CommentCreate(comment.getTitle(),comment.getContent(),comment.getNews(),comment.getDate()), comment, new IServiceResultListener<String>() {
             @Override
@@ -87,7 +87,7 @@ public class ManageComment {
 
 
     public void deleteComment(final Comment comment, final UserRealm userRealm){
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textSupressionComment), context);
         progressDialog.show();
         commentService.deleteComment(userRealm, comment, new IServiceResultListener<String>() {
             @Override
@@ -123,7 +123,7 @@ public class ManageComment {
     public void createComment(CommentCreate commentCreate, final UserRealm userRealmIn){
 
         //create comment
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textCreationComments), context);
         progressDialog.show();
 
         commentService.create(commentCreate, userRealmIn, new IServiceResultListener<String>() {
@@ -133,6 +133,8 @@ public class ManageComment {
 
                 if(result.getmError()==null) {
                     getAllComment(userRealmIn);
+                }else{
+                    showErrorNetwork();
                 }
             }
         });
@@ -143,7 +145,7 @@ public class ManageComment {
 
     public void getAllComment(UserRealm userRealm){
 
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteComments), context);
         progressDialog.show();
 
 
@@ -219,6 +221,11 @@ public class ManageComment {
             realm.copyToRealmOrUpdate(commentRealm);
             realm.commitTransaction();
         }
+
+    }
+
+    private void showErrorNetwork(){
+        Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
 
     }
 }

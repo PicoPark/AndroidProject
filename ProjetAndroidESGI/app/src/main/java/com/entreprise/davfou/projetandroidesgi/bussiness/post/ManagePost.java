@@ -54,7 +54,7 @@ public class ManagePost {
     }
 
     public void updatePost(Post post, final UserRealm userRealm){
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttentePosts), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textUpdatePosts), context);
         progressDialog.show();
         postService.updatePost(userRealm, new PostCreate(post.getContent(),post.getTitle(),post.getDate(),post.getTopic()), post, new IServiceResultListener<String>() {
             @Override
@@ -78,7 +78,7 @@ public class ManagePost {
     }
 
     public void deletePost(final Post post, final UserRealm userRealm){
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttentePosts), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textSupressionPosts), context);
         progressDialog.show();
         postService.deletePost(userRealm, post, new IServiceResultListener<String>() {
             @Override
@@ -106,7 +106,7 @@ public class ManagePost {
     public void createPost(PostCreate postCreate, final UserRealm userRealmIn){
 
         //create news
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttentePosts), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textCreationPosts), context);
         progressDialog.show();
 
         postService.create(postCreate, userRealmIn, new IServiceResultListener<String>() {
@@ -115,6 +115,8 @@ public class ManagePost {
                 progressDialog.dismiss();
                 if(result.getmError()==null) {
                     getAllPost(userRealmIn);
+                }else{
+                    showErrorNetwork();
                 }
             }
         });
@@ -220,5 +222,10 @@ public class ManagePost {
             realm.copyToRealmOrUpdate(postRealm);
             realm.commitTransaction();
         }
+    }
+
+    private void showErrorNetwork(){
+        Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
+
     }
 }

@@ -52,7 +52,7 @@ public class ManageNews {
 
 
     public void updateNews(News news,UserRealm userRealm){
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textUpdateNews), context);
         progressDialog.show();
         newsService.updateNews(userRealm,new NewsCreate(news.getContent(),news.getTitle(),news.getDate()), news, new IServiceResultListener<String>() {
             @Override
@@ -83,7 +83,7 @@ public class ManageNews {
 
 
     public void deleteNews(final News news, UserRealm userRealm){
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textSupressionNews), context);
         progressDialog.show();
         newsService.deleteNews(userRealm, news, new IServiceResultListener<String>() {
             @Override
@@ -116,7 +116,7 @@ public class ManageNews {
     public void createNew(NewsCreate newsCreate, final UserRealm userRealmIn){
 
         //create news
-        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textAttenteNews), context);
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textCreationNews), context);
         progressDialog.show();
 
         newsService.create(newsCreate, userRealmIn, new IServiceResultListener<String>() {
@@ -126,6 +126,8 @@ public class ManageNews {
 
                 if(result.getmError()==null) {
                     getAllNews(userRealmIn);
+                }else{
+                    showErrorNetwork();
                 }
             }
         });
@@ -198,6 +200,11 @@ public class ManageNews {
             realm.copyToRealmOrUpdate(newsRealm);
             realm.commitTransaction();
         }
+
+    }
+
+    private void showErrorNetwork(){
+        Toast.makeText(context,context.getString(R.string.msgErrorNetwork),Toast.LENGTH_SHORT).show();
 
     }
 
