@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="24dp"
             android:textColor="@color/BluePastel"/>
 
         <TextView
@@ -29,6 +29,16 @@
             android:layout_margin="10dp"
 
            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewAuhtor"
+            android:layout_below="@+id/textViewContentNews"
+            android:layout_alignParentEnd="true"
+            android:textStyle="italic"
+            android:layout_marginRight="4dp"/>
 
 
     </RelativeLayout>

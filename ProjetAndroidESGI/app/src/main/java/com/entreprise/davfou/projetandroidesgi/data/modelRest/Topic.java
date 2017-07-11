@@ -14,19 +14,28 @@ public class Topic  {
     private String content;
     private String title;
     private String date;
+    private String author;
     private ArrayList<Post> posts;
 
     public Topic() {
     }
 
-    public Topic(String _id, String content, String title, String date, ArrayList<Post> posts) {
+    public Topic(String _id, String content, String title, String date,String author, ArrayList<Post> posts) {
         this._id = _id;
         this.content = content;
         this.title = title;
         this.date = date;
         this.posts = posts;
+        this.author = author;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public ArrayList<Post> getPost() {
         return posts;

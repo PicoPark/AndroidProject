@@ -1,5 +1,6 @@
 package com.entreprise.davfou.projetandroidesgi.bussiness;
 
+import android.app.Activity;
 import android.content.Context;
 
 import io.realm.Realm;
@@ -12,11 +13,15 @@ import io.realm.RealmConfiguration;
 public class MyApplication extends android.app.Application {
 
     private static Context context;
+    private static Activity activity;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         MyApplication.context = getApplicationContext();
+
+
 
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
                 .name(Realm.DEFAULT_REALM_NAME)
@@ -28,6 +33,10 @@ public class MyApplication extends android.app.Application {
 
 
     public static Context getAppContext() {
+
         return MyApplication.context;
     }
+
+
+
 }

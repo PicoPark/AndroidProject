@@ -16,6 +16,7 @@ import com.entreprise.davfou.projetandroidesgi.data.newsservice.NewsService;
 import com.entreprise.davfou.projetandroidesgi.data.utils.IServiceResultListener;
 import com.entreprise.davfou.projetandroidesgi.data.utils.ServiceResult;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.ListNewsFragment;
+import com.entreprise.davfou.projetandroidesgi.ui.adapters.news.NewAdapter;
 import com.entreprise.davfou.projetandroidesgi.ui.utils.ProgressDialog;
 
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class ManageNews {
 
 
 
-    public void deleteNews(final News news, UserRealm userRealm){
+    public void deleteNews(final News news, UserRealm userRealm, final NewAdapter newAdapter, final int position){
         progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textSupressionNews), context);
         progressDialog.show();
         newsService.deleteNews(userRealm, news, new IServiceResultListener<String>() {
@@ -96,6 +97,8 @@ public class ManageNews {
 
                     Toast.makeText(context,context.getString(R.string.msgSuccesDel),Toast.LENGTH_SHORT).show();
                     deleteNewsRealm(news);
+                    if(newAdapter!=null)
+                        newAdapter.notifyItemRemoved(position);
                 }else{
 
                     if(result.getmError().getCode()==404){

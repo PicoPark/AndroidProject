@@ -1,5 +1,6 @@
-package com.entreprise.davfou.projetandroidesgi.ui.recycler.topics;
+package com.entreprise.davfou.projetandroidesgi.ui.adapters.topics;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.entreprise.davfou.projetandroidesgi.R;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Topic;
 
 import java.util.ArrayList;
+
+import static android.graphics.Color.BLACK;
 
 /**
  * Created by davidfournier on 28/06/2017.
@@ -79,6 +85,7 @@ class MyViewHolderTopics extends RecyclerView.ViewHolder{
 
     private TextView textViewTitleNews;
     private TextView textViewContentNews;
+    private TextView textViewAuhtor;
 
     //itemView est la vue correspondante à 1 cellule
     public MyViewHolderTopics(View itemView) {
@@ -87,10 +94,25 @@ class MyViewHolderTopics extends RecyclerView.ViewHolder{
         //c'est ici que l'on fait nos findView
         textViewTitleNews = (TextView) itemView.findViewById(R.id.textViewTitleNews);
         textViewContentNews = (TextView) itemView.findViewById(R.id.textViewContentNews);
+        textViewAuhtor = (TextView) itemView.findViewById(R.id.textViewAuhtor);
+
     }
 
     public void bind(Topic topic){
         textViewTitleNews.setText(topic.getTitle());
         textViewContentNews.setText(topic.getContent());
+
+        UserRealm userRealm= RealmController.getInstance().getUserConnected(true);
+        UserInfoRealm userInfoRealm= RealmController.getInstance().getUserById(topic.getAuthor());
+
+
+        System.out.println(new String(""+userInfoRealm.get_id()) +" : "+topic.getAuthor());
+
+        if(new String(""+userInfoRealm.get_id()).equals(topic.getAuthor())&&userInfoRealm.getEmail().equals(userRealm.getEmail())&&userInfoRealm.getLastName().equals(userRealm.getLastName())&&userInfoRealm.getFirstName().equals(userRealm.getFirstName()))
+            textViewAuhtor.setTextColor(Color.BLUE);
+        else
+            textViewAuhtor.setTextColor(BLACK);
+
+        textViewAuhtor.setText(userInfoRealm.getFirstName()+" "+userInfoRealm.getLastName());
     }
 }

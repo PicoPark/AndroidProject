@@ -8,16 +8,18 @@
         android:id="@+id/recyclerViewTopics"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btnAddTopics"
         />
 
-    <Button
+
+
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnAddTopics"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btnAjouterTopic"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_margin="14dp"
-        android:theme="@style/ButtonColor"
-        />
+        android:src="@android:drawable/ic_input_add" />
 </RelativeLayout>

@@ -17,11 +17,13 @@ import android.widget.TextView;
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.post.ManagePost;
 import com.entreprise.davfou.projetandroidesgi.bussiness.topic.ManageTopic;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Post;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.PostCreate;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Topic;
-import com.entreprise.davfou.projetandroidesgi.ui.recycler.posts.PostAdapter;
+import com.entreprise.davfou.projetandroidesgi.ui.adapters.posts.PostAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -82,18 +84,32 @@ public class TopicDetailsFragment extends Fragment {
         detailTopic_tv_title.setText(topic.getTitle());
 
 
-        //Faire la récupération de l'author d'abord en local puis via le réseau en les récupérant tous
-
-        // UserInfoRealm userRealm = RealmController.getInstance().getUserById(news.getAuthor());
+        UserInfoRealm userInfoRealm = RealmController.getInstance().getUserById(topic.getAuthor());
 
 
-        //detailTopic_tv_author.setText(getContext().getString(R.string.writeBy)+userRealm.getFirstName()+" "+userRealm.getLastName());
+        detailTopic_tv_author.setText(getContext().getString(R.string.writeBy) + userInfoRealm.getFirstName() + " " + userInfoRealm.getLastName());
+
         detailTopic_tv_content.setText(topic.getContent());
 
 
-        managePost.getAllPost(userRealm);
+        UserRealm userRealmCo = RealmController.getInstance().getUserConnected(true);
 
-        System.out.println("topics id : "+topic.get_id());
+
+        System.out.println(new String("" + userInfoRealm.get_id()) + " : " + topic.getAuthor());
+
+        if (new String("" + userInfoRealm.get_id()).equals(topic.getAuthor()) && userInfoRealm.getEmail().equals(userRealmCo.getEmail()) && userInfoRealm.getLastName().equals(userRealmCo.getLastName()) && userInfoRealm.getFirstName().equals(userRealmCo.getFirstName()))
+            System.out.println("c'est l'auteur");
+        else{
+            btn_delete_Topic.setVisibility(View.GONE);
+            btn_update_Topic.setVisibility(View.GONE);
+            detailTopic_tv_content.setFocusable(false);
+            detailTopic_tv_content.setClickable(false);
+            detailTopic_tv_title.setFocusable(false);
+            detailTopic_tv_title.setClickable(false);
+        }
+            managePost.getAllPost(userRealm);
+
+        System.out.println("topics id : " + topic.get_id());
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewPosts.setLayoutManager(layoutManager);
@@ -113,7 +129,7 @@ public class TopicDetailsFragment extends Fragment {
                 topicAdapter.setOnArticleClickedListener(new PostAdapter.OnArticleClickedListener() {
                     @Override
                     public void onArticleClicked(Post post, View articleView) {
-                        clickItemRecyclerView(post,  activity);
+                        clickItemRecyclerView(post, activity);
 
                     }
                 });
@@ -134,8 +150,8 @@ public class TopicDetailsFragment extends Fragment {
 
         LayoutInflater inflater = activity.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.alertdialog_add_topics, null);
-        final EditText editTitleNews = (EditText)dialogView.findViewById(R.id.editTitleTopics);
-        final EditText editContentNews = (EditText)dialogView.findViewById(R.id.editContentTopics);
+        final EditText editTitleNews = (EditText) dialogView.findViewById(R.id.editTitleTopics);
+        final EditText editContentNews = (EditText) dialogView.findViewById(R.id.editContentTopics);
         final TextView txtTitleAdd = (TextView) dialogView.findViewById(R.id.txtTitleAdd);
 
         editTitleNews.setText(post.getTitle());
@@ -155,9 +171,7 @@ public class TopicDetailsFragment extends Fragment {
 //    public PostCreate(String content, String title, String date, String topic) {
                 post.setTitle(editTitleNews.getText().toString());
                 post.setContent(editContentNews.getText().toString());
-                managePost.updatePost(post,userRealm);
-
-
+                managePost.updatePost(post, userRealm);
 
 
             }
@@ -165,7 +179,7 @@ public class TopicDetailsFragment extends Fragment {
         dialog.setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                managePost.deletePost(post,userRealm);
+                managePost.deletePost(post, userRealm);
 
 
             }
@@ -181,20 +195,17 @@ public class TopicDetailsFragment extends Fragment {
         b.show();
 
 
-
-
     }
 
 
-
     @OnClick(R.id.btnAddPost)
-    public void clickbtnAddPost(){
+    public void clickbtnAddPost() {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.alertdialog_add_topics, null);
-        final EditText editTitleNews = (EditText)dialogView.findViewById(R.id.editTitleTopics);
-        final EditText editContentNews = (EditText)dialogView.findViewById(R.id.editContentTopics);
+        final EditText editTitleNews = (EditText) dialogView.findViewById(R.id.editTitleTopics);
+        final EditText editContentNews = (EditText) dialogView.findViewById(R.id.editContentTopics);
         final TextView txtTitleAdd = (TextView) dialogView.findViewById(R.id.txtTitleAdd);
 
 
@@ -212,8 +223,7 @@ public class TopicDetailsFragment extends Fragment {
 
 //    public PostCreate(String content, String title, String date, String topic) {
 
-                managePost.createPost(new PostCreate(editContentNews.getText().toString(),editTitleNews.getText().toString(),date,topic.get_id()),userRealm);
-
+                managePost.createPost(new PostCreate(editContentNews.getText().toString(), editTitleNews.getText().toString(), date, topic.get_id()), userRealm);
 
 
             }
@@ -228,8 +238,6 @@ public class TopicDetailsFragment extends Fragment {
         AlertDialog b = dialog.create();
         b.show();
     }
-
-
 
 
     @OnClick(R.id.btn_delete_Topic)

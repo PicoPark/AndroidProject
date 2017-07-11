@@ -3,6 +3,7 @@ package com.entreprise.davfou.projetandroidesgi.ui.fragment.topics;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
@@ -20,7 +20,7 @@ import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Topic;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.TopicCreate;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
-import com.entreprise.davfou.projetandroidesgi.ui.recycler.topics.TopicAdapter;
+import com.entreprise.davfou.projetandroidesgi.ui.adapters.topics.TopicAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -40,7 +40,7 @@ public class ListTopicsFragment extends Fragment {
     static FragmentTransaction ft;
 
     @BindView(R.id.btnAddTopics)
-    Button btnAddTopics;
+    FloatingActionButton btnAddTopics;
 
     static RecyclerView recyclerViewTopics;
 

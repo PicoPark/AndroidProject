@@ -3,6 +3,7 @@ package com.entreprise.davfou.projetandroidesgi.ui.fragment.news;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
@@ -20,7 +20,7 @@ import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
-import com.entreprise.davfou.projetandroidesgi.ui.recycler.news.NewAdapter;
+import com.entreprise.davfou.projetandroidesgi.ui.adapters.news.NewAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -40,9 +40,9 @@ public class ListNewsFragment extends Fragment {
     static FragmentTransaction ft;
 
     static  RecyclerView recyclerViewNews;
-
+    static  NewAdapter newAdapter;
     @BindView(R.id.btnAddNews)
-    Button btnAddNews;
+    FloatingActionButton btnAddNews;
 
     static UserRealm userRealm;
     ManageNews manageNews;
@@ -75,13 +75,39 @@ public class ListNewsFragment extends Fragment {
         recyclerViewNews.setHasFixedSize(true);
 
 
+        /*ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
+
+                final int position = viewHolder.getAdapterPosition();
+
+                if (position==0)
+                    return ;
+
+                //Remove swiped item from list and notify the RecyclerView
+                manageNews.deleteNews(newAdapter.getNews(position),userRealm,newAdapter,position);
+
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerViewNews);*/
+
     }
 
 
 
 
     public static void setRecycler(ArrayList<News> newses, Activity activity){
-        final NewAdapter newAdapter = new NewAdapter(newses);
+        newAdapter = new NewAdapter(newses);
         newAdapter.setOnArticleClickedListener(new NewAdapter.OnArticleClickedListener() {
             @Override
             public void onArticleClicked(News newRealm, View articleView) {
@@ -89,10 +115,7 @@ public class ListNewsFragment extends Fragment {
 
             }
         });
-
         recyclerViewNews.setAdapter(newAdapter);
-
-
 
     }
 

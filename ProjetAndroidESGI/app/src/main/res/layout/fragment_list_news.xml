@@ -12,17 +12,17 @@ tools:context=".ui.activity.MenuActivity">
     android:id="@+id/recyclerViewNews"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        android:layout_above="@+id/btnAddNews"
     />
-    
-    <Button
+
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnAddNews"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btnAjouterNews"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_margin="14dp"
-        android:theme="@style/ButtonColor"
-        />
+        android:src="@android:drawable/ic_input_add" />
 
 </RelativeLayout>

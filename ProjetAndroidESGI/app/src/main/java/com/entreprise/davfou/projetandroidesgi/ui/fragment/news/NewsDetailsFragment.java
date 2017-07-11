@@ -23,7 +23,7 @@ import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Comment;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.CommentCreate;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
-import com.entreprise.davfou.projetandroidesgi.ui.recycler.comment.CommentAdapter;
+import com.entreprise.davfou.projetandroidesgi.ui.adapters.comment.CommentAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -92,6 +92,25 @@ public class NewsDetailsFragment extends Fragment {
 
         detailNews_tv_author.setText(getContext().getString(R.string.writeBy)+userInfoRealm.getFirstName()+" "+userInfoRealm.getLastName());
         detailNews_tv_content.setText(news.getContent());
+
+
+        UserRealm userRealmCo = RealmController.getInstance().getUserConnected(true);
+
+
+        System.out.println(new String("" + userInfoRealm.get_id()) + " : " + news.getAuthor());
+
+        if (new String("" + userInfoRealm.get_id()).equals(news.getAuthor()) && userInfoRealm.getEmail().equals(userRealmCo.getEmail()) && userInfoRealm.getLastName().equals(userRealmCo.getLastName()) && userInfoRealm.getFirstName().equals(userRealmCo.getFirstName()))
+            System.out.println("c'est l'auteur");
+        else{
+            btn_delete_news.setVisibility(View.GONE);
+            btn_update_news.setVisibility(View.GONE);
+            detailNews_tv_content.setFocusable(false);
+            detailNews_tv_content.setClickable(false);
+            detailNews_tv_title.setFocusable(false);
+            detailNews_tv_title.setClickable(false);
+        }
+
+
 
         manageComment.getAllComment(userRealm);
 
@@ -242,7 +261,7 @@ public class NewsDetailsFragment extends Fragment {
 
     @OnClick(R.id.btn_delete_news)
     public  void clickbtn_delete_news(){
-        manageNews.deleteNews(news,userRealm);
+        manageNews.deleteNews(news,userRealm,null,0);
 
     }
 

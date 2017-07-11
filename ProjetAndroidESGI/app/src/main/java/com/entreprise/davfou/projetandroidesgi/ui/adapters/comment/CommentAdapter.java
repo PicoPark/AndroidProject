@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.ui.recycler.posts;
+package com.entreprise.davfou.projetandroidesgi.ui.adapters.comment;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.Post;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.Comment;
 
 import java.util.ArrayList;
 
@@ -15,37 +15,37 @@ import java.util.ArrayList;
  * Created by davidfournier on 28/06/2017.
  */
 
-public class PostAdapter extends RecyclerView.Adapter<MyViewHolderPosts> {
+public class CommentAdapter extends RecyclerView.Adapter<MyViewHolderComment> {
 
-    ArrayList<Post> posts;
+    ArrayList<Comment> comments;
 
-    private PostAdapter.OnArticleClickedListener mOnArticleClickedListener;
+    private CommentAdapter.OnArticleClickedListener mOnArticleClickedListener;
 
     //ajouter un constructeur prenant en entrée une liste
-    public PostAdapter(ArrayList<Post> posts) {
+    public CommentAdapter(ArrayList<Comment> comments) {
 
 
-        this.posts = posts;
+        this.comments = comments;
     }
 
     //cette fonction permet de créer les viewHolder
     //et par la même indiquer la vue à inflater (à partir des layout xml)
     @Override
-    public MyViewHolderPosts onCreateViewHolder(ViewGroup viewGroup, int itemType) {
+    public MyViewHolderComment onCreateViewHolder(ViewGroup viewGroup, int itemType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_view_new,viewGroup,false);
-        return new MyViewHolderPosts(view);
+        return new MyViewHolderComment(view);
     }
 
     //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
     @Override
-    public void onBindViewHolder(MyViewHolderPosts myViewHolder, final int position) {
-        Post myObject = posts.get(position);
+    public void onBindViewHolder(MyViewHolderComment myViewHolder, final int position) {
+        Comment myObject = comments.get(position);
         myViewHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
 
                 if (mOnArticleClickedListener != null) {
-                    mOnArticleClickedListener.onArticleClicked(posts.get(position), view);
+                    mOnArticleClickedListener.onArticleClicked(comments.get(position), view);
                 }
             }
         });
@@ -54,34 +54,34 @@ public class PostAdapter extends RecyclerView.Adapter<MyViewHolderPosts> {
 
     @Override
     public int getItemCount() {
-        return posts.size();
+        return comments.size();
     }
     /**
      * Sets on article clicked listener.
      *
      * @param onArticleClickedListener Beneficiaire clicked listener.
      */
-    public void setOnArticleClickedListener(final PostAdapter.OnArticleClickedListener onArticleClickedListener) {
+    public void setOnArticleClickedListener(final CommentAdapter.OnArticleClickedListener onArticleClickedListener) {
         this.mOnArticleClickedListener = onArticleClickedListener;
     }
 
     public interface OnArticleClickedListener {
 
-        void onArticleClicked(Post post, View articleView);
+        void onArticleClicked(Comment comment, View articleView);
 
 
 
     }
 }
 
-class MyViewHolderPosts extends RecyclerView.ViewHolder{
+class MyViewHolderComment extends RecyclerView.ViewHolder{
     public final View rootView;
 
     private TextView textViewTitleNews;
     private TextView textViewContentNews;
 
     //itemView est la vue correspondante à 1 cellule
-    public MyViewHolderPosts(View itemView) {
+    public MyViewHolderComment(View itemView) {
         super(itemView);
         this.rootView = itemView;
         //c'est ici que l'on fait nos findView
@@ -89,8 +89,8 @@ class MyViewHolderPosts extends RecyclerView.ViewHolder{
         textViewContentNews = (TextView) itemView.findViewById(R.id.textViewContentNews);
     }
 
-    public void bind(Post post){
-        textViewTitleNews.setText(post.getTitle());
-        textViewContentNews.setText(post.getContent());
+    public void bind(Comment comment){
+        textViewTitleNews.setText(comment.getTitle());
+        textViewContentNews.setText(comment.getContent());
     }
 }

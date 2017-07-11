@@ -17,19 +17,28 @@ public class TopicRealm extends RealmObject {
     private String content;
     private String title;
     private String date;
+    private String author;
     private RealmList<PostRealm> postRealms;
 
     public TopicRealm() {
     }
 
-    public TopicRealm(String _id, String content, String title, String date, RealmList<PostRealm> postRealms) {
+    public TopicRealm(String _id, String content, String title, String date,String author, RealmList<PostRealm> postRealms) {
         this._id = _id;
         this.content = content;
         this.title = title;
         this.date = date;
         this.postRealms = postRealms;
+        this.author = author;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public RealmList<PostRealm> getPostRealms() {
         return postRealms;

@@ -173,7 +173,7 @@ public class ManageTopic {
 
 
         for(int i = 0; i< topicsRealm.size(); i++){
-            topics.add(new Topic(topicsRealm.get(i).get_id(), topicsRealm.get(i).getContent(), topicsRealm.get(i).getTitle(),topicsRealm.get(i).getDate(),null));
+            topics.add(new Topic(topicsRealm.get(i).get_id(), topicsRealm.get(i).getContent(), topicsRealm.get(i).getTitle(),topicsRealm.get(i).getDate(),topicsRealm.get(i).getAuthor(),null));
         }
 
         return topics;
@@ -200,7 +200,7 @@ public class ManageTopic {
             }
 
 
-            TopicRealm topicRealm  = new TopicRealm(topics.get(i).get_id(),topics.get(i).getContent(),topics.get(i).getTitle(),topics.get(i).getDate(),postRealms);
+            TopicRealm topicRealm  = new TopicRealm(topics.get(i).get_id(),topics.get(i).getContent(),topics.get(i).getTitle(),topics.get(i).getDate(),topics.get(i).getAuthor(),postRealms);
             realm.beginTransaction();
             realm.copyToRealmOrUpdate(topicRealm);
             realm.commitTransaction();
