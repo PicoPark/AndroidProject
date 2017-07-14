@@ -240,7 +240,7 @@ public class NewsDetailsFragment extends Fragment {
 //       public CommentCreate(String title, String content, String news, String date) {
 
 
-                manageComment.createComment(new CommentCreate(editContentNews.getText().toString(),editTitleNews.getText().toString(),news.get_id(),date),userRealm);
+                manageComment.createComment(new CommentCreate(editTitleNews.getText().toString(),editContentNews.getText().toString(),news.get_id(),date),userRealm);
 
 
 

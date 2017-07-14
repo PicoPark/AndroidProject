@@ -41,9 +41,10 @@
             android:hint="@string/contentNews"
             android:textColor="#2fa881"
             android:id="@+id/editContentTopics"
+            android:inputType="textMultiLine"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:background="@drawable/selector_bg_edit"
             android:textCursorDrawable="@drawable/bg_input_cursor"
             android:paddingBottom="2dp"
