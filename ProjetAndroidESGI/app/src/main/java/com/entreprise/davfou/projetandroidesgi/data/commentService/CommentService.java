@@ -32,14 +32,11 @@ public class CommentService implements ICommentInterface {
     @Override
     public void create(CommentCreate commentCreate, UserRealm userRealm, final IServiceResultListener<String> resultListener) {
 
-        System.out.println("comment :"+commentCreate.getDate());
         Call<String> call = getmRfcommentService().createComment("Bearer "+userRealm.getToken(),commentCreate);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, final Response<String> response) {
                 ServiceResult<String> result = new ServiceResult<>();
-                System.out.println("code : "+response.code());
-
                 if(response.code() == 201)
                     result.setmData(response.headers().get("Resourceuri"));
                 else
@@ -96,8 +93,7 @@ public class CommentService implements ICommentInterface {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                System.out.println("result : "+response.code());
-                System.out.println("result : "+response.body());
+
                 ServiceResult<String> result = new ServiceResult<>();
                 if(response.code() == 204)
                     result.setmData(response.headers().get("Resourceuri"));

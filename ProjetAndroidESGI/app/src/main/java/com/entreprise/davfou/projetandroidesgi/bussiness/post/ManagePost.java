@@ -61,7 +61,6 @@ public class ManagePost {
             public void onResult(ServiceResult<String> result) {
                 progressDialog.dismiss();
                 if(result.getmError()==null) {
-                    System.out.println("reussi");
                     Toast.makeText(context,context.getString(R.string.msgSuccesUpdNews),Toast.LENGTH_SHORT).show();
 
                     getAllPost(userRealm);
@@ -85,7 +84,6 @@ public class ManagePost {
             public void onResult(ServiceResult<String> result) {
                 progressDialog.dismiss();
                 if(result.getmError()==null) {
-                    System.out.println("reussi");
                     Toast.makeText(context,context.getString(R.string.msgSuccesDel),Toast.LENGTH_SHORT).show();
                     delatePostRealm(post);
                     getAllPost(userRealm);
@@ -205,10 +203,6 @@ public class ManagePost {
 
     private void createOrUpdatePostRealm(ArrayList<Post> postArrayList){
         for(int i = 0; i< postArrayList.size(); i++){
-
-            System.out.println("posts id : "+postArrayList.get(i).get_id());
-
-
 
             PostRealm postRealm = new PostRealm(
                     postArrayList.get(i).get_id(),

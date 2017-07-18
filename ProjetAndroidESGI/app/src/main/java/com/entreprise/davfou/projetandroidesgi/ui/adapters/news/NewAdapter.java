@@ -109,10 +109,6 @@ class MyViewHolderNews extends RecyclerView.ViewHolder{
         UserRealm userRealm= RealmController.getInstance().getUserConnected(true);
         UserInfoRealm userInfoRealm= RealmController.getInstance().getUserById(newRealm.getAuthor());
 
-
-
-        System.out.println(new String(""+userInfoRealm.get_id()) +" : "+newRealm.getAuthor());
-
         if(new String(""+userInfoRealm.get_id()).equals(newRealm.getAuthor())&&userInfoRealm.getEmail().equals(userRealm.getEmail())&&userInfoRealm.getLastName().equals(userRealm.getLastName())&&userInfoRealm.getFirstName().equals(userRealm.getFirstName()))
             textViewAuhtor.setTextColor(Color.BLUE);
         else

@@ -11,7 +11,6 @@ import com.entreprise.davfou.projetandroidesgi.data.modelLocal.PostRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.TopicRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.Comment;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -105,6 +104,10 @@ public class RealmController {
     public UserRealm getUser(String email) {
 
         return realm.where(UserRealm.class).equalTo("email", email).findFirst();
+    }
+
+    public RealmResults<UserRealm> getAllUser(){
+        return realm.where(UserRealm.class).findAll();
     }
 
     public UserRealm getUserConnected(Boolean isConnected) {

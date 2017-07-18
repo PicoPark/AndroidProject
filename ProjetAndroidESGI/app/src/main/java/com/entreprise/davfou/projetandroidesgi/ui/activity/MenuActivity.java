@@ -17,7 +17,7 @@ import android.view.WindowManager;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.bussiness.MyApplication;
-import com.entreprise.davfou.projetandroidesgi.bussiness.login.ManageUser;
+import com.entreprise.davfou.projetandroidesgi.bussiness.user.ManageUser;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.ListNewsFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.NewsDetailsFragment;
@@ -31,7 +31,7 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

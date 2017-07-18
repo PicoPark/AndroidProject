@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.bussiness.login;
+package com.entreprise.davfou.projetandroidesgi.bussiness.user;
 
 import android.app.Activity;
 import android.content.Context;
@@ -54,9 +54,8 @@ public class ManageUser {
     }
 
 
-
-    public void getALlUser(){
-        userService.getAll (new IServiceResultListener<ArrayList<UserInfo>>() {
+    public void getALlUser() {
+        userService.getAll(new IServiceResultListener<ArrayList<UserInfo>>() {
             @Override
             public void onResult(ServiceResult<ArrayList<UserInfo>> result) {
                 if (result.getmError() == null) {
@@ -75,11 +74,11 @@ public class ManageUser {
         });
     }
 
-    private void createOrUpdateUserInfoRealm(ArrayList<UserInfo> userInfos){
+    private void createOrUpdateUserInfoRealm(ArrayList<UserInfo> userInfos) {
 
-        for(int i = 0; i< userInfos.size(); i++){
+        for (int i = 0; i < userInfos.size(); i++) {
 
-            UserInfoRealm userInfoRealm = new UserInfoRealm(userInfos.get(i).getEmail(),userInfos.get(i).get_id(),userInfos.get(i).getFirstname(),userInfos.get(i).getLastname());
+            UserInfoRealm userInfoRealm = new UserInfoRealm(userInfos.get(i).getEmail(), userInfos.get(i).get_id(), userInfos.get(i).getFirstname(), userInfos.get(i).getLastname());
             realm.beginTransaction();
             realm.copyToRealmOrUpdate(userInfoRealm);
             realm.commitTransaction();
@@ -188,10 +187,6 @@ public class ManageUser {
         progressDialog.show();
 
 
-
-
-
-
         userService.connect(userLogin, new IServiceResultListener<String>() {
             @Override
             public void onResult(final ServiceResult<String> result) {
@@ -250,6 +245,8 @@ public class ManageUser {
                 } else {
 
                     //gestion error
+                    System.out.println("code : " + result.getmError().getCode());
+                    System.out.println("message : " + result.getmError().getMessage());
                     Toast.makeText(context, context.getString(R.string.msgErrorLogin), Toast.LENGTH_SHORT).show();
 
                 }
@@ -317,6 +314,53 @@ public class ManageUser {
 
     }
 
+
+    public void updateUser(final UserRealm userRealm, final User user) {
+
+        progressDialog = ProgressDialog.getProgress(context.getString(R.string.titreAttente), context.getString(R.string.textUpdateUser), context);
+        progressDialog.show();
+
+
+        userService.update(userRealm, user, new IServiceResultListener<String>() {
+            @Override
+            public void onResult(ServiceResult<String> result) {
+
+
+                progressDialog.hide();
+                if (result.getmError() == null) {
+                    Realm realm = RealmController.with(activityReference).getRealm();
+
+
+                    //on verifie si il y a des user qui se sont déja connecté avec ce device
+                    // si jamais, on en creer un avec id = 1
+                    //ou si Il n'existe pas dans la BDD local on en creer un  nouveau avec id = total + 1
+
+                    realm.executeTransaction(new Realm.Transaction() { // must be in transaction for this to work
+                        @Override
+                        public void execute(Realm realm) {
+                            userRealm.setFirstName(user.getFirstname());
+                            userRealm.setLastName(user.getLastname());
+                            userRealm.setEmail(user.getEmail());
+                            realm.copyToRealmOrUpdate(userRealm); // using insert API
+
+                        }
+
+
+                    });
+
+                } else {
+
+                    Toast.makeText(context, context.getString(R.string.textMsgErrorUpdate), Toast.LENGTH_SHORT).show();
+
+                }
+
+
+            }
+        });
+
+
+    }
+
     private void goToLogin() {
 
         Intent goToLogin = new Intent(context, FirstActivity.class);
@@ -374,9 +418,6 @@ public class ManageUser {
 
 
     }
-
-
-
 
 
 }

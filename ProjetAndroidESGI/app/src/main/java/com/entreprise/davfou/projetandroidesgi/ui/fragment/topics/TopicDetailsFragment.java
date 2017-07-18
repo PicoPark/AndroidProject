@@ -95,7 +95,6 @@ public class TopicDetailsFragment extends Fragment {
         UserRealm userRealmCo = RealmController.getInstance().getUserConnected(true);
 
 
-        System.out.println(new String("" + userInfoRealm.get_id()) + " : " + topic.getAuthor());
 
         if (new String("" + userInfoRealm.get_id()).equals(topic.getAuthor()) && userInfoRealm.getEmail().equals(userRealmCo.getEmail()) && userInfoRealm.getLastName().equals(userRealmCo.getLastName()) && userInfoRealm.getFirstName().equals(userRealmCo.getFirstName()))
             System.out.println("c'est l'auteur");
@@ -109,7 +108,6 @@ public class TopicDetailsFragment extends Fragment {
         }
             managePost.getAllPost(userRealm);
 
-        System.out.println("topics id : " + topic.get_id());
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewPosts.setLayoutManager(layoutManager);
@@ -124,7 +122,6 @@ public class TopicDetailsFragment extends Fragment {
         if (posts != null) {
             if (posts.size() > 0) {
 
-                System.out.println("nbr topics : " + posts.size());
                 final PostAdapter topicAdapter = new PostAdapter(posts);
                 topicAdapter.setOnArticleClickedListener(new PostAdapter.OnArticleClickedListener() {
                     @Override
@@ -143,7 +140,6 @@ public class TopicDetailsFragment extends Fragment {
 
     public static void clickItemRecyclerView(final Post post, Activity activity) {
 
-        System.out.println("topics : " + post.getTitle());
 
 
         final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);

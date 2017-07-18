@@ -12,22 +12,27 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.login.ManageUser;
+import com.entreprise.davfou.projetandroidesgi.bussiness.user.ManageUser;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.RealmResults;
 
 public class FirstActivity extends AppCompatActivity {
 
     @BindView(R.id.et_username)
-    EditText etUsername;
+    AutoCompleteTextView etUsername;
     @BindView(R.id.et_password)
     EditText etPassword;
     @BindView(R.id.bt_go)
@@ -48,7 +53,17 @@ public class FirstActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         manageUser = new ManageUser(this,this);
 
-        //check si user connecté
+
+        RealmResults<UserRealm> userRealms = RealmController.getInstance().getAllUser();
+        String[] users = new String[userRealms.size()];
+        System.out.println("size : "+userRealms.size());
+        for(int i=0;i<userRealms.size();i++){
+            users[i]=userRealms.get(i).getEmail();
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,users);
+        etUsername.setAdapter(adapter);
 
 
     }

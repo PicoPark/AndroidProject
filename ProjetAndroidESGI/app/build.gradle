@@ -41,11 +41,14 @@ dependencies {
     // Realm
     compile 'io.realm:realm-android:0.82.1'
     //Frisson design
-    compile 'com.github.IntruderShanky:Frisson:2.1.1'
+    compile 'com.github.florent37:diagonallayout:1.0.6'
     //button magic
     compile 'com.github.bloder:magic:1.1'
     //Overwatch progress
     compile 'com.github.zjywill:OverwatchProgress:1.4'
+    //Circle Image
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
 
 
 

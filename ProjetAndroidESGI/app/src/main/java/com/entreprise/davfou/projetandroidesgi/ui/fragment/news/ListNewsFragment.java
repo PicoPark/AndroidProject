@@ -27,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -41,8 +40,7 @@ public class ListNewsFragment extends Fragment {
 
     static  RecyclerView recyclerViewNews;
     static  NewAdapter newAdapter;
-    @BindView(R.id.btnAddNews)
-    FloatingActionButton btnAddNews;
+    static FloatingActionButton btnAddNews;
 
     static UserRealm userRealm;
     ManageNews manageNews;
@@ -61,7 +59,7 @@ public class ListNewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
         ft = getFragmentManager().beginTransaction();
-
+        btnAddNews = (FloatingActionButton) view.findViewById(R.id.btnAddNews);
         recyclerViewNews = (RecyclerView) view.findViewById(R.id.recyclerViewNews);
 
         manageNews=new ManageNews(getContext(),getActivity());
@@ -74,32 +72,8 @@ public class ListNewsFragment extends Fragment {
         recyclerViewNews.setLayoutManager(layoutManager);
         recyclerViewNews.setHasFixedSize(true);
 
+        recyclerViewNews.setAdapter(newAdapter);
 
-        /*ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {
-
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-
-
-                final int position = viewHolder.getAdapterPosition();
-
-                if (position==0)
-                    return ;
-
-                //Remove swiped item from list and notify the RecyclerView
-                manageNews.deleteNews(newAdapter.getNews(position),userRealm,newAdapter,position);
-
-            }
-        };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerViewNews);*/
 
     }
 
@@ -116,6 +90,7 @@ public class ListNewsFragment extends Fragment {
             }
         });
         recyclerViewNews.setAdapter(newAdapter);
+        btnAddNews.setVisibility(View.VISIBLE);
 
     }
 
@@ -148,6 +123,7 @@ public class ListNewsFragment extends Fragment {
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 String date = df.format(Calendar.getInstance().getTime());
                 manageNews.createNew(new NewsCreate(editContentNews.getText().toString(),editTitleNews.getText().toString(),date),userRealm);
+
 
 
 

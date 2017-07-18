@@ -52,14 +52,15 @@
                 android:textColorHint="#c5c5c5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <EditText
+                <AutoCompleteTextView
                     android:textSize="15dp"
                     android:hint="@string/email"
                     android:textColor="#2fa881"
                     android:id="@+id/et_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:theme="@style/Autocomplete"
+                    android:inputType="textEmailAddress"
                     android:background="@drawable/selector_bg_edit"
                     android:textCursorDrawable="@drawable/bg_input_cursor"
                     android:paddingBottom="2dp"
@@ -84,7 +85,7 @@
                         android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
+                        android:inputType="textPassword"
                         android:background="@drawable/selector_bg_edit"
                         android:textCursorDrawable="@drawable/bg_input_cursor"
                         android:paddingBottom="2dp"

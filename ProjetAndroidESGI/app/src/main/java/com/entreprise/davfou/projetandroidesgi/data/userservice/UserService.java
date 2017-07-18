@@ -6,6 +6,7 @@ import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserUpdate;
 import com.entreprise.davfou.projetandroidesgi.data.utils.IServiceResultListener;
 import com.entreprise.davfou.projetandroidesgi.data.utils.ServiceException;
 import com.entreprise.davfou.projetandroidesgi.data.utils.ServiceExceptionType;
@@ -137,6 +138,34 @@ public class UserService implements IUserInterface {
             @Override
             public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
                 ServiceResult<ArrayList<UserInfo>> result = new ServiceResult<>();
+                result.setmError(new ServiceException(t, ServiceExceptionType.UNKNOWN));
+                if(resultListener != null)
+                    resultListener.onResult(result);
+            }
+        });
+    }
+
+    @Override
+    public void update(UserRealm userRealm, User user, final IServiceResultListener<String> resultListener) {
+
+
+
+        Call<String> call = getmRfuserService().updateUser("Bearer "+userRealm.getToken(),new UserUpdate(user.getEmail(),user.getFirstname(),user.getLastname()));
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                ServiceResult<String> result = new ServiceResult<>();
+                if(response.code() == 204)
+                    result.setmData(response.headers().get("Resourceuri"));
+                else
+                    result.setmError(new ServiceException(response.code()));
+                if(resultListener != null)
+                    resultListener.onResult(result);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                ServiceResult<String> result = new ServiceResult<>();
                 result.setmError(new ServiceException(t, ServiceExceptionType.UNKNOWN));
                 if(resultListener != null)
                     resultListener.onResult(result);

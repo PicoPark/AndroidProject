@@ -88,7 +88,6 @@ public class NewsDetailsFragment extends Fragment {
 
         UserInfoRealm userInfoRealm = RealmController.getInstance().getUserById(news.getAuthor());
 
-        System.out.println(news.get_id());
 
         detailNews_tv_author.setText(getContext().getString(R.string.writeBy)+userInfoRealm.getFirstName()+" "+userInfoRealm.getLastName());
         detailNews_tv_content.setText(news.getContent());
@@ -97,7 +96,6 @@ public class NewsDetailsFragment extends Fragment {
         UserRealm userRealmCo = RealmController.getInstance().getUserConnected(true);
 
 
-        System.out.println(new String("" + userInfoRealm.get_id()) + " : " + news.getAuthor());
 
         if (new String("" + userInfoRealm.get_id()).equals(news.getAuthor()) && userInfoRealm.getEmail().equals(userRealmCo.getEmail()) && userInfoRealm.getLastName().equals(userRealmCo.getLastName()) && userInfoRealm.getFirstName().equals(userRealmCo.getFirstName()))
             System.out.println("c'est l'auteur");
@@ -130,7 +128,6 @@ public class NewsDetailsFragment extends Fragment {
         if (comments != null) {
             if (comments.size() > 0) {
 
-                System.out.println("nbr topics : " + comments.size());
                 final CommentAdapter commentAdapter = new CommentAdapter(comments);
                 commentAdapter.setOnArticleClickedListener(new CommentAdapter.OnArticleClickedListener() {
                     @Override
@@ -153,9 +150,6 @@ public class NewsDetailsFragment extends Fragment {
 
 
     public static void clickItemRecyclerView(final Comment comment, Activity activity) {
-
-        System.out.println("comment : " + comment.getTitle());
-
 
         final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
 

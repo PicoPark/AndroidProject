@@ -63,7 +63,6 @@ public class ManageComment {
                 progressDialog.dismiss();
 
                 if(result.getmError()==null) {
-                    System.out.println("reussi");
 
 
                     Toast.makeText(context,context.getString(R.string.msgSuccesUpdNews),Toast.LENGTH_SHORT).show();
@@ -95,7 +94,6 @@ public class ManageComment {
                 progressDialog.dismiss();
 
                 if(result.getmError()==null) {
-                    System.out.println("reussi");
 
                     deleteCommentRealm(comment);
 

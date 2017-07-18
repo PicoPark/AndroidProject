@@ -4,8 +4,11 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="login_success">login success</string>
-    <string name="login">LOGIN</string>
+    <string name="login">Connexion</string>
     <string name="email">Email</string>
+    <string name="prenom">Prénom</string>
+    <string name="nom">Nom</string>
+
     <string name="Password">Password</string>
     <string name="firstname">Firstname</string>
     <string name="lastname">Lastname</string>
@@ -36,6 +39,9 @@
     <string name="textAttenteTopics">Récupération des topics en cours</string>
     <string name="textAttentePosts">Récupération des posts en cours</string>
     <string name="textAttenteComments">Récupération des commentaires en cours</string>
+
+    <string name="textUpdateUser">Mise à jour des informations en cours</string>
+    <string name="textMsgErrorUpdate">Erreur lors de la modification</string>
 
     <string name="textUpdateNews">Mise à jour de la news en cours</string>
     <string name="textCreationNews">Création de la news en cours</string>

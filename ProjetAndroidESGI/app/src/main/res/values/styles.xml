@@ -24,6 +24,7 @@
         <item name="android:buttonStyle">@style/ButtonColor</item>
 
 
+
     </style>
 
     <style name="Translucent" parent="Theme.AppCompat.Light.NoActionBar">
@@ -31,22 +32,22 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
 
-    </style>
 
+
+    </style>
+    <style name="Autocomplete" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:background">#bfbfbf</item>
+
+
+    </style>
     <style name="TextLabel" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
         <item name="colorControlActivated">#FFCC00</item>
     </style>
 
-    <style name="ButtonColor" parent="@android:style/Widget.Button">
+    <style name="ButtonColor" parent="Widget.AppCompat.Button.Colored">
 
-        <item name="colorControlActivated">#FFFF</item>
-
-
-
-        <item name="android:textColor">@color/BluePastel</item>
     </style>
-
 
 
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -57,6 +58,8 @@
         <!-- Used for the background -->
         <item name="android:background">#FFFFFF</item>
     </style>
+
+
 
 
 </resources>

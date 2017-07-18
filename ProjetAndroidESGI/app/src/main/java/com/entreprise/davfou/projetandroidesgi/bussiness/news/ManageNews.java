@@ -61,7 +61,6 @@ public class ManageNews {
                 progressDialog.dismiss();
 
                 if(result.getmError()==null) {
-                    System.out.println("reussi");
 
 
                     Toast.makeText(context,context.getString(R.string.msgSuccesUpdNews),Toast.LENGTH_SHORT).show();
@@ -92,7 +91,6 @@ public class ManageNews {
                 progressDialog.dismiss();
 
                 if(result.getmError()==null) {
-                    System.out.println("reussi");
 
 
                     Toast.makeText(context,context.getString(R.string.msgSuccesDel),Toast.LENGTH_SHORT).show();

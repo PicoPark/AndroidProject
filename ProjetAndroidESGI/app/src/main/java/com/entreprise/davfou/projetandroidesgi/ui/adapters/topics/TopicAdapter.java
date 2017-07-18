@@ -106,7 +106,6 @@ class MyViewHolderTopics extends RecyclerView.ViewHolder{
         UserInfoRealm userInfoRealm= RealmController.getInstance().getUserById(topic.getAuthor());
 
 
-        System.out.println(new String(""+userInfoRealm.get_id()) +" : "+topic.getAuthor());
 
         if(new String(""+userInfoRealm.get_id()).equals(topic.getAuthor())&&userInfoRealm.getEmail().equals(userRealm.getEmail())&&userInfoRealm.getLastName().equals(userRealm.getLastName())&&userInfoRealm.getFirstName().equals(userRealm.getFirstName()))
             textViewAuhtor.setTextColor(Color.BLUE);

@@ -93,8 +93,7 @@ public class TopicsService implements ITopicsInterface {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                System.out.println("result : "+response.code());
-                System.out.println("result : "+response.body());
+
                 ServiceResult<String> result = new ServiceResult<>();
                 if(response.code() == 204)
                     result.setmData(response.headers().get("Resourceuri"));

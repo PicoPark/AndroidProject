@@ -51,9 +51,6 @@ public class ManageTopic {
                 progressDialog.dismiss();
 
                 if(result.getmError()==null) {
-                    System.out.println("reussi");
-
-
                     Toast.makeText(context,context.getString(R.string.msgSuccesUpdNews),Toast.LENGTH_SHORT).show();
 
                 }else{
@@ -81,8 +78,6 @@ public class ManageTopic {
                 progressDialog.dismiss();
 
                 if(result.getmError()==null) {
-                    System.out.println("reussi");
-
 
                     Toast.makeText(context,context.getString(R.string.msgSuccesDel),Toast.LENGTH_SHORT).show();
                     deleteTopicRealm(topic);
@@ -151,7 +146,6 @@ public class ManageTopic {
 
                     createOrUpdateUserTopicRealm(result.getmData());
 
-                    System.out.println("recupération reussi");
                     ListTopicsFragment.setRecycler(result.getmData(),activityReference);
                 } else {
                 Toast.makeText(context,context.getString(R.string.msgErrorNetworkTopics),Toast.LENGTH_SHORT).show();
@@ -196,7 +190,6 @@ public class ManageTopic {
                                 topics.get(i).getPost().get(j).getAuthor(),
                                 topics.get(i).getPost().get(j).getTitle(),
                                 topics.get(i).getPost().get(j).getTopic()));
-                System.out.println(postRealms.get(j).getTitle());
             }
 
 

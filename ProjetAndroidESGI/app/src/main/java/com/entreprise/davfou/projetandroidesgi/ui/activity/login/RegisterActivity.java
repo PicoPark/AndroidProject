@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.login.ManageUser;
+import com.entreprise.davfou.projetandroidesgi.bussiness.user.ManageUser;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 
 import butterknife.BindView;

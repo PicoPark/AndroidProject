@@ -8,6 +8,7 @@ package com.entreprise.davfou.projetandroidesgi.data.method.retrofit;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
+import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserUpdate;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 
 public interface UserInterface {
@@ -50,6 +52,11 @@ public interface UserInterface {
 
     @GET("/users")
     Call<ArrayList<UserInfo>> getAll();
+
+
+    @PUT("/users/bug/")
+    Call<String> updateUser(@Header("Authorization") String token, @Body UserUpdate user);
+
 
 
 

@@ -27,4 +27,7 @@ public interface IUserInterface {
 
     void getAll(final IServiceResultListener<ArrayList<UserInfo>> resultListener);
 
+    void update(UserRealm userRealm,User user, final IServiceResultListener<String>
+            resultListener);
+
 }
