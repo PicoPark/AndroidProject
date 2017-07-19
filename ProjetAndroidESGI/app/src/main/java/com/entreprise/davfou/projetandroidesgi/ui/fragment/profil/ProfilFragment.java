@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.business.user.ManageUser;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.User;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
 
 import butterknife.BindView;

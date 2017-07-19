@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.Comment;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.Comment;
 
 import java.util.ArrayList;
 

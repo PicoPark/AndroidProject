@@ -16,9 +16,9 @@ import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.business.topic.ManageTopic;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.Topic;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.TopicCreate;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.Topic;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.TopicCreate;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.adapters.topics.TopicAdapter;
 

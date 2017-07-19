@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserInfoRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserRealm;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

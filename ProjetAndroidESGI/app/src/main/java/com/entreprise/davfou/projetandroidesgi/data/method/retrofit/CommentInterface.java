@@ -1,7 +1,7 @@
 package com.entreprise.davfou.projetandroidesgi.data.method.retrofit;
 
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.Comment;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.CommentCreate;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.Comment;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.CommentCreate;
 
 import java.util.ArrayList;
 

@@ -18,11 +18,11 @@ import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.business.comment.ManageComment;
 import com.entreprise.davfou.projetandroidesgi.business.news.ManageNews;
 import com.entreprise.davfou.projetandroidesgi.data.method.realm.UserController;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.Comment;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.CommentCreate;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserInfoRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.Comment;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.CommentCreate;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.News;
 import com.entreprise.davfou.projetandroidesgi.ui.adapters.comment.CommentAdapter;
 
 import java.text.DateFormat;

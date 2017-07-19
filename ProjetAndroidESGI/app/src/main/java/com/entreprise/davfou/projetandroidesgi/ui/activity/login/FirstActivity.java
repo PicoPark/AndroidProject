@@ -21,8 +21,8 @@ import android.widget.EditText;
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.business.user.ManageUser;
 import com.entreprise.davfou.projetandroidesgi.data.method.realm.UserController;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.UserLogin;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

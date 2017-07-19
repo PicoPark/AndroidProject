@@ -5,8 +5,8 @@ package com.entreprise.davfou.projetandroidesgi.data.method.retrofit;
  */
 
 
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.Topic;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.TopicCreate;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.Topic;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.TopicCreate;
 
 import java.util.ArrayList;
 

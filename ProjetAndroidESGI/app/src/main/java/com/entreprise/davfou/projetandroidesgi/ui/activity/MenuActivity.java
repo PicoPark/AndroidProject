@@ -18,7 +18,7 @@ import android.view.WindowManager;
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.business.MyApplication;
 import com.entreprise.davfou.projetandroidesgi.business.user.ManageUser;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.ListNewsFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.news.NewsDetailsFragment;
 import com.entreprise.davfou.projetandroidesgi.ui.fragment.profil.ProfilFragment;

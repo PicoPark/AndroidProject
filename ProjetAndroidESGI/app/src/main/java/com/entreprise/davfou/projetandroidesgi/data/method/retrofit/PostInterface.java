@@ -1,7 +1,7 @@
 package com.entreprise.davfou.projetandroidesgi.data.method.retrofit;
 
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.Post;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.PostCreate;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.Post;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.PostCreate;
 
 import java.util.ArrayList;
 

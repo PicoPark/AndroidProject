@@ -11,12 +11,12 @@ import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
 import com.entreprise.davfou.projetandroidesgi.data.method.realm.UserController;
 import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.UserInterface;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
-import com.entreprise.davfou.projetandroidesgi.data.userservice.UserService;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserInfoRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.User;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.UserInfo;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.UserLogin;
+import com.entreprise.davfou.projetandroidesgi.data.services.userservice.UserService;
 import com.entreprise.davfou.projetandroidesgi.data.utils.IServiceResultListener;
 import com.entreprise.davfou.projetandroidesgi.data.utils.ServiceResult;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
@@ -305,6 +305,9 @@ public class ManageUser {
 
                     Toast.makeText(context, context.getString(R.string.textInscriptionReussi), Toast.LENGTH_SHORT).show();
                 } else {
+
+
+
                     Toast.makeText(context, context.getString(R.string.textInscriptionError), Toast.LENGTH_SHORT).show();
 
                 }

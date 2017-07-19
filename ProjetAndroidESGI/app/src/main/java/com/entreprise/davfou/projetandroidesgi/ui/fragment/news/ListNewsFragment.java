@@ -16,9 +16,9 @@ import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.business.news.ManageNews;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.News;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.NewsCreate;
 import com.entreprise.davfou.projetandroidesgi.ui.activity.MenuActivity;
 import com.entreprise.davfou.projetandroidesgi.ui.adapters.news.NewAdapter;
 

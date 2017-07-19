@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.TopicRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.NewsRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.TopicRealm;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

@@ -5,8 +5,8 @@ package com.entreprise.davfou.projetandroidesgi.data.method.retrofit;
  */
 
 
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.NewsCreate;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.News;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.NewsCreate;
 
 import java.util.ArrayList;
 

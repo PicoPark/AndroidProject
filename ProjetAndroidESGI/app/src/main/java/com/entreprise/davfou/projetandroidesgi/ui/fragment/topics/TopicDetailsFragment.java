@@ -18,11 +18,11 @@ import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.business.post.ManagePost;
 import com.entreprise.davfou.projetandroidesgi.business.topic.ManageTopic;
 import com.entreprise.davfou.projetandroidesgi.data.method.realm.UserController;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.Post;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.PostCreate;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.Topic;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserInfoRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.local.UserRealm;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.Post;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.PostCreate;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.Topic;
 import com.entreprise.davfou.projetandroidesgi.ui.adapters.posts.PostAdapter;
 
 import java.text.DateFormat;

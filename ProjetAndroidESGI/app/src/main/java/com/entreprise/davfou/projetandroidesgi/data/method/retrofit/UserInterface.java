@@ -5,10 +5,10 @@ package com.entreprise.davfou.projetandroidesgi.data.method.retrofit;
  */
 
 
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.User;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserInfo;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
-import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserUpdate;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.User;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.UserInfo;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.UserLogin;
+import com.entreprise.davfou.projetandroidesgi.data.model.api.UserUpdate;
 
 import java.util.ArrayList;
 
