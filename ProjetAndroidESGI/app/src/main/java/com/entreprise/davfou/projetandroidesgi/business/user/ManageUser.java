@@ -245,9 +245,16 @@ public class ManageUser {
                 } else {
 
                     //gestion error
-                    System.out.println("code : " + result.getmError().getCode());
-                    System.out.println("message : " + result.getmError().getMessage());
-                    Toast.makeText(context, context.getString(R.string.msgErrorLogin), Toast.LENGTH_SHORT).show();
+
+
+                    if(result.getmError().getCode()==0){
+                        Toast.makeText(context, context.getString(R.string.msgErrorNetwork), Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(context, context.getString(R.string.msgErrorLogin), Toast.LENGTH_SHORT).show();
+
+                    }
+                   
 
                 }
             }
@@ -306,9 +313,13 @@ public class ManageUser {
                     Toast.makeText(context, context.getString(R.string.textInscriptionReussi), Toast.LENGTH_SHORT).show();
                 } else {
 
+                    if(result.getmError().getCode()==0){
+                        Toast.makeText(context, context.getString(R.string.msgErrorNetwork), Toast.LENGTH_SHORT).show();
 
+                    }else{
+                        Toast.makeText(context, context.getString(R.string.textInscriptionError), Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(context, context.getString(R.string.textInscriptionError), Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             }
@@ -353,7 +364,13 @@ public class ManageUser {
 
                 } else {
 
-                    Toast.makeText(context, context.getString(R.string.textMsgErrorUpdate), Toast.LENGTH_SHORT).show();
+                    if(result.getmError().getCode()==0){
+                        Toast.makeText(context, context.getString(R.string.msgErrorNetwork), Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(context, context.getString(R.string.textMsgErrorUpdate), Toast.LENGTH_SHORT).show();
+
+                    }
 
                 }
 
