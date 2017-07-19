@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.bussiness.news;
+package com.entreprise.davfou.projetandroidesgi.business.news;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.NewsController;
 import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.NewsInterface;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.NewsRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
@@ -43,7 +43,7 @@ public class ManageNews {
     public ManageNews(Context context, Activity activityReference) {
         this.context = context;
         this.activityReference = activityReference;
-        realm = RealmController.with(activityReference).getRealm();
+        realm = NewsController.with(activityReference).getRealm();
         Retrofit retrofit = ClientRetrofit.getClient();
         newsInterface= retrofit.create(NewsInterface.class);
         newsService = new NewsService();
@@ -169,7 +169,7 @@ public class ManageNews {
     private ArrayList<News> getAllNewInRealm(){
 
 
-        RealmResults<NewsRealm> newsRealms = RealmController.getInstance().getNews();
+        RealmResults<NewsRealm> newsRealms = NewsController.getInstance().getNews();
         ArrayList<News> news =new ArrayList();
 
 

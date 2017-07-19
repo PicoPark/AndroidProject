@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.bussiness.comment;
+package com.entreprise.davfou.projetandroidesgi.business.comment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
 import com.entreprise.davfou.projetandroidesgi.data.commentService.CommentService;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.CommentsController;
 import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.CommentInterface;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.CommentRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
@@ -44,7 +44,7 @@ public class ManageComment {
     public ManageComment(Context context, Activity activityReference,News news) {
         this.context = context;
         this.activityReference = activityReference;
-        realm = RealmController.with(activityReference).getRealm();
+        realm = CommentsController.with(activityReference).getRealm();
         Retrofit retrofit = ClientRetrofit.getClient();
         commentInterface= retrofit.create(CommentInterface.class);
         commentService = new CommentService();
@@ -184,7 +184,7 @@ public class ManageComment {
     private ArrayList<Comment> getAllCommentInRealm(){
 
 
-        RealmResults<CommentRealm> commentRealms = RealmController.getInstance().getComments();
+        RealmResults<CommentRealm> commentRealms = CommentsController.getInstance().getComments();
         ArrayList<Comment> comment =new ArrayList();
 
 //String _id, String author, String title, String content, String news, String date

@@ -131,9 +131,10 @@
                 android:layout_margin="14dp"
                 android:text="@string/btnUpdate"
                 android:id="@+id/btn_update_profil"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/textViewEmailLayout"
-                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/textViewLastNameLayout"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="20dp"
                 />
 
         </RelativeLayout>

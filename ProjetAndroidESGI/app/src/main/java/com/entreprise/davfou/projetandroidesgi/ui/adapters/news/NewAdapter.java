@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.UserController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.News;
@@ -106,8 +106,8 @@ class MyViewHolderNews extends RecyclerView.ViewHolder{
         textViewTitleNews.setText(newRealm.getTitle());
         textViewContentNews.setText(newRealm.getContent());
 
-        UserRealm userRealm= RealmController.getInstance().getUserConnected(true);
-        UserInfoRealm userInfoRealm= RealmController.getInstance().getUserById(newRealm.getAuthor());
+        UserRealm userRealm= UserController.getInstance().getUserConnected(true);
+        UserInfoRealm userInfoRealm= UserController.getInstance().getUserById(newRealm.getAuthor());
 
         if(new String(""+userInfoRealm.get_id()).equals(newRealm.getAuthor())&&userInfoRealm.getEmail().equals(userRealm.getEmail())&&userInfoRealm.getLastName().equals(userRealm.getLastName())&&userInfoRealm.getFirstName().equals(userRealm.getFirstName()))
             textViewAuhtor.setTextColor(Color.BLUE);

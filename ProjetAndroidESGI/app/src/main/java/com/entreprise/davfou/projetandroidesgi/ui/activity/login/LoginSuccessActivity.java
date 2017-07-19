@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.user.ManageUser;
+import com.entreprise.davfou.projetandroidesgi.business.user.ManageUser;
 
 public class LoginSuccessActivity extends AppCompatActivity {
 

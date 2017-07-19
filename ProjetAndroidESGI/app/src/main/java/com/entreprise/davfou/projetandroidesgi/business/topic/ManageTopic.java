@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.bussiness.topic;
+package com.entreprise.davfou.projetandroidesgi.business.topic;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.TopicsController;
 import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.TopicsInterface;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.PostRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.TopicRealm;
@@ -101,7 +101,7 @@ public class ManageTopic {
     public ManageTopic(Context context, Activity activityReference) {
         this.context = context;
         this.activityReference = activityReference;
-        realm = RealmController.with(activityReference).getRealm();
+        realm = TopicsController.with(activityReference).getRealm();
         Retrofit retrofit = ClientRetrofit.getClient();
         topicInterface= retrofit.create(TopicsInterface.class);
         topicService = new TopicsService();
@@ -162,7 +162,7 @@ public class ManageTopic {
     private ArrayList<Topic> getAllTopicsInRealm(){
 
 
-        RealmResults<TopicRealm> topicsRealm = RealmController.getInstance().getTopics();
+        RealmResults<TopicRealm> topicsRealm = TopicsController.getInstance().getTopics();
         ArrayList<Topic> topics =new ArrayList();
 
 

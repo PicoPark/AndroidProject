@@ -15,9 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.post.ManagePost;
-import com.entreprise.davfou.projetandroidesgi.bussiness.topic.ManageTopic;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.business.post.ManagePost;
+import com.entreprise.davfou.projetandroidesgi.business.topic.ManageTopic;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.UserController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Post;
@@ -84,7 +84,7 @@ public class TopicDetailsFragment extends Fragment {
         detailTopic_tv_title.setText(topic.getTitle());
 
 
-        UserInfoRealm userInfoRealm = RealmController.getInstance().getUserById(topic.getAuthor());
+        UserInfoRealm userInfoRealm = UserController.getInstance().getUserById(topic.getAuthor());
 
 
         detailTopic_tv_author.setText(getContext().getString(R.string.writeBy) + userInfoRealm.getFirstName() + " " + userInfoRealm.getLastName());
@@ -92,7 +92,7 @@ public class TopicDetailsFragment extends Fragment {
         detailTopic_tv_content.setText(topic.getContent());
 
 
-        UserRealm userRealmCo = RealmController.getInstance().getUserConnected(true);
+        UserRealm userRealmCo = UserController.getInstance().getUserConnected(true);
 
 
 

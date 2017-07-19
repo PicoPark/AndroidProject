@@ -15,9 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.comment.ManageComment;
-import com.entreprise.davfou.projetandroidesgi.bussiness.news.ManageNews;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.business.comment.ManageComment;
+import com.entreprise.davfou.projetandroidesgi.business.news.ManageNews;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.UserController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Comment;
@@ -86,14 +86,14 @@ public class NewsDetailsFragment extends Fragment {
 
         //Faire la récupération de l'author d'abord en local puis via le réseau en les récupérant tous
 
-        UserInfoRealm userInfoRealm = RealmController.getInstance().getUserById(news.getAuthor());
+        UserInfoRealm userInfoRealm = UserController.getInstance().getUserById(news.getAuthor());
 
 
         detailNews_tv_author.setText(getContext().getString(R.string.writeBy)+userInfoRealm.getFirstName()+" "+userInfoRealm.getLastName());
         detailNews_tv_content.setText(news.getContent());
 
 
-        UserRealm userRealmCo = RealmController.getInstance().getUserConnected(true);
+        UserRealm userRealmCo = UserController.getInstance().getUserConnected(true);
 
 
 

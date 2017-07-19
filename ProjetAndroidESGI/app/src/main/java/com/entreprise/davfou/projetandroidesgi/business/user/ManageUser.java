@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.bussiness.user;
+package com.entreprise.davfou.projetandroidesgi.business.user;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.UserController;
 import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.UserInterface;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
@@ -47,7 +47,7 @@ public class ManageUser {
     public ManageUser(Context context, Activity activityReference) {
         this.context = context;
         this.activityReference = activityReference;
-        realm = RealmController.with(activityReference).getRealm();
+        realm = UserController.with(activityReference).getRealm();
         Retrofit retrofit = ClientRetrofit.getClient();
         userInterface = retrofit.create(UserInterface.class);
 
@@ -94,7 +94,7 @@ public class ManageUser {
     Permet de se déconnecter
      */
     public void logout() {
-        final UserRealm userRealm = RealmController.getInstance().getUserConnected(true);
+        final UserRealm userRealm = UserController.getInstance().getUserConnected(true);
 
         if (!(userRealm == null)) {
 
@@ -118,7 +118,7 @@ public class ManageUser {
     Récupération de l'user connecté
      */
     public UserRealm getUserConnected() {
-        return RealmController.getInstance().getUserConnected(true);
+        return UserController.getInstance().getUserConnected(true);
     }
 
 
@@ -127,7 +127,7 @@ public class ManageUser {
      */
     public void isConnected() {
 
-        UserRealm userRealm = RealmController.getInstance().getUserConnected(true);
+        UserRealm userRealm = UserController.getInstance().getUserConnected(true);
 
         if (!(userRealm == null)) {
 
@@ -215,7 +215,7 @@ public class ManageUser {
 
                                 getInfo(userRealm);
                             } else {
-                                UserRealm userR = RealmController.getInstance().getUser(userLogin.getEmail());
+                                UserRealm userR = UserController.getInstance().getUser(userLogin.getEmail());
 
                                 if (userR == null) {
                                     nextId = currentIdNum.intValue() + 1;
@@ -271,7 +271,7 @@ public class ManageUser {
 
                 progressDialog.hide();
                 if (result.getmError() == null) {
-                    Realm realm = RealmController.with(activityReference).getRealm();
+                    Realm realm = UserController.with(activityReference).getRealm();
 
 
                     //on verifie si il y a des user qui se sont déja connecté avec ce device
@@ -290,7 +290,7 @@ public class ManageUser {
                                 userRealm.setId(nextId);
                                 realm.copyToRealm(userRealm); // using insert API
                             } else {
-                                UserRealm userR = RealmController.getInstance().getUser(user.getEmail());
+                                UserRealm userR = UserController.getInstance().getUser(user.getEmail());
 
                                 if (userR == null) {
                                     nextId = currentIdNum.intValue() + 1;
@@ -328,7 +328,7 @@ public class ManageUser {
 
                 progressDialog.hide();
                 if (result.getmError() == null) {
-                    Realm realm = RealmController.with(activityReference).getRealm();
+                    Realm realm = UserController.with(activityReference).getRealm();
 
 
                     //on verifie si il y a des user qui se sont déja connecté avec ce device

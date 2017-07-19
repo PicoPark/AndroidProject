@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.UserController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserInfoRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.Topic;
@@ -102,8 +102,8 @@ class MyViewHolderTopics extends RecyclerView.ViewHolder{
         textViewTitleNews.setText(topic.getTitle());
         textViewContentNews.setText(topic.getContent());
 
-        UserRealm userRealm= RealmController.getInstance().getUserConnected(true);
-        UserInfoRealm userInfoRealm= RealmController.getInstance().getUserById(topic.getAuthor());
+        UserRealm userRealm= UserController.getInstance().getUserConnected(true);
+        UserInfoRealm userInfoRealm= UserController.getInstance().getUserById(topic.getAuthor());
 
 
 

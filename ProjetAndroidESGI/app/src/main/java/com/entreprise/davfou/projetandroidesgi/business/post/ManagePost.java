@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.bussiness.post;
+package com.entreprise.davfou.projetandroidesgi.business.post;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.entreprise.davfou.projetandroidesgi.R;
 import com.entreprise.davfou.projetandroidesgi.data.PostService.PostService;
 import com.entreprise.davfou.projetandroidesgi.data.clientWS.ClientRetrofit;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.PostsController;
 import com.entreprise.davfou.projetandroidesgi.data.method.retrofit.PostInterface;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.PostRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
@@ -45,7 +45,7 @@ public class ManagePost {
     public ManagePost(Context context, Activity activityReference,Topic topic) {
         this.context = context;
         this.activityReference = activityReference;
-        realm = RealmController.with(activityReference).getRealm();
+        realm = PostsController.with(activityReference).getRealm();
         Retrofit retrofit = ClientRetrofit.getClient();
         postInterface = retrofit.create(PostInterface.class);
         postService = new PostService();
@@ -165,7 +165,7 @@ public class ManagePost {
     private ArrayList<Post> getAllPostInRealm(){
 
 
-        RealmResults<PostRealm> postRealms = RealmController.getInstance().getPosts();
+        RealmResults<PostRealm> postRealms = PostsController.getInstance().getPosts();
         ArrayList<Post> post =new ArrayList();
 
         for(int i = 0; i< postRealms.size(); i++){

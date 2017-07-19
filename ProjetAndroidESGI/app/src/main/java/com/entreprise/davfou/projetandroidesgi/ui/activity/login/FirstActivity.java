@@ -19,8 +19,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.entreprise.davfou.projetandroidesgi.R;
-import com.entreprise.davfou.projetandroidesgi.bussiness.user.ManageUser;
-import com.entreprise.davfou.projetandroidesgi.data.method.realm.RealmController;
+import com.entreprise.davfou.projetandroidesgi.business.user.ManageUser;
+import com.entreprise.davfou.projetandroidesgi.data.method.realm.UserController;
 import com.entreprise.davfou.projetandroidesgi.data.modelLocal.UserRealm;
 import com.entreprise.davfou.projetandroidesgi.data.modelRest.UserLogin;
 
@@ -54,7 +54,7 @@ public class FirstActivity extends AppCompatActivity {
         manageUser = new ManageUser(this,this);
 
 
-        RealmResults<UserRealm> userRealms = RealmController.getInstance().getAllUser();
+        RealmResults<UserRealm> userRealms = UserController.getInstance().getAllUser();
         String[] users = new String[userRealms.size()];
         System.out.println("size : "+userRealms.size());
         for(int i=0;i<userRealms.size();i++){
@@ -77,7 +77,6 @@ public class FirstActivity extends AppCompatActivity {
     }
 
 
-//Rajouter autocomplétion sur mail
 
     @OnClick({R.id.bt_go, R.id.fab})
     public void onClick(View view) {
@@ -86,7 +85,6 @@ public class FirstActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     getWindow().setExitTransition(null);
                     getWindow().setEnterTransition(null);
-
                 }
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

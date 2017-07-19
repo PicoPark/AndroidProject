@@ -1,4 +1,4 @@
-package com.entreprise.davfou.projetandroidesgi.bussiness;
+package com.entreprise.davfou.projetandroidesgi.business;
 
 import android.app.Activity;
 import android.content.Context;
